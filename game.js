@@ -48,7 +48,7 @@ function setup() {
 
     enemiesGroup = new Group();
     badGuy = new Sprite(400, 306, 50, 100, 'd');
-    badGuy.color = '#ff4141'
+    badGuy.image = imgGlorbBattle;
     enemiesGroup.add(badGuy);
     enemiesGroup.collides(player, battleStart);
 
@@ -64,41 +64,47 @@ function setup() {
 		musicTrobbioButItsTheWorldRevolving.play()
 
 		battlePlayer1 = new Sprite(100, 100, 50, 100, 'k');
+		battlePlayer1Type = "Merp";
 		battlePlayer1.image = imgPlayerBattle;
 
 		battlePlayer2 = new Sprite(100, 300, 50, 100, 'k');
+		battlePlayer2Type = "Unkown";
 		battlePlayer2.image = imgUnkownBattle;
 
-		battleEnemie1 = new Sprite(800, 100, 50, 100, 'k')
+		battleEnemie1 = new Sprite(800, 100, 50, 100, 'k');
+		battleEnemie1Type = "Glorb";
         battleEnemie1.image = imgGlorbBattle;
 
-		battleEnemie2 = new Sprite(650, 200, 50, 100, 'k')
+		battleEnemie2 = new Sprite(650, 200, 50, 100, 'k');
+		battleEnemie2Type = "Glorb";
         battleEnemie2.image = imgGlorbBattle;
 
-		battleEnemie3 = new Sprite(650, 400, 50, 100, 'k')
+		battleEnemie3 = new Sprite(650, 400, 50, 100, 'k');
+		battleEnemie3Type = "Glorb";
         battleEnemie3.image = imgGlorbBattle;
 
-		battleEnemie4 = new Sprite(800, 500, 50, 100, 'k')
+		battleEnemie4 = new Sprite(800, 500, 50, 100, 'k');
+		battleEnemie4Type = "Glorb";
         battleEnemie4.image = imgGlorbBattle;
 
-		battleTurnMarker1 = new Sprite(1013, 45, 100, 50)
+		battleTurnMarker1 = new Sprite(1013, 45, 100, 50);
         battleTurnMarker1.image = imgMerpTurnPlate;
 
-		battleTurnMarker2 = new Sprite(1013, 100, 75, 37.5)
+		battleTurnMarker2 = new Sprite(1013, 100, 75, 37.5);
         battleTurnMarker2.image = imgGlorbTurnPlate;
-        battleTurnMarker2.image.resize(75, 0)
+        battleTurnMarker2.image.resize(75, 0);
 		
-		battleTurnMarker3 = new Sprite(1013, 140, 50, 25)
+		battleTurnMarker3 = new Sprite(1013, 140, 50, 25);
         battleTurnMarker3.image = imgUnkownTurnPlate;
-        battleTurnMarker3.image.resize(50, 0)
+        battleTurnMarker3.image.resize(50, 0);
 
-		attackButton = new Sprite(70, 170, 15, 15)
+		attackButton = new Sprite(70, 170, 15, 15);
 
-		defendButton = new Sprite(90, 170, 15, 15)
+		defendButton = new Sprite(90, 170, 15, 15);
 
-		talkButton = new Sprite(110, 170, 15, 15)
+		talkButton = new Sprite(110, 170, 15, 15);
 		
-		spellButton = new Sprite(130, 170, 15, 15)
+		spellButton = new Sprite(130, 170, 15, 15);
 	}
 }
 	
@@ -182,6 +188,33 @@ function draw() {
 		if (kb.pressing ('x') && battleButtonHover === 1) {
 			battleSelectAttack()
 		};
+
+
+		if (shuffledBattleTurnArray[3] === "p1"){
+			battleTurnMarker3.image = "img" + battlePlayer1Type + "TurnPlate"
+			console.log(battleTurnMarker3.image)
+		} else if (shuffledBattleTurnArray[3] === "p2"){
+			battleTurnMarker3.image = "img" + battlePlayer2Type + "TurnPlate"
+			console.log(battleTurnMarker3.image)
+		} else if (shuffledBattleTurnArray[3] === "p3"){
+			battleTurnMarker3.image = "img" + battlePlayer3Type + "TurnPlate"
+			console.log(battleTurnMarker3.image)
+		} else if (shuffledBattleTurnArray[3] === "p4"){
+			battleTurnMarker3.image = "img" + battlePlayer4Type + "TurnPlate"
+			console.log(battleTurnMarker3.image)
+		} else if (shuffledBattleTurnArray[3] === "e1"){
+			battleTurnMarker3.image = "img" + battleEnemie1Type + "TurnPlate"
+			console.log(battleTurnMarker3.image)
+		} else if (shuffledBattleTurnArray[3] === "e2"){
+			battleTurnMarker3.image = "img" + battleEnemie2Type + "TurnPlate"
+			console.log(battleTurnMarker3.image)
+		} else if (shuffledBattleTurnArray[3] === "e3"){
+			battleTurnMarker3.image = "img" + battleEnemie3Type + "TurnPlate"
+			console.log(battleTurnMarker3.image)
+		} else if (shuffledBattleTurnArray[3] === "e4"){
+			battleTurnMarker3.image = "img" + battleEnemie4Type + "TurnPlate"
+			console.log(battleTurnMarker3.image)
+		}
 
 
 	}
