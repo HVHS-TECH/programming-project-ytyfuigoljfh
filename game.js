@@ -71,6 +71,18 @@ function setup() {
 		battlePlayer2Type = "Unkown";
 		battlePlayer2.image = imgUnkownBattle;
 
+		//battlePlayer1 = new Sprite(100, 100, 50, 100, 'k');
+		battlePlayer3Type = "Merp";
+	//	battlePlayer1.image = imgPlayerBattle;
+
+	//battlePlayer1 = new Sprite(100, 100, 50, 100, 'k');
+		battlePlayer4Type = "Merp";
+	//	battlePlayer1.image = imgPlayerBattle;
+
+		battlePlayer2 = new Sprite(100, 300, 50, 100, 'k');
+		battlePlayer2Type = "Unkown";
+		battlePlayer2.image = imgUnkownBattle;
+
 		battleEnemie1 = new Sprite(800, 100, 50, 100, 'k');
 		battleEnemie1Type = "Glorb";
         battleEnemie1.image = imgGlorbBattle;
@@ -86,6 +98,63 @@ function setup() {
 		battleEnemie4 = new Sprite(800, 500, 50, 100, 'k');
 		battleEnemie4Type = "Glorb";
         battleEnemie4.image = imgGlorbBattle;
+
+		if (battlePlayer1Type === "Merp") {
+			battlePlayer1TypeImg = imgMerpTurnPlate;
+		} else if (battlePlayer1Type === "Unkown") {
+			battlePlayer1TypeImg = imgUnkownTurnPlate;
+		} else if (battlePlayer1Type === "???") {
+			battlePlayer1TypeImg = imgMerpTurnPlate;
+		} else if (battlePlayer1Type === "???") {
+			battlePlayer1TypeImg = imgUnkownTurnPlate;
+		} else if (battlePlayer1Type === "Glorb") {
+			battlePlayer1TypeImg = imgGlorbTurnPlate;
+		};
+
+		if (battlePlayer2Type === "Merp") {
+			battlePlayer2TypeImg = imgMerpTurnPlate;
+		} else if (battlePlayer2Type === "Unkown") {
+			battlePlayer2TypeImg = imgUnkownTurnPlate;
+		} else if (battlePlayer2Type === "???") {
+			battlePlayer2TypeImg = imgMerpTurnPlate;
+		} else if (battlePlayer2Type === "???") {
+			battlePlayer2TypeImg = imgUnkownTurnPlate;
+		} else if (battlePlayer2Type === "Glorb") {
+			battlePlayer2TypeImg = imgGlorbTurnPlate;
+		};
+
+		if (battlePlayer3Type === "Merp") {
+			battlePlayer3TypeImg = imgMerpTurnPlate;
+		} else if (battlePlayer3Type === "Unkown") {
+			battlePlayer3TypeImg = imgUnkownTurnPlate;
+		} else if (battlePlayer3Type === "???") {
+			battlePlayer3TypeImg = imgMerpTurnPlate;
+		} else if (battlePlayer3Type === "???") {
+			battlePlayer3TypeImg = imgUnkownTurnPlate;
+		} else if (battlePlayer3Type === "Glorb") {
+			battlePlayer1TypeImg = imgGlorbTurnPlate;
+		};
+
+		if (battlePlayer4Type === "Merp") {
+			battlePlayer4TypeImg = imgMerpTurnPlate;
+		};
+
+		if (battleEnemie1Type === "Merp") {
+			battleEnemie1TypeImg = imgMerpTurnPlate;
+		};
+
+		if (battleEnemie2Type === "Merp") {
+			battleEnemie2TypeImg = imgMerpTurnPlate;
+		};
+
+		if (battleEnemie3Type === "Merp") {
+			battleEnemie3TypeImg = imgMerpTurnPlate;
+		};
+
+		if (battleEnemie4Type === "Merp") {
+			battleEnemie4TypeImg = imgMerpTurnPlate;
+		};
+
 
 		battleTurnMarker1 = new Sprite(1013, 45, 100, 50);
         battleTurnMarker1.image = imgMerpTurnPlate;
@@ -190,30 +259,30 @@ function draw() {
 		};
 
 
-		if (shuffledBattleTurnArray[3] === "p1"){
-			battleTurnMarker3.image = "img" + battlePlayer1Type + "TurnPlate"
-			console.log(battleTurnMarker3.image)
-		} else if (shuffledBattleTurnArray[3] === "p2"){
-			battleTurnMarker3.image = "img" + battlePlayer2Type + "TurnPlate"
-			console.log(battleTurnMarker3.image)
-		} else if (shuffledBattleTurnArray[3] === "p3"){
-			battleTurnMarker3.image = "img" + battlePlayer3Type + "TurnPlate"
-			console.log(battleTurnMarker3.image)
-		} else if (shuffledBattleTurnArray[3] === "p4"){
-			battleTurnMarker3.image = "img" + battlePlayer4Type + "TurnPlate"
-			console.log(battleTurnMarker3.image)
-		} else if (shuffledBattleTurnArray[3] === "e1"){
-			battleTurnMarker3.image = "img" + battleEnemie1Type + "TurnPlate"
-			console.log(battleTurnMarker3.image)
-		} else if (shuffledBattleTurnArray[3] === "e2"){
-			battleTurnMarker3.image = "img" + battleEnemie2Type + "TurnPlate"
-			console.log(battleTurnMarker3.image)
-		} else if (shuffledBattleTurnArray[3] === "e3"){
-			battleTurnMarker3.image = "img" + battleEnemie3Type + "TurnPlate"
-			console.log(battleTurnMarker3.image)
-		} else if (shuffledBattleTurnArray[3] === "e4"){
-			battleTurnMarker3.image = "img" + battleEnemie4Type + "TurnPlate"
-			console.log(battleTurnMarker3.image)
+		if (shuffledBattleTurnArray[0] === "p1"){
+			battleTurnMarker1.image = battlePlayer1TypeImg 
+			console.log(battleTurnMarker1.image)
+		} else if (shuffledBattleTurnArray[0] === "p2"){
+			battleTurnMarker1.image = battlePlayer2TypeImg
+			console.log(battleTurnMarker1.image)
+		} else if (shuffledBattleTurnArray[0] === "p3"){
+			battleTurnMarker1.image = battlePlayer3TypeImg
+			console.log(battleTurnMarker1.image)
+		} else if (shuffledBattleTurnArray[0] === "p4"){
+			battleTurnMarker1.image =  battlePlayer4TypeImg
+			console.log(battleTurnMarker1.image)
+		} else if (shuffledBattleTurnArray[0] === "e1"){
+			battleTurnMarker1.image = battleEnemie1TypeImg
+			console.log(battleTurnMarker1.image)
+		} else if (shuffledBattleTurnArray[0] === "e2"){
+			battleTurnMarker1.image = battleEnemie2TypeImg
+			console.log(battleTurnMarker1.image)
+		} else if (shuffledBattleTurnArray[0] === "e3"){
+			battleTurnMarker1.image =  attleEnemie3TypeImg
+			console.log(battleTurnMarker1.image)
+		} else if (shuffledBattleTurnArray[0] === "e4"){
+			battleTurnMarker1.image =  battleEnemie4TypeImg
+			console.log(battleTurnMarker1.image)
 		}
 
 
