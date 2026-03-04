@@ -13,6 +13,7 @@ var inBattleMenu = "base"
 var battleTurn = "player1"
 var battleTotalTurn = 1
 var battleTurnArray = ['p1', 'p2', 'p3', 'p4', 'e1', 'e2', 'e3', 'e4']
+var battleChosenMove = "defend"
 var shuffledBattleTurnArray = shuffle(battleTurnArray);
 var battleButtonHover = 1
 
@@ -64,7 +65,7 @@ function setup() {
         shuffledBattleTurnArray = shuffle(battleTurnArray);
         console.log(shuffledBattleTurnArray)
 		battleTurn = shuffledBattleTurnArray[1]
-        musicTrobbioButItsTheWorldRevolving.play()
+        musicTrobbioButItsTheWorldRevolving.loop()
 
         battlePlayer1 = new Sprite(100, 100, 50, 100, 'k');
         battlePlayer1Type = "Merp";
@@ -264,23 +265,23 @@ function draw() {
         text(battleButtonHover, 450, 50);
 
 		if(inBattleMenu === "base"){
-        	if (kb.pressing('left')) {
+        	if (kb.pressed('left')) {
        	    	battleButtonHover = battleButtonHover - 1
     	    };
-    	    if (kb.pressing ('right')) {
+    	    if (kb.pressed ('right')) {
     	        battleButtonHover = battleButtonHover + 1
     	    };
 		} else if ( inBattleMenu === "attack"){
-			if (kb.pressing('left')) {
+			if (kb.pressed('left')) {
         	    battleButtonHover = battleButtonHover - 1
     	    };
-        	if (kb.pressing ('right')) {
+        	if (kb.pressed ('right')) {
         	    battleButtonHover = battleButtonHover + 1
         	};
-            if (kb.pressing('up')) {
+            if (kb.pressed('up')) {
         	    battleButtonHover = battleButtonHover - 2
     	    };
-        	if (kb.pressing ('down')) {
+        	if (kb.pressed ('down')) {
         	    battleButtonHover = battleButtonHover + 2
         	};
 		}
@@ -356,6 +357,20 @@ function draw() {
             attackOption6Button.color = '#afafaf'
 		}
 
+        if (battleButtonHover === 1 && inBattleMenu === "spells"){
+            spellOption1Button.color = '#afafaf'
+            spellOption2Button.color = '#000000'
+            spellOption3Button.color = '#000000'
+        } else if(battleButtonHover === 2 && inBattleMenu === "spells") {
+            spellOption1Button.color = '#000000'
+            spellOption2Button.color = '#afafaf'
+            spellOption3Button.color = '#000000'
+        } else if (battleButtonHover === 3 && inBattleMenu === "spells") {
+            spellOption1Button.color = '#000000'
+            spellOption2Button.color = '#000000'
+            spellOption3Button.color = '#afafaf'
+        }
+
         if (inBattleMenu === "base"){
             if (battleButtonHover > 4){
                 battleButtonHover = 1
@@ -364,11 +379,20 @@ function draw() {
                 battleButtonHover = 4
             }
         } else if (inBattleMenu === "attack"){
-            if (battleButtonHover > 6){
+            if (battleButtonHover === 8){
+                battleButtonHover = 2
+            } else if (battleButtonHover > 6){
                 battleButtonHover = 1
             }
             if (battleButtonHover < 1){
                 battleButtonHover = 6
+            }
+        } else if (inBattleMenu === "spells"){
+            if (battleButtonHover > 3){
+                battleButtonHover = 1
+            }
+            if (battleButtonHover < 1){
+                battleButtonHover = 3
             }
         }
 
@@ -378,10 +402,32 @@ function draw() {
             battleSelectAttack()
         };
 
-        if (kb.pressing ('z') && inBattleMenu === "attack") {
-			inBattleMenu = "base"
+        if (kb.pressing ('x') && battleButtonHover === 2 && inBattleMenu === "base") {
+			battleChosenMove = "defend"
+        };
+
+        if (kb.pressing ('x') && battleButtonHover === 3 && inBattleMenu === "base") {
+			inBattleMenu = "spells"
             battleButtonHover = 1
+            battleSelectSpell()
+        };
+
+        if (kb.pressing ('x') && battleButtonHover === 4 && inBattleMenu === "base") {
+			inBattleMenu = "talk"
+            battleButtonHover = 1
+            battleSelectTalk()
+        };
+
+        if (kb.pressing ('z') && inBattleMenu !== "base") {
+            if(inBattleMenu === "attack"){
+                battleButtonHover = 1
+            } else if(inBattleMenu === "spells"){
+                battleButtonHover = 3
+            } else if(inBattleMenu === "talk"){
+                battleButtonHover = 4
+            };
             battleBackBase()
+            inBattleMenu = "base"
         };
 
 
@@ -465,13 +511,30 @@ function battleSelectAttack(){
 	attackOption6Button.color = '#000000'
 }
 
+function battleSelectSpell(){
+	spellOption1Button = new Sprite(200, 75, 70, 20, 'k');
+	spellOption1Button.color = '#000000'
+
+	spellOption2Button = new Sprite(200, 110, 70, 20, 'k');
+	spellOption2Button.color = '#000000'
+
+	spellOption3Button = new Sprite(200, 145, 70, 20, 'k');
+	spellOption3Button.color = '#000000'
+}
+
 function battleBackBase(){
-	attackOption1Button.remove();
-    attackOption2Button.remove();
-    attackOption3Button.remove();
-    attackOption4Button.remove();
-    attackOption5Button.remove();
-    attackOption6Button.remove();
+    if(inBattleMenu === "attack"){
+        attackOption1Button.remove();
+        attackOption2Button.remove();
+        attackOption3Button.remove();
+        attackOption4Button.remove();
+        attackOption5Button.remove();
+        attackOption6Button.remove();
+    } else if(inBattleMenu === "spells"){
+        spellOption1Button.remove();
+        spellOption2Button.remove();
+        spellOption3Button.remove();
+    };
 }
 
 /*******************************************************/
