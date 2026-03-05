@@ -11,7 +11,7 @@
 var inBattle = 0
 var inBattleMenu = "base"
 var battleTurn = "player1"
-var battleTotalTurn = 1
+var battleTotalTurn = 0
 var battleTurnArray = ['p1', 'p2', 'p3', 'p4', 'e1', 'e2', 'e3', 'e4']
 var battleChosenMove = "defend"
 var shuffledBattleTurnArray = shuffle(battleTurnArray);
@@ -61,7 +61,7 @@ function setup() {
         inBattle = 1
         battleButtonHover = 1
 		inBattleMenu === "base"
-        battleTotalTurn = 1
+        battleTotalTurn = 0
         shuffledBattleTurnArray = shuffle(battleTurnArray);
         console.log(shuffledBattleTurnArray)
 		battleTurn = shuffledBattleTurnArray[1]
@@ -69,38 +69,42 @@ function setup() {
 
         battlePlayer1 = new Sprite(100, 100, 50, 100, 'k');
         battlePlayer1Type = "Merp";
+        battlePlayer1State = "idle";
         battlePlayer1.image = imgPlayerBattle;
 
         battlePlayer2 = new Sprite(100, 300, 50, 100, 'k');
         battlePlayer2Type = "Unkown";
+        battlePlayer2State = "idle";
         battlePlayer2.image = imgUnkownBattle;
 
         //battlePlayer1 = new Sprite(100, 100, 50, 100, 'k');
         battlePlayer3Type = "Merp";
+        battlePlayer3State = "idle";
     //  battlePlayer1.image = imgPlayerBattle;
 
     //battlePlayer1 = new Sprite(100, 100, 50, 100, 'k');
         battlePlayer4Type = "Unkown";
+        battlePlayer4State = "idle";
     //  battlePlayer1.image = imgPlayerBattle;
-
-        battlePlayer2 = new Sprite(100, 300, 50, 100, 'k');
-        battlePlayer2Type = "Unkown";
-        battlePlayer2.image = imgUnkownBattle;
 
         battleEnemie1 = new Sprite(800, 100, 50, 100, 'k');
         battleEnemie1Type = "Glorb";
+        battleEnemie1State = "idle";
         battleEnemie1.image = imgGlorbBattle;
 
         battleEnemie2 = new Sprite(650, 200, 50, 100, 'k');
         battleEnemie2Type = "Glorb";
+        battleEnemie2State = "idle";
         battleEnemie2.image = imgGlorbBattle;
 
         battleEnemie3 = new Sprite(650, 400, 50, 100, 'k');
         battleEnemie3Type = "Glorb";
+        battleEnemie3State = "idle";
         battleEnemie3.image = imgGlorbBattle;
 
         battleEnemie4 = new Sprite(800, 500, 50, 100, 'k');
         battleEnemie4Type = "Glorb";
+        battleEnemie4State = "idle";
         battleEnemie4.image = imgGlorbBattle;
 
         if (battlePlayer1Type === "Merp") {
@@ -213,13 +217,7 @@ function setup() {
         battleTurnMarker3.image = imgUnkownTurnPlate;
         battleTurnMarker3.scale = 0.5;
 
-        attackButton = new Sprite(70, 170, 15, 15, 'k');
-
-        defendButton = new Sprite(90, 170, 15, 15, 'k');
-
-        talkButton = new Sprite(110, 170, 15, 15, 'k');
-        
-        spellButton = new Sprite(130, 170, 15, 15, 'k');
+        startTurn()
     }
 }
     
@@ -262,283 +260,340 @@ function draw() {
         textSize(25);
         fill('#000000');
         text("Turn:", 888, 50);
-        text(battleButtonHover, 450, 50);
+        text(battleChosenMove, 450, 50);
 
-		if(inBattleMenu === "base"){
-        	if (kb.pressed('left')) {
-       	    	battleButtonHover = battleButtonHover - 1
-    	    };
-    	    if (kb.pressed ('right')) {
-    	        battleButtonHover = battleButtonHover + 1
-    	    };
-		} else if ( inBattleMenu === "attack"){
-			if (kb.pressed('left')) {
-        	    battleButtonHover = battleButtonHover - 1
-    	    };
-        	if (kb.pressed ('right')) {
-        	    battleButtonHover = battleButtonHover + 1
-        	};
-            if (kb.pressed('up')) {
-        	    battleButtonHover = battleButtonHover - 2
-    	    };
-        	if (kb.pressed ('down')) {
-        	    battleButtonHover = battleButtonHover + 2
-        	};
-		} else if ( inBattleMenu === "spells"){
-			if (kb.pressed('left')) {
-        	    battleButtonHover = battleButtonHover - 1
-    	    };
-        	if (kb.pressed ('right')) {
-        	    battleButtonHover = battleButtonHover + 1
-        	};
-            if (kb.pressed('up')) {
-        	    battleButtonHover = battleButtonHover - 1
-    	    };
-        	if (kb.pressed ('down')) {
-        	    battleButtonHover = battleButtonHover + 1
-        	};
-		} else if ( inBattleMenu === "talk"){
-			if (kb.pressed('left')) {
-        	    battleButtonHover = battleButtonHover - 1
-    	    };
-        	if (kb.pressed ('right')) {
-        	    battleButtonHover = battleButtonHover + 1
-        	};
-            if (kb.pressed('up')) {
-        	    battleButtonHover = battleButtonHover - 1
-    	    };
-        	if (kb.pressed ('down')) {
-        	    battleButtonHover = battleButtonHover + 1
-        	};
-		}
-
-        if (battleButtonHover === 1 && inBattleMenu === "base"){
-            attackButton.color = '#afafaf'
-            defendButton.color = '#000000'
-            talkButton.color = '#000000'
-            spellButton.color = '#000000'
-        } else if(battleButtonHover === 2 && inBattleMenu === "base") {
-            attackButton.color = '#000000'
-            defendButton.color = '#afafaf'
-            talkButton.color = '#000000'
-            spellButton.color = '#000000'
-        } else if (battleButtonHover === 3 && inBattleMenu === "base") {
-            attackButton.color = '#000000'
-            defendButton.color = '#000000'
-            talkButton.color = '#afafaf'
-            spellButton.color = '#000000'
-        } else if (battleButtonHover === 4 && inBattleMenu === "base") {
-            attackButton.color = '#000000'
-            defendButton.color = '#000000'
-            talkButton.color = '#000000'
-            spellButton.color = '#afafaf'
-        } else if(inBattleMenu === "attack") {
-			attackButton.color = '#afafaf'
-            defendButton.color = '#000000'
-            talkButton.color = '#000000'
-            spellButton.color = '#000000'
-		} else if(inBattleMenu === "spells") {
-			attackButton.color = '#000000'
-            defendButton.color = '#000000'
-            talkButton.color = '#afafaf'
-            spellButton.color = '#000000'
-		} else if(inBattleMenu === "talk") {
-			attackButton.color = '#000000'
-            defendButton.color = '#000000'
-            talkButton.color = '#000000'
-            spellButton.color = '#afafaf'
-		}
-
-		if (battleButtonHover === 1 && inBattleMenu === "attack"){
-            attackOption1Button.color = '#afafaf'
-            attackOption2Button.color = '#000000'
-            attackOption3Button.color = '#000000'
-            attackOption4Button.color = '#000000'
-			attackOption5Button.color = '#000000'
-            attackOption6Button.color = '#000000'
-        } else if(battleButtonHover === 2 && inBattleMenu === "attack") {
-            attackOption1Button.color = '#000000'
-            attackOption2Button.color = '#afafaf'
-            attackOption3Button.color = '#000000'
-            attackOption4Button.color = '#000000'
-			attackOption5Button.color = '#000000'
-            attackOption6Button.color = '#000000'
-        } else if (battleButtonHover === 3 && inBattleMenu === "attack") {
-            attackOption1Button.color = '#000000'
-            attackOption2Button.color = '#000000'
-            attackOption3Button.color = '#afafaf'
-            attackOption4Button.color = '#000000'
-			attackOption5Button.color = '#000000'
-            attackOption6Button.color = '#000000'
-        } else if (battleButtonHover === 4 && inBattleMenu === "attack") {
-            attackOption1Button.color = '#000000'
-            attackOption2Button.color = '#000000'
-            attackOption3Button.color = '#000000'
-            attackOption4Button.color = '#afafaf'
-			attackOption5Button.color = '#000000'
-            attackOption6Button.color = '#000000'
-        } else if(battleButtonHover === 5 && inBattleMenu === "attack") {
-            attackOption1Button.color = '#000000'
-            attackOption2Button.color = '#000000'
-            attackOption3Button.color = '#000000'
-            attackOption4Button.color = '#000000'
-			attackOption5Button.color = '#afafaf'
-            attackOption6Button.color = '#000000'
-		} else if(battleButtonHover === 6 && inBattleMenu === "attack") {
-            attackOption1Button.color = '#000000'
-            attackOption2Button.color = '#000000'
-            attackOption3Button.color = '#000000'
-            attackOption4Button.color = '#000000'
-			attackOption5Button.color = '#000000'
-            attackOption6Button.color = '#afafaf'
-		}
-
-        if (battleButtonHover === 1 && inBattleMenu === "spells"){
-            spellOption1Button.color = '#afafaf'
-            spellOption2Button.color = '#000000'
-            spellOption3Button.color = '#000000'
-        } else if(battleButtonHover === 2 && inBattleMenu === "spells") {
-            spellOption1Button.color = '#000000'
-            spellOption2Button.color = '#afafaf'
-            spellOption3Button.color = '#000000'
-        } else if (battleButtonHover === 3 && inBattleMenu === "spells") {
-            spellOption1Button.color = '#000000'
-            spellOption2Button.color = '#000000'
-            spellOption3Button.color = '#afafaf'
-        }
-
-        if (battleButtonHover === 1 && inBattleMenu === "talk"){
-            talkOption1Button.color = '#afafaf'
-            talkOption2Button.color = '#000000'
-            talkOption3Button.color = '#000000'
-        } else if(battleButtonHover === 2 && inBattleMenu === "talk") {
-            talkOption1Button.color = '#000000'
-            talkOption2Button.color = '#afafaf'
-            talkOption3Button.color = '#000000'
-        } else if (battleButtonHover === 3 && inBattleMenu === "talk") {
-            talkOption1Button.color = '#000000'
-            talkOption2Button.color = '#000000'
-            talkOption3Button.color = '#afafaf'
-        }
-
-        if (inBattleMenu === "base"){
-            if (battleButtonHover > 4){
-                battleButtonHover = 1
-            }
-            if (battleButtonHover < 1){
-                battleButtonHover = 4
-            }
-        } else if (inBattleMenu === "attack"){
-            if (battleButtonHover === 8){
-                battleButtonHover = 2
-            } else if (battleButtonHover > 6){
-                battleButtonHover = 1
-            }
-            if (battleButtonHover < 1){
-                battleButtonHover = 6
-            }
-        } else if (inBattleMenu === "spells"){
-            if (battleButtonHover > 3){
-                battleButtonHover = 1
-            }
-            if (battleButtonHover < 1){
-                battleButtonHover = 3
-            }
-        } else if (inBattleMenu === "talk"){
-            if (battleButtonHover > 3){
-                battleButtonHover = 1
-            }
-            if (battleButtonHover < 1){
-                battleButtonHover = 3
-            }
-        }
-
-        if (kb.pressing ('x') && battleButtonHover === 1 && inBattleMenu === "base") {
-			inBattleMenu = "attack"
-            battleButtonHover = 1
-            battleSelectAttack()
+		
+        if (kb.pressed ('e')) {
+            endTurn();
         };
 
-        if (kb.pressing ('x') && battleButtonHover === 2 && inBattleMenu === "base") {
-			battleChosenMove = "defend"
-        };
+        if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1" || shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
 
-        if (kb.pressing ('x') && battleButtonHover === 3 && inBattleMenu === "base") {
-			inBattleMenu = "spells"
-            battleButtonHover = 1
-            battleSelectSpell()
-        };
+            if(inBattleMenu === "base"){
+                if (kb.pressed('left')) {
+                    battleButtonHover = battleButtonHover - 1
+                };
+                if (kb.pressed ('right')) {
+                    battleButtonHover = battleButtonHover + 1
+                };
+            } else if ( inBattleMenu === "attack"){
+                if (kb.pressed('left')) {
+                    battleButtonHover = battleButtonHover - 1
+                };
+                if (kb.pressed ('right')) {
+                    battleButtonHover = battleButtonHover + 1
+                };
+                if (kb.pressed('up')) {
+                    battleButtonHover = battleButtonHover - 2
+                };
+                if (kb.pressed ('down')) {
+                    battleButtonHover = battleButtonHover + 2
+                };
+            } else if ( inBattleMenu === "spells"){
+                if (kb.pressed('left')) {
+                    battleButtonHover = battleButtonHover - 1
+                };
+                if (kb.pressed ('right')) {
+                    battleButtonHover = battleButtonHover + 1
+                };
+                if (kb.pressed('up')) {
+                    battleButtonHover = battleButtonHover - 1
+                };
+                if (kb.pressed ('down')) {
+                    battleButtonHover = battleButtonHover + 1
+                };
+            } else if ( inBattleMenu === "talk"){
+                if (kb.pressed('left')) {
+                    battleButtonHover = battleButtonHover - 1
+                };
+                if (kb.pressed ('right')) {
+                    battleButtonHover = battleButtonHover + 1
+                };
+                if (kb.pressed('up')) {
+                    battleButtonHover = battleButtonHover - 1
+                };
+                if (kb.pressed ('down')) {
+                    battleButtonHover = battleButtonHover + 1
+                };
+            }
 
-        if (kb.pressing ('x') && battleButtonHover === 4 && inBattleMenu === "base") {
-			inBattleMenu = "talk"
-            battleButtonHover = 1
-            battleSelectTalk()
-        };
+            if (battleButtonHover === 1 && inBattleMenu === "base"){
+                attackButton.color = '#afafaf'
+                defendButton.color = '#000000'
+                talkButton.color = '#000000'
+                spellButton.color = '#000000'
+            } else if(battleButtonHover === 2 && inBattleMenu === "base") {
+                attackButton.color = '#000000'
+                defendButton.color = '#afafaf'
+                talkButton.color = '#000000'
+                spellButton.color = '#000000'
+            } else if (battleButtonHover === 3 && inBattleMenu === "base") {
+                attackButton.color = '#000000'
+                defendButton.color = '#000000'
+                talkButton.color = '#afafaf'
+                spellButton.color = '#000000'
+            } else if (battleButtonHover === 4 && inBattleMenu === "base") {
+                attackButton.color = '#000000'
+                defendButton.color = '#000000'
+                talkButton.color = '#000000'
+                spellButton.color = '#afafaf'
+            } else if(inBattleMenu === "attack") {
+                attackButton.color = '#afafaf'
+                defendButton.color = '#000000'
+                talkButton.color = '#000000'
+                spellButton.color = '#000000'
+            } else if(inBattleMenu === "spells") {
+                attackButton.color = '#000000'
+                defendButton.color = '#000000'
+                talkButton.color = '#afafaf'
+                spellButton.color = '#000000'
+            } else if(inBattleMenu === "talk") {
+                attackButton.color = '#000000'
+                defendButton.color = '#000000'
+                talkButton.color = '#000000'
+                spellButton.color = '#afafaf'
+            }
 
-        if (kb.pressing ('z') && inBattleMenu !== "base") {
-            if(inBattleMenu === "attack"){
+            if (battleButtonHover === 1 && inBattleMenu === "attack"){
+                attackOption1Button.color = '#afafaf'
+                attackOption2Button.color = '#000000'
+                attackOption3Button.color = '#000000'
+                attackOption4Button.color = '#000000'
+                attackOption5Button.color = '#000000'
+                attackOption6Button.color = '#000000'
+            } else if(battleButtonHover === 2 && inBattleMenu === "attack") {
+                attackOption1Button.color = '#000000'
+                attackOption2Button.color = '#afafaf'
+                attackOption3Button.color = '#000000'
+                attackOption4Button.color = '#000000'
+                attackOption5Button.color = '#000000'
+                attackOption6Button.color = '#000000'
+            } else if (battleButtonHover === 3 && inBattleMenu === "attack") {
+                attackOption1Button.color = '#000000'
+                attackOption2Button.color = '#000000'
+                attackOption3Button.color = '#afafaf'
+                attackOption4Button.color = '#000000'
+                attackOption5Button.color = '#000000'
+                attackOption6Button.color = '#000000'
+            } else if (battleButtonHover === 4 && inBattleMenu === "attack") {
+                attackOption1Button.color = '#000000'
+                attackOption2Button.color = '#000000'
+                attackOption3Button.color = '#000000'
+                attackOption4Button.color = '#afafaf'
+                attackOption5Button.color = '#000000'
+                attackOption6Button.color = '#000000'
+            } else if(battleButtonHover === 5 && inBattleMenu === "attack") {
+                attackOption1Button.color = '#000000'
+                attackOption2Button.color = '#000000'
+                attackOption3Button.color = '#000000'
+                attackOption4Button.color = '#000000'
+                attackOption5Button.color = '#afafaf'
+                attackOption6Button.color = '#000000'
+            } else if(battleButtonHover === 6 && inBattleMenu === "attack") {
+                attackOption1Button.color = '#000000'
+                attackOption2Button.color = '#000000'
+                attackOption3Button.color = '#000000'
+                attackOption4Button.color = '#000000'
+                attackOption5Button.color = '#000000'
+                attackOption6Button.color = '#afafaf'
+            }
+
+            if (battleButtonHover === 1 && inBattleMenu === "spells"){
+                spellOption1Button.color = '#afafaf'
+                spellOption2Button.color = '#000000'
+                spellOption3Button.color = '#000000'
+            } else if(battleButtonHover === 2 && inBattleMenu === "spells") {
+                spellOption1Button.color = '#000000'
+                spellOption2Button.color = '#afafaf'
+                spellOption3Button.color = '#000000'
+            } else if (battleButtonHover === 3 && inBattleMenu === "spells") {
+                spellOption1Button.color = '#000000'
+                spellOption2Button.color = '#000000'
+                spellOption3Button.color = '#afafaf'
+            }
+
+            if (battleButtonHover === 1 && inBattleMenu === "talk"){
+                talkOption1Button.color = '#afafaf'
+                talkOption2Button.color = '#000000'
+                talkOption3Button.color = '#000000'
+            } else if(battleButtonHover === 2 && inBattleMenu === "talk") {
+                talkOption1Button.color = '#000000'
+                talkOption2Button.color = '#afafaf'
+                talkOption3Button.color = '#000000'
+            } else if (battleButtonHover === 3 && inBattleMenu === "talk") {
+                talkOption1Button.color = '#000000'
+                talkOption2Button.color = '#000000'
+                talkOption3Button.color = '#afafaf'
+            }
+
+            if (inBattleMenu === "base"){
+                if (battleButtonHover > 4){
+                    battleButtonHover = 1
+                }
+                if (battleButtonHover < 1){
+                    battleButtonHover = 4
+                }
+            } else if (inBattleMenu === "attack"){
+                if (battleButtonHover === 8){
+                    battleButtonHover = 2
+                } else if (battleButtonHover > 6){
+                    battleButtonHover = 1
+                }
+                if (battleButtonHover < 1){
+                    battleButtonHover = 6
+                }
+            } else if (inBattleMenu === "spells"){
+                if (battleButtonHover > 3){
+                    battleButtonHover = 1
+                }
+                if (battleButtonHover < 1){
+                    battleButtonHover = 3
+                }
+            } else if (inBattleMenu === "talk"){
+                if (battleButtonHover > 3){
+                    battleButtonHover = 1
+                }
+                if (battleButtonHover < 1){
+                    battleButtonHover = 3
+                }
+            }
+
+            if (kb.pressed ('x') && battleButtonHover === 1 && inBattleMenu === "base") {
+                inBattleMenu = "attack"
                 battleButtonHover = 1
-            } else if(inBattleMenu === "spells"){
-                battleButtonHover = 3
-            } else if(inBattleMenu === "talk"){
-                battleButtonHover = 4
+                battleSelectAttack()
             };
-            battleBackBase()
-            inBattleMenu = "base"
+
+            if (kb.pressed ('x') && battleButtonHover === 2 && inBattleMenu === "base") {
+                battleChosenMove = "defend"
+                endTurn()
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 3 && inBattleMenu === "base") {
+                inBattleMenu = "spells"
+                battleButtonHover = 1
+                battleSelectSpell()
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 4 && inBattleMenu === "base") {
+                inBattleMenu = "talk"
+                battleButtonHover = 1
+                battleSelectTalk()
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 1 && inBattleMenu === "attack") {
+                battleChosenMove = "attack1"
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 2 && inBattleMenu === "attack") {
+                battleChosenMove = "attack2"
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 3 && inBattleMenu === "attack") {
+                battleChosenMove = "attack3"
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 4 && inBattleMenu === "attack") {
+                battleChosenMove = "attack4"
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 5 && inBattleMenu === "attack") {
+                battleChosenMove = "attack5"
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 6 && inBattleMenu === "attack") {
+                battleChosenMove = "attack6"
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 1 && inBattleMenu === "spells") {
+                battleChosenMove = "spell1"
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 2 && inBattleMenu === "spells") {
+                battleChosenMove = "spell2"
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 3 && inBattleMenu === "spells") {
+                battleChosenMove = "spell3"
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 1 && inBattleMenu === "talk") {
+                battleChosenMove = "talk1"
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 2 && inBattleMenu === "talk") {
+                battleChosenMove = "talk2"
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 3 && inBattleMenu === "talk") {
+                battleChosenMove = "talk3"
+            };
+
+            if (kb.pressed ('z') && inBattleMenu !== "base") {
+                if(inBattleMenu === "attack"){
+                    battleButtonHover = 1
+                } else if(inBattleMenu === "spells"){
+                    battleButtonHover = 3
+                } else if(inBattleMenu === "talk"){
+                    battleButtonHover = 4
+                };
+                battleBackBase()
+                inBattleMenu = "base"
+            };
         };
 
 
-        if (shuffledBattleTurnArray[0] === "p1"){
+        if (shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
             battleTurnMarker1.image = battlePlayer1TypeImg 
-        } else if (shuffledBattleTurnArray[0] === "p2"){
+        } else if (shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
             battleTurnMarker1.image = battlePlayer2TypeImg
-        } else if (shuffledBattleTurnArray[0] === "p3"){
+        } else if (shuffledBattleTurnArray[0 + battleTotalTurn] === "p3"){
             battleTurnMarker1.image = battlePlayer3TypeImg
-        } else if (shuffledBattleTurnArray[0] === "p4"){
+        } else if (shuffledBattleTurnArray[0 + battleTotalTurn] === "p4"){
             battleTurnMarker1.image =  battlePlayer4TypeImg
-        } else if (shuffledBattleTurnArray[0] === "e1"){
+        } else if (shuffledBattleTurnArray[0 + battleTotalTurn] === "e1"){
             battleTurnMarker1.image = battleEnemie1TypeImg
-        } else if (shuffledBattleTurnArray[0] === "e2"){
+        } else if (shuffledBattleTurnArray[0 + battleTotalTurn] === "e2"){
             battleTurnMarker1.image = battleEnemie2TypeImg
-        } else if (shuffledBattleTurnArray[0] === "e3"){
+        } else if (shuffledBattleTurnArray[0 + battleTotalTurn] === "e3"){
             battleTurnMarker1.image =  battleEnemie3TypeImg
-        } else if (shuffledBattleTurnArray[0] === "e4"){
+        } else if (shuffledBattleTurnArray[0 + battleTotalTurn] === "e4"){
             battleTurnMarker1.image =  battleEnemie4TypeImg
         };
 
-        if (shuffledBattleTurnArray[1] === "p1"){
+        if (shuffledBattleTurnArray[1 + battleTotalTurn] === "p1"){
             battleTurnMarker2.image = battlePlayer1TypeImg 
-        } else if (shuffledBattleTurnArray[1] === "p2"){
+        } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "p2"){
             battleTurnMarker2.image = battlePlayer2TypeImg
-        } else if (shuffledBattleTurnArray[1] === "p3"){
+        } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "p3"){
             battleTurnMarker2.image = battlePlayer3TypeImg
-        } else if (shuffledBattleTurnArray[1] === "p4"){
+        } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "p4"){
             battleTurnMarker2.image =  battlePlayer4TypeImg
-        } else if (shuffledBattleTurnArray[1] === "e1"){
+        } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "e1"){
             battleTurnMarker2.image = battleEnemie1TypeImg
-        } else if (shuffledBattleTurnArray[1] === "e2"){
+        } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "e2"){
             battleTurnMarker2.image = battleEnemie2TypeImg
-        } else if (shuffledBattleTurnArray[1] === "e3"){
+        } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "e3"){
             battleTurnMarker2.image =  battleEnemie3TypeImg
-        } else if (shuffledBattleTurnArray[1] === "e4"){
+        } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "e4"){
             battleTurnMarker2.image =  battleEnemie4TypeImg
         };
 
-        if (shuffledBattleTurnArray[2] === "p1"){
+        if (shuffledBattleTurnArray[2 + battleTotalTurn] === "p1"){
             battleTurnMarker3.image = battlePlayer1TypeImg 
-        } else if (shuffledBattleTurnArray[2] === "p2"){
+        } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "p2"){
             battleTurnMarker3.image = battlePlayer2TypeImg
-        } else if (shuffledBattleTurnArray[2] === "p3"){
+        } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "p3"){
             battleTurnMarker3.image = battlePlayer3TypeImg
-        } else if (shuffledBattleTurnArray[2] === "p4"){
+        } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "p4"){
             battleTurnMarker3.image =  battlePlayer4TypeImg
-        } else if (shuffledBattleTurnArray[2] === "e1"){
+        } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "e1"){
             battleTurnMarker3.image = battleEnemie1TypeImg
-        } else if (shuffledBattleTurnArray[2] === "e2"){
+        } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "e2"){
             battleTurnMarker3.image = battleEnemie2TypeImg
-        } else if (shuffledBattleTurnArray[2] === "e3"){
+        } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "e3"){
             battleTurnMarker3.image =  battleEnemie3TypeImg
-        } else if (shuffledBattleTurnArray[2] === "e4"){
+        } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "e4"){
             battleTurnMarker3.image =  battleEnemie4TypeImg
         };
 
@@ -607,6 +662,38 @@ function battleBackBase(){
         talkOption2Button.remove();
         talkOption3Button.remove();
     };
+}
+
+function startTurn(){
+    if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
+        battleButtonHover = 1
+        attackButton = new Sprite(70, 170, 15, 15, 'k');
+        defendButton = new Sprite(90, 170, 15, 15, 'k');
+        talkButton = new Sprite(110, 170, 15, 15, 'k');    
+        spellButton = new Sprite(130, 170, 15, 15, 'k');
+    } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
+        battleButtonHover = 1
+        attackButton = new Sprite(70, 400, 15, 15, 'k');
+        defendButton = new Sprite(90, 400, 15, 15, 'k');
+        talkButton = new Sprite(110, 400, 15, 15, 'k');    
+        spellButton = new Sprite(130, 400, 15, 15, 'k');
+    }
+};
+
+function endTurn(){
+    if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1" || shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
+        battleBackBase()
+        attackButton.remove();
+        defendButton.remove();
+        spellButton.remove();
+        talkButton.remove();
+        if(battleChosenMove === "defend"){
+            battlePlayer1State = "defend"
+        };
+        battleButtonHover = 0
+    }
+    battleTotalTurn = battleTotalTurn + 1
+    startTurn()
 }
 
 /*******************************************************/
