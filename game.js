@@ -284,6 +284,32 @@ function draw() {
         	if (kb.pressed ('down')) {
         	    battleButtonHover = battleButtonHover + 2
         	};
+		} else if ( inBattleMenu === "spells"){
+			if (kb.pressed('left')) {
+        	    battleButtonHover = battleButtonHover - 1
+    	    };
+        	if (kb.pressed ('right')) {
+        	    battleButtonHover = battleButtonHover + 1
+        	};
+            if (kb.pressed('up')) {
+        	    battleButtonHover = battleButtonHover - 1
+    	    };
+        	if (kb.pressed ('down')) {
+        	    battleButtonHover = battleButtonHover + 1
+        	};
+		} else if ( inBattleMenu === "talk"){
+			if (kb.pressed('left')) {
+        	    battleButtonHover = battleButtonHover - 1
+    	    };
+        	if (kb.pressed ('right')) {
+        	    battleButtonHover = battleButtonHover + 1
+        	};
+            if (kb.pressed('up')) {
+        	    battleButtonHover = battleButtonHover - 1
+    	    };
+        	if (kb.pressed ('down')) {
+        	    battleButtonHover = battleButtonHover + 1
+        	};
 		}
 
         if (battleButtonHover === 1 && inBattleMenu === "base"){
@@ -311,6 +337,16 @@ function draw() {
             defendButton.color = '#000000'
             talkButton.color = '#000000'
             spellButton.color = '#000000'
+		} else if(inBattleMenu === "spells") {
+			attackButton.color = '#000000'
+            defendButton.color = '#000000'
+            talkButton.color = '#afafaf'
+            spellButton.color = '#000000'
+		} else if(inBattleMenu === "talk") {
+			attackButton.color = '#000000'
+            defendButton.color = '#000000'
+            talkButton.color = '#000000'
+            spellButton.color = '#afafaf'
 		}
 
 		if (battleButtonHover === 1 && inBattleMenu === "attack"){
@@ -371,6 +407,20 @@ function draw() {
             spellOption3Button.color = '#afafaf'
         }
 
+        if (battleButtonHover === 1 && inBattleMenu === "talk"){
+            talkOption1Button.color = '#afafaf'
+            talkOption2Button.color = '#000000'
+            talkOption3Button.color = '#000000'
+        } else if(battleButtonHover === 2 && inBattleMenu === "talk") {
+            talkOption1Button.color = '#000000'
+            talkOption2Button.color = '#afafaf'
+            talkOption3Button.color = '#000000'
+        } else if (battleButtonHover === 3 && inBattleMenu === "talk") {
+            talkOption1Button.color = '#000000'
+            talkOption2Button.color = '#000000'
+            talkOption3Button.color = '#afafaf'
+        }
+
         if (inBattleMenu === "base"){
             if (battleButtonHover > 4){
                 battleButtonHover = 1
@@ -388,6 +438,13 @@ function draw() {
                 battleButtonHover = 6
             }
         } else if (inBattleMenu === "spells"){
+            if (battleButtonHover > 3){
+                battleButtonHover = 1
+            }
+            if (battleButtonHover < 1){
+                battleButtonHover = 3
+            }
+        } else if (inBattleMenu === "talk"){
             if (battleButtonHover > 3){
                 battleButtonHover = 1
             }
@@ -522,6 +579,17 @@ function battleSelectSpell(){
 	spellOption3Button.color = '#000000'
 }
 
+function battleSelectTalk(){
+	talkOption1Button = new Sprite(200, 75, 70, 20, 'k');
+	talkOption1Button.color = '#000000'
+
+	talkOption2Button = new Sprite(200, 110, 70, 20, 'k');
+	talkOption2Button.color = '#000000'
+
+	talkOption3Button = new Sprite(200, 145, 70, 20, 'k');
+	talkOption3Button.color = '#000000'
+}
+
 function battleBackBase(){
     if(inBattleMenu === "attack"){
         attackOption1Button.remove();
@@ -534,6 +602,10 @@ function battleBackBase(){
         spellOption1Button.remove();
         spellOption2Button.remove();
         spellOption3Button.remove();
+    } else if(inBattleMenu === "talk"){
+        talkOption1Button.remove();
+        talkOption2Button.remove();
+        talkOption3Button.remove();
     };
 }
 
