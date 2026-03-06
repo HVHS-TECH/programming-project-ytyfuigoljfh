@@ -604,46 +604,88 @@ function draw() {
 }
 
 function battleSelectAttack(){
-	attackOption1Button = new Sprite(200, 75, 70, 20, 'k');
-	attackOption1Button.color = '#000000'
+    if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
+        attackOption1Button = new Sprite(200, 75, 70, 20, 'k');
+        attackOption1Button.color = '#000000'
 
-	attackOption3Button = new Sprite(200, 110, 70, 20, 'k');
-	attackOption3Button.color = '#000000'
+        attackOption3Button = new Sprite(200, 110, 70, 20, 'k');
+        attackOption3Button.color = '#000000'
 
-	attackOption5Button = new Sprite(200, 145, 70, 20, 'k');
-	attackOption5Button.color = '#000000'
+        attackOption5Button = new Sprite(200, 145, 70, 20, 'k');
+        attackOption5Button.color = '#000000'
 
-	attackOption2Button = new Sprite(280, 75, 70, 20, 'k');
-	attackOption2Button.color = '#000000'
+        attackOption2Button = new Sprite(280, 75, 70, 20, 'k');
+        attackOption2Button.color = '#000000'
 
-	attackOption4Button = new Sprite(280, 110, 70, 20, 'k');
-	attackOption4Button.color = '#000000'
+        attackOption4Button = new Sprite(280, 110, 70, 20, 'k');
+        attackOption4Button.color = '#000000'
 
-	attackOption6Button = new Sprite(280, 145, 70, 20, 'k');
-	attackOption6Button.color = '#000000'
-}
+        attackOption6Button = new Sprite(280, 145, 70, 20, 'k');
+        attackOption6Button.color = '#000000'
+    } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
+        attackOption1Button = new Sprite(200, 275, 70, 20, 'k');
+        attackOption1Button.color = '#000000'
+
+        attackOption3Button = new Sprite(200, 310, 70, 20, 'k');
+        attackOption3Button.color = '#000000'
+
+        attackOption5Button = new Sprite(200, 345, 70, 20, 'k');
+        attackOption5Button.color = '#000000'
+
+        attackOption2Button = new Sprite(280, 275, 70, 20, 'k');
+        attackOption2Button.color = '#000000'
+
+        attackOption4Button = new Sprite(280, 310, 70, 20, 'k');
+        attackOption4Button.color = '#000000'
+
+        attackOption6Button = new Sprite(280, 345, 70, 20, 'k');
+        attackOption6Button.color = '#000000'
+    };
+};
 
 function battleSelectSpell(){
-	spellOption1Button = new Sprite(200, 75, 70, 20, 'k');
-	spellOption1Button.color = '#000000'
+    if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
+        spellOption1Button = new Sprite(200, 75, 70, 20, 'k');
+        spellOption1Button.color = '#000000'
 
-	spellOption2Button = new Sprite(200, 110, 70, 20, 'k');
-	spellOption2Button.color = '#000000'
+        spellOption2Button = new Sprite(200, 110, 70, 20, 'k');
+        spellOption2Button.color = '#000000'
 
-	spellOption3Button = new Sprite(200, 145, 70, 20, 'k');
-	spellOption3Button.color = '#000000'
-}
+        spellOption3Button = new Sprite(200, 145, 70, 20, 'k');
+        spellOption3Button.color = '#000000'
+    } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
+        spellOption1Button = new Sprite(200, 275, 70, 20, 'k');
+        spellOption1Button.color = '#000000'
+
+        spellOption2Button = new Sprite(200, 310, 70, 20, 'k');
+        spellOption2Button.color = '#000000'
+
+        spellOption3Button = new Sprite(200, 345, 70, 20, 'k');
+        spellOption3Button.color = '#000000'
+    };
+};
 
 function battleSelectTalk(){
-	talkOption1Button = new Sprite(200, 75, 70, 20, 'k');
-	talkOption1Button.color = '#000000'
+    if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
+        talkOption1Button = new Sprite(200, 75, 70, 20, 'k');
+        talkOption1Button.color = '#000000'
 
-	talkOption2Button = new Sprite(200, 110, 70, 20, 'k');
-	talkOption2Button.color = '#000000'
+        talkOption2Button = new Sprite(200, 110, 70, 20, 'k');
+        talkOption2Button.color = '#000000'
 
-	talkOption3Button = new Sprite(200, 145, 70, 20, 'k');
-	talkOption3Button.color = '#000000'
-}
+        talkOption3Button = new Sprite(200, 145, 70, 20, 'k');
+        talkOption3Button.color = '#000000'
+    } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
+        talkOption1Button = new Sprite(200, 275, 70, 20, 'k');
+        talkOption1Button.color = '#000000'
+
+        talkOption2Button = new Sprite(200, 310, 70, 20, 'k');
+        talkOption2Button.color = '#000000'
+
+        talkOption3Button = new Sprite(200, 345, 70, 20, 'k');
+        talkOption3Button.color = '#000000'
+    }
+};
 
 function battleBackBase(){
     if(inBattleMenu === "attack"){
