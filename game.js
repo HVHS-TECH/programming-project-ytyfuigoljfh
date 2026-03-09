@@ -70,59 +70,73 @@ function setup() {
         battlePlayer1 = new Sprite(100, 100, 50, 100, 'k');
         battlePlayer1Type = "Merp";
         battlePlayer1State = "idle";
+        battlePlayer1MaxHP = 30;
         battlePlayer1HP = 30;
         battlePlayer1.image = imgPlayerBattle;
 
         battlePlayer1HPBarRed = new Sprite(100, 35, 100, 10, 'k');
         battlePlayer1HPBarRed.color = '#720000'
-        battlePlayer1HPBarGreen = new Sprite(100, 35, battlePlayer1HP * 3.33333, 10, 'k');
+        battlePlayer1HPBarGreen = new Sprite(100, 35, battlePlayer1HP * (100/battlePlayer1MaxHP), 10, 'k');
         battlePlayer1HPBarGreen.color = '#30ff7f'
 
 
         battlePlayer2 = new Sprite(100, 300, 50, 100, 'k');
         battlePlayer2Type = "Unkown";
         battlePlayer2State = "idle";
+        battlePlayer2MaxHP = 35;
         battlePlayer2HP = 35;
         battlePlayer2.image = imgUnkownBattle;
 
-        battlePlayer2HPBarRed = new Sprite(100, 235, 100, 10, 'k');
+        battlePlayer2HPBarRed = new Sprite(100, 215, 100, 10, 'k');
         battlePlayer2HPBarRed.color = '#720000'
-        battlePlayer2HPBarGreen = new Sprite(100, 235, battlePlayer2HP * 3.33333, 10, 'k');
+        battlePlayer2HPBarGreen = new Sprite(100, 215, battlePlayer2HP * (100/battlePlayer2MaxHP), 10, 'k');
         battlePlayer2HPBarGreen.color = '#30ff7f'
 
         //battlePlayer1 = new Sprite(100, 100, 50, 100, 'k');
         battlePlayer3Type = "Merp";
         battlePlayer3State = "idle";
+        battlePlayer3MaxHP = 25;
         battlePlayer3HP = 25;
     //  battlePlayer1.image = imgPlayerBattle;
 
     //battlePlayer1 = new Sprite(100, 100, 50, 100, 'k');
         battlePlayer4Type = "Unkown";
         battlePlayer4State = "idle";
+        battlePlayer4MaxHP = 30;
         battlePlayer4HP = 30;
     //  battlePlayer1.image = imgPlayerBattle;
 
         battleEnemie1 = new Sprite(800, 100, 50, 100, 'k');
         battleEnemie1Type = "Glorb";
         battleEnemie1State = "idle";
+        battleEnemie1MaxHP = 40;
         battleEnemie1HP = 40;
         battleEnemie1.image = imgGlorbBattle;
+
+        battlePlayer2HPBarRed = new Sprite(100, 215, 100, 10, 'k');
+        battlePlayer2HPBarRed.color = '#720000'
+        battlePlayer2HPBarGreen = new Sprite(100, 215, battlePlayer2HP * (100/battlePlayer2MaxHP), 10, 'k');
+        battlePlayer2HPBarGreen.color = '#30ff7f'
+
 
         battleEnemie2 = new Sprite(650, 200, 50, 100, 'k');
         battleEnemie2Type = "Glorb";
         battleEnemie2State = "idle";
+        battleEnemie2MaxHP = 40;
         battleEnemie2HP = 40;
         battleEnemie2.image = imgGlorbBattle;
 
         battleEnemie3 = new Sprite(650, 400, 50, 100, 'k');
         battleEnemie3Type = "Glorb";
         battleEnemie3State = "idle";
+        battleEnemie3MaxHP = 40;
         battleEnemie3HP = 40;
         battleEnemie3.image = imgGlorbBattle;
 
         battleEnemie4 = new Sprite(800, 500, 50, 100, 'k');
         battleEnemie4Type = "Glorb";
         battleEnemie4State = "idle";
+        battleEnemie4MaxHP = 40;
         battleEnemie4HP = 40;
         battleEnemie4.image = imgGlorbBattle;
 
