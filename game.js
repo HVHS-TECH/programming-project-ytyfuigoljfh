@@ -19,13 +19,13 @@ var battleButtonHover = 1
 
 preload()
     function preload() {
-    imgFace = loadImage('/assets/images/Merp.svg');
-    imgPlayerBattle = loadImage('/assets/images/MerpBattle.svg');
-    imgUnkownBattle = loadImage('/assets/images/UnkownBattle.svg');
-    imgGlorbBattle = loadImage('/assets/images/GlorbBattleIdle.svg');
-    imgMerpTurnPlate = loadImage('/assets/images/turnPlates/MerpTurnPlate.svg');
-    imgUnkownTurnPlate = loadImage('/assets/images/turnPlates/UnkownTurnPlate.svg');
-    imgGlorbTurnPlate = loadImage('/assets/images/turnPlates/GlorbTurnPlate.svg');
+    imgFace = loadImage('assets/images/Merp.svg');
+    imgPlayerBattle = loadImage('assets/images/MerpBattle.svg');
+    imgUnkownBattle = loadImage('assets/images/UnkownBattle.svg');
+    imgGlorbBattle = loadImage('assets/images/GlorbBattleIdle.svg');
+    imgMerpTurnPlate = loadImage('assets/images/turnPlates/MerpTurnPlate.svg');
+    imgUnkownTurnPlate = loadImage('assets/images/turnPlates/UnkownTurnPlate.svg');
+    imgGlorbTurnPlate = loadImage('assets/images/turnPlates/GlorbTurnPlate.svg');
 
     musicTrobbioButItsTheWorldRevolving = loadSound('../assets/audio/music/Trobbio_but_its_THE_WORLD_REVOLVING__Tarro57.mp3')
 }
@@ -65,7 +65,7 @@ function setup() {
         shuffledBattleTurnArray = shuffle(battleTurnArray);
         console.log(shuffledBattleTurnArray)
 		battleTurn = shuffledBattleTurnArray[1]
-        musicTrobbioButItsTheWorldRevolving.loop()
+        //musicTrobbioButItsTheWorldRevolving.loop()
 
         battlePlayer1 = new Sprite(100, 100, 50, 100, 'k');
         battlePlayer1Type = "Merp";
@@ -78,6 +78,8 @@ function setup() {
         battlePlayer1HPBarRed.color = '#720000'
         battlePlayer1HPBarGreen = new Sprite(100, 35, battlePlayer1HP * (100/battlePlayer1MaxHP), 10, 'k');
         battlePlayer1HPBarGreen.color = '#30ff7f'
+        battlePlayer1HPBarRed.visible = false;
+        battlePlayer1HPBarGreen.visible = false;
 
 
         battlePlayer2 = new Sprite(100, 300, 50, 100, 'k');
@@ -91,6 +93,8 @@ function setup() {
         battlePlayer2HPBarRed.color = '#720000'
         battlePlayer2HPBarGreen = new Sprite(100, 215, battlePlayer2HP * (100/battlePlayer2MaxHP), 10, 'k');
         battlePlayer2HPBarGreen.color = '#30ff7f'
+        battlePlayer2HPBarRed.visible = false;
+        battlePlayer2HPBarGreen.visible = false;
 
         //battlePlayer1 = new Sprite(100, 100, 50, 100, 'k');
         battlePlayer3Type = "Merp";
@@ -104,7 +108,7 @@ function setup() {
         battlePlayer4State = "idle";
         battlePlayer4MaxHP = 30;
         battlePlayer4HP = 30;
-    //  battlePlayer1.image = imgPlayerBattle;
+    //  battlePlayer4.image = imgPlayerBattle;
 
         battleEnemie1 = new Sprite(800, 100, 50, 100, 'k');
         battleEnemie1Type = "Glorb";
@@ -117,6 +121,8 @@ function setup() {
         battleEnemie1HPBarRed.color = '#720000'
         battleEnemie1HPBarGreen = new Sprite(800, 25, battleEnemie1HP * (100/battleEnemie1MaxHP), 10, 'k');
         battleEnemie1HPBarGreen.color = '#30ff7f'
+        battleEnemie1HPBarRed.visible = false;
+        battleEnemie1HPBarGreen.visible = false;
 
 
         battleEnemie2 = new Sprite(650, 200, 50, 100, 'k');
@@ -130,6 +136,8 @@ function setup() {
         battleEnemie2HPBarRed.color = '#720000'
         battleEnemie2HPBarGreen = new Sprite(650, 125, battleEnemie2HP * (100/battleEnemie2MaxHP), 10, 'k');
         battleEnemie2HPBarGreen.color = '#30ff7f'
+        battleEnemie2HPBarRed.visible = false;
+        battleEnemie2HPBarGreen.visible = false;
 
 
         battleEnemie3 = new Sprite(650, 400, 50, 100, 'k');
@@ -143,6 +151,8 @@ function setup() {
         battleEnemie3HPBarRed.color = '#720000'
         battleEnemie3HPBarGreen = new Sprite(650, 325, battleEnemie3HP * (100/battleEnemie3MaxHP), 10, 'k');
         battleEnemie3HPBarGreen.color = '#30ff7f'
+        battleEnemie3HPBarRed.visible = false;
+        battleEnemie3HPBarGreen.visible = false;
 
 
         battleEnemie4 = new Sprite(800, 500, 50, 100, 'k');
@@ -313,7 +323,8 @@ function draw() {
         textSize(25);
         fill('#000000');
         text("Turn:", 888, 50);
-        text(battleChosenMove, 450, 50);
+        text(battleButtonHover, 450, 50);
+        text(battleChosenMove, 450, 100);
 
 		
         if (kb.pressed ('e')) {
@@ -321,9 +332,29 @@ function draw() {
         };
 
         if (kb.pressing ('h')) {
+            battlePlayer1HPBarRed.visible = true;
+            battlePlayer1HPBarGreen.visible = true;
+            battlePlayer2HPBarRed.visible = true;
+            battlePlayer2HPBarGreen.visible = true;
+            battleEnemie1HPBarRed.visible = true;
+            battleEnemie1HPBarGreen.visible = true;
+            battleEnemie2HPBarRed.visible = true;
+            battleEnemie2HPBarGreen.visible = true;
+            battleEnemie3HPBarRed.visible = true;
+            battleEnemie3HPBarGreen.visible = true;
             battleEnemie4HPBarRed.visible = true;
             battleEnemie4HPBarGreen.visible = true;
         } else {
+            battlePlayer1HPBarRed.visible = false;
+            battlePlayer1HPBarGreen.visible = false;
+            battlePlayer2HPBarRed.visible = false;
+            battlePlayer2HPBarGreen.visible = false;
+            battleEnemie1HPBarRed.visible = false;
+            battleEnemie1HPBarGreen.visible = false;
+            battleEnemie2HPBarRed.visible = false;
+            battleEnemie2HPBarGreen.visible = false;
+            battleEnemie3HPBarRed.visible = false;
+            battleEnemie3HPBarGreen.visible = false;
             battleEnemie4HPBarRed.visible = false;
             battleEnemie4HPBarGreen.visible = false;
         }
@@ -376,7 +407,20 @@ function draw() {
                 if (kb.pressed ('down')) {
                     battleButtonHover = battleButtonHover + 1
                 };
-            }
+            } else if ( inBattleMenu === "choseEnemie"){
+                if (kb.pressed('left')) {
+                    battleButtonHover = battleButtonHover - 1
+                };
+                if (kb.pressed ('right')) {
+                    battleButtonHover = battleButtonHover + 1
+                };
+                if (kb.pressed('up')) {
+                    battleButtonHover = battleButtonHover - 1
+                };
+                if (kb.pressed ('down')) {
+                    battleButtonHover = battleButtonHover + 1
+                };
+            };
 
             if (battleButtonHover === 1 && inBattleMenu === "base"){
                 attackButton.color = '#afafaf'
@@ -517,7 +561,7 @@ function draw() {
                 if (battleButtonHover < 1){
                     battleButtonHover = 3
                 }
-            }
+            };
 
             if (kb.pressed ('x') && battleButtonHover === 1 && inBattleMenu === "base") {
                 inBattleMenu = "attack"
@@ -548,6 +592,9 @@ function draw() {
 
             if (kb.pressed ('x') && battleButtonHover === 2 && inBattleMenu === "attack") {
                 battleChosenMove = "attack2"
+                inBattleMenu = "choseEnemie"
+                battleButtonHover = 1
+                choseEnemieToAttack()
             };
 
             if (kb.pressed ('x') && battleButtonHover === 3 && inBattleMenu === "attack") {
@@ -590,7 +637,7 @@ function draw() {
                 battleChosenMove = "talk3"
             };
 
-            if (kb.pressed ('z') && inBattleMenu !== "base") {
+            if (kb.pressed ('z') && (inBattleMenu !== "base" || inBattleMenu !== "choseEnemie")) {
                 if(inBattleMenu === "attack"){
                     battleButtonHover = 1
                 } else if(inBattleMenu === "spells"){
@@ -746,6 +793,10 @@ function battleSelectTalk(){
         talkOption3Button = new Sprite(200, 345, 70, 20, 'k');
         talkOption3Button.color = '#000000'
     }
+};
+
+function choseEnemieToAttack(){
+
 };
 
 function battleBackBase(){
