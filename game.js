@@ -19,13 +19,13 @@ var battleButtonHover = 1
 
 preload()
     function preload() {
-    imgFace = loadImage('assets/images/Merp.svg');
-    imgPlayerBattle = loadImage('assets/images/MerpBattle.svg');
-    imgUnkownBattle = loadImage('assets/images/UnkownBattle.svg');
-    imgGlorbBattle = loadImage('assets/images/GlorbBattleIdle.svg');
-    imgMerpTurnPlate = loadImage('assets/images/turnPlates/MerpTurnPlate.svg');
-    imgUnkownTurnPlate = loadImage('assets/images/turnPlates/UnkownTurnPlate.svg');
-    imgGlorbTurnPlate = loadImage('assets/images/turnPlates/GlorbTurnPlate.svg');
+    imgFace = loadImage('/assets/images/Merp.svg');
+    imgPlayerBattle = loadImage('/assets/images/MerpBattle.svg');
+    imgUnkownBattle = loadImage('/assets/images/UnkownBattle.svg');
+    imgGlorbBattle = loadImage('/assets/images/GlorbBattleIdle.svg');
+    imgMerpTurnPlate = loadImage('/assets/images/turnPlates/MerpTurnPlate.svg');
+    imgUnkownTurnPlate = loadImage('/assets/images/turnPlates/UnkownTurnPlate.svg');
+    imgGlorbTurnPlate = loadImage('/assets/images/turnPlates/GlorbTurnPlate.svg');
 
     musicTrobbioButItsTheWorldRevolving = loadSound('../assets/audio/music/Trobbio_but_its_THE_WORLD_REVOLVING__Tarro57.mp3')
 }
