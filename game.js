@@ -126,6 +126,12 @@ function setup() {
         battleEnemie2HP = 40;
         battleEnemie2.image = imgGlorbBattle;
 
+        battleEnemie2HPBarRed = new Sprite(650, 125, 100, 10, 'k');
+        battleEnemie2HPBarRed.color = '#720000'
+        battleEnemie2HPBarGreen = new Sprite(650, 125, battleEnemie2HP * (100/battleEnemie2MaxHP), 10, 'k');
+        battleEnemie2HPBarGreen.color = '#30ff7f'
+
+
         battleEnemie3 = new Sprite(650, 400, 50, 100, 'k');
         battleEnemie3Type = "Glorb";
         battleEnemie3State = "idle";
@@ -133,12 +139,26 @@ function setup() {
         battleEnemie3HP = 40;
         battleEnemie3.image = imgGlorbBattle;
 
+        battleEnemie3HPBarRed = new Sprite(650, 325, 100, 10, 'k');
+        battleEnemie3HPBarRed.color = '#720000'
+        battleEnemie3HPBarGreen = new Sprite(650, 325, battleEnemie3HP * (100/battleEnemie3MaxHP), 10, 'k');
+        battleEnemie3HPBarGreen.color = '#30ff7f'
+
+
         battleEnemie4 = new Sprite(800, 500, 50, 100, 'k');
         battleEnemie4Type = "Glorb";
         battleEnemie4State = "idle";
         battleEnemie4MaxHP = 40;
         battleEnemie4HP = 40;
         battleEnemie4.image = imgGlorbBattle;
+
+        battleEnemie4HPBarRed = new Sprite(800, 425, 100, 10, 'k');
+        battleEnemie4HPBarRed.color = '#720000'
+        battleEnemie4HPBarGreen = new Sprite(800, 425, battleEnemie4HP * (100/battleEnemie4MaxHP), 10, 'k');
+        battleEnemie4HPBarGreen.color = '#30ff7f'
+        battleEnemie4HPBarRed.visible = false;
+        battleEnemie4HPBarGreen.visible = false;
+
 
         if (battlePlayer1Type === "Merp") {
             battlePlayer1TypeImg = imgMerpTurnPlate;
@@ -299,6 +319,14 @@ function draw() {
         if (kb.pressed ('e')) {
             endTurn();
         };
+
+        if (kb.pressing ('h')) {
+            battleEnemie4HPBarRed.visible = true;
+            battleEnemie4HPBarGreen.visible = true;
+        } else {
+            battleEnemie4HPBarRed.visible = false;
+            battleEnemie4HPBarGreen.visible = false;
+        }
 
         if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1" || shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
 
