@@ -103,7 +103,7 @@ function setup() {
         battlePlayer3HP = 25;
     //  battlePlayer1.image = imgPlayerBattle;
 
-    //battlePlayer1 = new Sprite(100, 100, 50, 100, 'k');
+        //battlePlayer1 = new Sprite(100, 100, 50, 100, 'k');
         battlePlayer4Type = "Unkown";
         battlePlayer4State = "idle";
         battlePlayer4MaxHP = 30;
