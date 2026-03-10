@@ -434,16 +434,16 @@ function draw() {
                 };
             } else if ( inBattleMenu === "choseEnemie"){
                 if (kb.pressed('left')) {
-                    battleButtonHover = battleButtonHover - 1
+                    changeBattleButtonHoverEnemie(-1)
                 };
                 if (kb.pressed ('right')) {
-                    battleButtonHover = battleButtonHover + 1
+                    changeBattleButtonHoverEnemie(1)
                 };
                 if (kb.pressed('up')) {
-                    battleButtonHover = battleButtonHover - 1
+                    changeBattleButtonHoverEnemie(-1)
                 };
                 if (kb.pressed ('down')) {
-                    battleButtonHover = battleButtonHover + 1
+                    changeBattleButtonHoverEnemie(1)
                 };
             };
 
@@ -608,6 +608,15 @@ function draw() {
                 if (battleButtonHover < 1){
                     battleButtonHover = 3
                 }
+            } else if (inBattleMenu === "choseEnemie"){
+                if (battleButtonHover > 4){
+                    battleButtonHover = 0
+                    changeBattleButtonHoverEnemie(1)
+                }
+                if (battleButtonHover < 1){
+                    battleButtonHover = 5
+                    changeBattleButtonHoverEnemie(-1)
+                }
             };
 
             if (kb.pressed ('x') && battleButtonHover === 1 && inBattleMenu === "base") {
@@ -640,7 +649,8 @@ function draw() {
             if (kb.pressed ('x') && battleButtonHover === 2 && inBattleMenu === "attack") {
                 battleChosenMove = "attack2"
                 inBattleMenu = "choseEnemie"
-                battleButtonHover = 1
+                battleButtonHover = 0
+                changeBattleButtonHoverEnemie(1)
                 choseEnemieToAttack()
             };
 
@@ -878,6 +888,37 @@ function battleSelectTalk(){
 
 function choseEnemieToAttack(){
 
+};
+
+function changeBattleButtonHoverEnemie(amount){
+    battleButtonHover = battleButtonHover + amount;
+    if(amount > 0){
+        if(battleButtonHover === 1 && battleEnemie1HP === 0){
+            changeBattleButtonHoverEnemie(1)
+        }
+        if(battleButtonHover === 2 && battleEnemie2HP === 0){
+            changeBattleButtonHoverEnemie(1)
+        }
+        if(battleButtonHover === 3 && battleEnemie3HP === 0){
+            changeBattleButtonHoverEnemie(1)
+        }
+        if(battleButtonHover === 4 && battleEnemie4HP === 0){
+            changeBattleButtonHoverEnemie(1)
+        }
+    } else if (amount < 0){
+        if(battleButtonHover === 1 && battleEnemie1HP === 0){
+            changeBattleButtonHoverEnemie(-1)
+        }
+        if(battleButtonHover === 2 && battleEnemie2HP === 0){
+            changeBattleButtonHoverEnemie(-1)
+        }
+        if(battleButtonHover === 3 && battleEnemie3HP === 0){
+            changeBattleButtonHoverEnemie(-1)
+        }
+        if(battleButtonHover === 4 && battleEnemie4HP === 0){
+            changeBattleButtonHoverEnemie(-1)
+        }
+    }
 };
 
 function battleBackBase(){
