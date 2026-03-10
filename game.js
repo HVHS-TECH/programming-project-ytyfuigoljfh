@@ -644,6 +644,10 @@ function draw() {
 
             if (kb.pressed ('x') && battleButtonHover === 1 && inBattleMenu === "attack") {
                 battleChosenMove = "attack1"
+                //inBattleMenu = "choseEnemie"
+                //battleButtonHover = 0
+                //changeBattleButtonHoverEnemie(1)
+                //choseEnemieToAttack()
             };
 
             if (kb.pressed ('x') && battleButtonHover === 2 && inBattleMenu === "attack") {
@@ -656,18 +660,34 @@ function draw() {
 
             if (kb.pressed ('x') && battleButtonHover === 3 && inBattleMenu === "attack") {
                 battleChosenMove = "attack3"
+                inBattleMenu = "choseEnemie"
+                battleButtonHover = 0
+                changeBattleButtonHoverEnemie(1)
+                choseEnemieToAttack()
             };
 
             if (kb.pressed ('x') && battleButtonHover === 4 && inBattleMenu === "attack") {
                 battleChosenMove = "attack4"
+                inBattleMenu = "choseEnemie"
+                battleButtonHover = 0
+                changeBattleButtonHoverEnemie(1)
+                choseEnemieToAttack()
             };
 
             if (kb.pressed ('x') && battleButtonHover === 5 && inBattleMenu === "attack") {
                 battleChosenMove = "attack5"
+                inBattleMenu = "choseEnemie"
+                battleButtonHover = 0
+                changeBattleButtonHoverEnemie(1)
+                choseEnemieToAttack()
             };
 
             if (kb.pressed ('x') && battleButtonHover === 6 && inBattleMenu === "attack") {
                 battleChosenMove = "attack6"
+                inBattleMenu = "choseEnemie"
+                battleButtonHover = 0
+                changeBattleButtonHoverEnemie(1)
+                choseEnemieToAttack()
             };
 
             if (kb.pressed ('x') && battleButtonHover === 1 && inBattleMenu === "spells") {
@@ -696,18 +716,30 @@ function draw() {
 
             if (kb.pressed ('x') && battleButtonHover === 1 && inBattleMenu === "choseEnemie") {
                 battleEnemie1HP = battleEnemie1HP - 5
+                //battleBackAttack()
+               // battleBackBase()
+                //endTurn()
             };
 
             if (kb.pressed ('x') && battleButtonHover === 2 && inBattleMenu === "choseEnemie") {
                 battleEnemie2HP = battleEnemie2HP - 5
+                battleBackAttack()
+                battleBackBase()
+                endTurn()
             };
 
             if (kb.pressed ('x') && battleButtonHover === 3 && inBattleMenu === "choseEnemie") {
                 battleEnemie3HP = battleEnemie3HP - 5
+                battleBackAttack()
+                battleBackBase()
+                endTurn()
             };
 
             if (kb.pressed ('x') && battleButtonHover === 4 && inBattleMenu === "choseEnemie") {
                 battleEnemie4HP = battleEnemie4HP - 5
+                battleBackAttack()
+                battleBackBase()
+                endTurn()
             };
 
             if (kb.pressed ('z') && (inBattleMenu !== "base" && inBattleMenu !== "choseEnemie")) {
@@ -728,7 +760,7 @@ function draw() {
                 } else if(battleChosenMove === "attack2"){
                     battleButtonHover = 2
                 } else if(battleChosenMove === "attack3"){
-                    battleButtonHover = 2
+                    battleButtonHover = 3
                 } else if(battleChosenMove === "attack4"){
                     battleButtonHover = 4
                 } else if(battleChosenMove === "attack5"){
@@ -938,6 +970,7 @@ function battleBackBase(){
         talkOption2Button.remove();
         talkOption3Button.remove();
     };
+    inBattleMenu = "base"
 }
 
 function battleBackAttack(){
@@ -945,6 +978,7 @@ function battleBackAttack(){
     battleEnemie2.tint = 255
     battleEnemie3.tint = 255
     battleEnemie4.tint = 255
+    inBattleMenu = "attack"
 }
 
 function startTurn(){
