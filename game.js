@@ -62,7 +62,9 @@ function setup() {
         battleButtonHover = 1
 		inBattleMenu === "base"
         battleTotalTurn = 0
+        enemiesAndPlayersInBattleArray = ['p1', 'p2', 'e1', 'e2', 'e3', 'e4']
         shuffledBattleTurnArray = shuffle(battleTurnArray);
+        //shuffledBattleTurnArray.splice()
         console.log(shuffledBattleTurnArray)
 		battleTurn = shuffledBattleTurnArray[1]
         musicTrobbioButItsTheWorldRevolving.loop()
@@ -324,6 +326,7 @@ function draw() {
         fill('#000000');
         text("Turn:", 888, 50);
         text(battleButtonHover, 450, 50);
+        text(battleTotalTurn, 500, 50);
         text(battleChosenMove, 450, 100);
 
         battlePlayer1HPBarGreen.width = battlePlayer1HP * (100/battlePlayer1MaxHP);
@@ -619,34 +622,12 @@ function draw() {
                 }
             };
 
-            if (kb.pressed ('x') && battleButtonHover === 1 && inBattleMenu === "base") {
-                inBattleMenu = "attack"
-                battleButtonHover = 1
-                battleSelectAttack()
-            };
-
-            if (kb.pressed ('x') && battleButtonHover === 2 && inBattleMenu === "base") {
-                battleChosenMove = "defend"
-                endTurn()
-            };
-
-            if (kb.pressed ('x') && battleButtonHover === 3 && inBattleMenu === "base") {
-                inBattleMenu = "spells"
-                battleButtonHover = 1
-                battleSelectSpell()
-            };
-
-            if (kb.pressed ('x') && battleButtonHover === 4 && inBattleMenu === "base") {
-                inBattleMenu = "talk"
-                battleButtonHover = 1
-                battleSelectTalk()
-            };
 
             if (kb.pressed ('x') && battleButtonHover === 1 && inBattleMenu === "choseEnemie") {
                 battleEnemie1HP = battleEnemie1HP - 5
-                //battleBackAttack()
-               // battleBackBase()
-                //endTurn()
+                battleBackAttack()
+                battleBackBase()
+                endTurn()
             };
 
             if (kb.pressed ('x') && battleButtonHover === 2 && inBattleMenu === "choseEnemie") {
@@ -672,10 +653,10 @@ function draw() {
 
             if (kb.pressed ('x') && battleButtonHover === 1 && inBattleMenu === "attack") {
                 battleChosenMove = "attack1"
-                //inBattleMenu = "choseEnemie"
-                //battleButtonHover = 0
-                //changeBattleButtonHoverEnemie(1)
-                //choseEnemieToAttack()
+                inBattleMenu = "choseEnemie"
+                battleButtonHover = 0
+                changeBattleButtonHoverEnemie(1)
+                choseEnemieToAttack()
             };
 
             if (kb.pressed ('x') && battleButtonHover === 2 && inBattleMenu === "attack") {
@@ -742,6 +723,29 @@ function draw() {
                 battleChosenMove = "talk3"
             };
 
+            if (kb.pressed ('x') && battleButtonHover === 1 && inBattleMenu === "base") {
+                inBattleMenu = "attack"
+                battleButtonHover = 1
+                battleSelectAttack()
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 2 && inBattleMenu === "base") {
+                battleChosenMove = "defend"
+                endTurn()
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 3 && inBattleMenu === "base") {
+                inBattleMenu = "spells"
+                battleButtonHover = 1
+                battleSelectSpell()
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 4 && inBattleMenu === "base") {
+                inBattleMenu = "talk"
+                battleButtonHover = 1
+                battleSelectTalk()
+            };
+
 
             if (kb.pressed ('z') && (inBattleMenu !== "base" && inBattleMenu !== "choseEnemie")) {
                 if(inBattleMenu === "attack"){
@@ -793,42 +797,81 @@ function draw() {
             battleTurnMarker1.image =  battleEnemie4TypeImg
         };
 
-        if (shuffledBattleTurnArray[1 + battleTotalTurn] === "p1"){
-            battleTurnMarker2.image = battlePlayer1TypeImg 
-        } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "p2"){
-            battleTurnMarker2.image = battlePlayer2TypeImg
-        } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "p3"){
-            battleTurnMarker2.image = battlePlayer3TypeImg
-        } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "p4"){
-            battleTurnMarker2.image =  battlePlayer4TypeImg
-        } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "e1"){
-            battleTurnMarker2.image = battleEnemie1TypeImg
-        } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "e2"){
-            battleTurnMarker2.image = battleEnemie2TypeImg
-        } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "e3"){
-            battleTurnMarker2.image =  battleEnemie3TypeImg
-        } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "e4"){
-            battleTurnMarker2.image =  battleEnemie4TypeImg
+        if((1 + battleTotalTurn) < shuffledBattleTurnArray.length){
+            if (shuffledBattleTurnArray[1 + battleTotalTurn] === "p1"){
+                battleTurnMarker2.image = battlePlayer1TypeImg 
+            } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "p2"){
+                battleTurnMarker2.image = battlePlayer2TypeImg
+            } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "p3"){
+                battleTurnMarker2.image = battlePlayer3TypeImg
+            } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "p4"){
+                battleTurnMarker2.image =  battlePlayer4TypeImg
+            } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "e1"){
+                battleTurnMarker2.image = battleEnemie1TypeImg
+            } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "e2"){
+                battleTurnMarker2.image = battleEnemie2TypeImg
+            } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "e3"){
+                battleTurnMarker2.image =  battleEnemie3TypeImg
+            } else if (shuffledBattleTurnArray[1 + battleTotalTurn] === "e4"){
+                battleTurnMarker2.image =  battleEnemie4TypeImg
+            };
+        } else if((1 + battleTotalTurn) > (shuffledBattleTurnArray.length - 1)){
+            if (shuffledBattleTurnArray[(1 + battleTotalTurn) - shuffledBattleTurnArray.length] === "p1"){
+                battleTurnMarker2.image = battlePlayer1TypeImg 
+            } else if (shuffledBattleTurnArray[(1 + battleTotalTurn) - shuffledBattleTurnArray.length] === "p2"){
+                battleTurnMarker2.image = battlePlayer2TypeImg
+            } else if (shuffledBattleTurnArray[(1 + battleTotalTurn) - shuffledBattleTurnArray.length] === "p3"){
+                battleTurnMarker2.image = battlePlayer3TypeImg
+            } else if (shuffledBattleTurnArray[(1 + battleTotalTurn) - shuffledBattleTurnArray.length] === "p4"){
+                battleTurnMarker2.image =  battlePlayer4TypeImg
+            } else if (shuffledBattleTurnArray[(1 + battleTotalTurn) - shuffledBattleTurnArray.length] === "e1"){
+                battleTurnMarker2.image = battleEnemie1TypeImg
+            } else if (shuffledBattleTurnArray[(1 + battleTotalTurn) - shuffledBattleTurnArray.length] === "e2"){
+                battleTurnMarker2.image = battleEnemie2TypeImg
+            } else if (shuffledBattleTurnArray[(1 + battleTotalTurn) - shuffledBattleTurnArray.length] === "e3"){
+                battleTurnMarker2.image =  battleEnemie3TypeImg
+            } else if (shuffledBattleTurnArray[(1 + battleTotalTurn) - shuffledBattleTurnArray.length] === "e4"){
+                battleTurnMarker2.image =  battleEnemie4TypeImg
+            };
         };
 
-        if (shuffledBattleTurnArray[2 + battleTotalTurn] === "p1"){
-            battleTurnMarker3.image = battlePlayer1TypeImg 
-        } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "p2"){
-            battleTurnMarker3.image = battlePlayer2TypeImg
-        } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "p3"){
-            battleTurnMarker3.image = battlePlayer3TypeImg
-        } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "p4"){
-            battleTurnMarker3.image =  battlePlayer4TypeImg
-        } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "e1"){
-            battleTurnMarker3.image = battleEnemie1TypeImg
-        } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "e2"){
-            battleTurnMarker3.image = battleEnemie2TypeImg
-        } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "e3"){
-            battleTurnMarker3.image =  battleEnemie3TypeImg
-        } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "e4"){
-            battleTurnMarker3.image =  battleEnemie4TypeImg
+        if((2 + battleTotalTurn) < shuffledBattleTurnArray.length){
+            if (shuffledBattleTurnArray[2 + battleTotalTurn] === "p1"){
+                battleTurnMarker3.image = battlePlayer1TypeImg 
+            } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "p2"){
+                battleTurnMarker3.image = battlePlayer2TypeImg
+            } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "p3"){
+                battleTurnMarker3.image = battlePlayer3TypeImg
+            } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "p4"){
+                battleTurnMarker3.image =  battlePlayer4TypeImg
+            } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "e1"){
+                battleTurnMarker3.image = battleEnemie1TypeImg
+            } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "e2"){
+                battleTurnMarker3.image = battleEnemie2TypeImg
+            } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "e3"){
+                battleTurnMarker3.image =  battleEnemie3TypeImg
+            } else if (shuffledBattleTurnArray[2 + battleTotalTurn] === "e4"){
+                battleTurnMarker3.image =  battleEnemie4TypeImg
+            };
+        } else if((2 + battleTotalTurn) > (shuffledBattleTurnArray.length - 1)){
+            if (shuffledBattleTurnArray[(2 + battleTotalTurn) - shuffledBattleTurnArray.length] === "p1"){
+                battleTurnMarker3.image = battlePlayer1TypeImg 
+            } else if (shuffledBattleTurnArray[(2 + battleTotalTurn) - shuffledBattleTurnArray.length] === "p2"){
+                battleTurnMarker3.image = battlePlayer2TypeImg
+            } else if (shuffledBattleTurnArray[(2 + battleTotalTurn) - shuffledBattleTurnArray.length] === "p3"){
+                battleTurnMarker3.image = battlePlayer3TypeImg
+            } else if (shuffledBattleTurnArray[(2 + battleTotalTurn) - shuffledBattleTurnArray.length] === "p4"){
+                battleTurnMarker3.image =  battlePlayer4TypeImg
+            } else if (shuffledBattleTurnArray[(2 + battleTotalTurn) - shuffledBattleTurnArray.length] === "e1"){
+                battleTurnMarker3.image = battleEnemie1TypeImg
+            } else if (shuffledBattleTurnArray[(2 + battleTotalTurn) - shuffledBattleTurnArray.length] === "e2"){
+                battleTurnMarker3.image = battleEnemie2TypeImg
+            } else if (shuffledBattleTurnArray[(2 + battleTotalTurn) - shuffledBattleTurnArray.length] === "e3"){
+                battleTurnMarker3.image =  battleEnemie3TypeImg
+            } else if (shuffledBattleTurnArray[(2 + battleTotalTurn) - shuffledBattleTurnArray.length] === "e4"){
+                battleTurnMarker3.image =  battleEnemie4TypeImg
+            };
         };
-
 
     }
 
@@ -1011,7 +1054,7 @@ function endTurn(){
         battleButtonHover = 0
     }
     battleTotalTurn = battleTotalTurn + 1
-    if(battleTotalTurn > shuffledBattleTurnArray.length){
+    if(battleTotalTurn > (shuffledBattleTurnArray.length - 1)){
         battleTotalTurn = 0
     };
     startTurn()
