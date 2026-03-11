@@ -642,6 +642,34 @@ function draw() {
                 battleSelectTalk()
             };
 
+            if (kb.pressed ('x') && battleButtonHover === 1 && inBattleMenu === "choseEnemie") {
+                battleEnemie1HP = battleEnemie1HP - 5
+                //battleBackAttack()
+               // battleBackBase()
+                //endTurn()
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 2 && inBattleMenu === "choseEnemie") {
+                battleEnemie2HP = battleEnemie2HP - 5
+                battleBackAttack()
+                battleBackBase()
+                endTurn()
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 3 && inBattleMenu === "choseEnemie") {
+                battleEnemie3HP = battleEnemie3HP - 5
+                battleBackAttack()
+                battleBackBase()
+                endTurn()
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 4 && inBattleMenu === "choseEnemie") {
+                battleEnemie4HP = battleEnemie4HP - 5
+                battleBackAttack()
+                battleBackBase()
+                endTurn()
+            };
+
             if (kb.pressed ('x') && battleButtonHover === 1 && inBattleMenu === "attack") {
                 battleChosenMove = "attack1"
                 //inBattleMenu = "choseEnemie"
@@ -714,33 +742,6 @@ function draw() {
                 battleChosenMove = "talk3"
             };
 
-            if (kb.pressed ('x') && battleButtonHover === 1 && inBattleMenu === "choseEnemie") {
-                battleEnemie1HP = battleEnemie1HP - 5
-                //battleBackAttack()
-               // battleBackBase()
-                //endTurn()
-            };
-
-            if (kb.pressed ('x') && battleButtonHover === 2 && inBattleMenu === "choseEnemie") {
-                battleEnemie2HP = battleEnemie2HP - 5
-                battleBackAttack()
-                battleBackBase()
-                endTurn()
-            };
-
-            if (kb.pressed ('x') && battleButtonHover === 3 && inBattleMenu === "choseEnemie") {
-                battleEnemie3HP = battleEnemie3HP - 5
-                battleBackAttack()
-                battleBackBase()
-                endTurn()
-            };
-
-            if (kb.pressed ('x') && battleButtonHover === 4 && inBattleMenu === "choseEnemie") {
-                battleEnemie4HP = battleEnemie4HP - 5
-                battleBackAttack()
-                battleBackBase()
-                endTurn()
-            };
 
             if (kb.pressed ('z') && (inBattleMenu !== "base" && inBattleMenu !== "choseEnemie")) {
                 if(inBattleMenu === "attack"){
@@ -1010,6 +1011,9 @@ function endTurn(){
         battleButtonHover = 0
     }
     battleTotalTurn = battleTotalTurn + 1
+    if(battleTotalTurn > shuffledBattleTurnArray.length){
+        battleTotalTurn = 0
+    };
     startTurn()
 }
 
