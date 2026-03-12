@@ -64,7 +64,40 @@ function setup() {
         battleTotalTurn = 0
         enemiesAndPlayersInBattleArray = ['p1', 'p2', 'e1', 'e2', 'e3', 'e4']
         shuffledBattleTurnArray = shuffle(battleTurnArray);
-        //shuffledBattleTurnArray.splice()
+
+        if (!enemiesAndPlayersInBattleArray.includes('p1')){
+            shuffledBattleTurnArrayP1Place = shuffledBattleTurnArray.indexOf('p1')
+            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayP1Place, 1)
+        };
+        if (!enemiesAndPlayersInBattleArray.includes('p2')){
+            shuffledBattleTurnArrayP2Place = shuffledBattleTurnArray.indexOf('p2')
+            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayP2Place, 1)
+        };
+        if (!enemiesAndPlayersInBattleArray.includes('p3')){
+            shuffledBattleTurnArrayP3Place = shuffledBattleTurnArray.indexOf('p3')
+            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayP3Place, 1)
+        };
+        if (!enemiesAndPlayersInBattleArray.includes('p4')){
+            shuffledBattleTurnArrayP4Place = shuffledBattleTurnArray.indexOf('p4')
+            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayP4Place, 1)
+        };
+        if (!enemiesAndPlayersInBattleArray.includes('e1')){
+            shuffledBattleTurnArrayE1Place = shuffledBattleTurnArray.indexOf('e1')
+            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayE1Place, 1)
+        };
+        if (!enemiesAndPlayersInBattleArray.includes('e2')){
+            shuffledBattleTurnArrayE2Place = shuffledBattleTurnArray.indexOf('e2')
+            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayE2Place, 1)
+        };
+        if (!enemiesAndPlayersInBattleArray.includes('e3')){
+            shuffledBattleTurnArrayE3Place = shuffledBattleTurnArray.indexOf('e3')
+            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayE3Place, 1)
+        };
+        if (!enemiesAndPlayersInBattleArray.includes('e4')){
+            shuffledBattleTurnArrayE4Place = shuffledBattleTurnArray.indexOf('e4')
+            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayE4Place, 1)
+        };
+
         console.log(shuffledBattleTurnArray)
 		battleTurn = shuffledBattleTurnArray[1]
         musicTrobbioButItsTheWorldRevolving.loop()
