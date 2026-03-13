@@ -27,7 +27,17 @@ preload()
     imgUnkownTurnPlate = loadImage('assets/images/turnPlates/UnkownTurnPlate.svg');
     imgGlorbTurnPlate = loadImage('assets/images/turnPlates/GlorbTurnPlate.svg');
 
+    imgAttackButtonOff = loadImage('assets/images/buttons/base/AttackButton1.svg');
+    imgAttackButtonOn = loadImage('assets/images/buttons/base/AttackButton2.svg');
+    imgDefendButtonOff = loadImage('assets/images/buttons/base/DefendButton1.svg');
+    imgDefendButtonOn = loadImage('assets/images/buttons/base/DefendButton2.svg');
+    imgTalkButtonOff = loadImage('assets/images/buttons/base/TalkButton1.svg');
+    imgTalkButtonOn = loadImage('assets/images/buttons/base/TalkButton2.svg');
+    imgSpellButtonOff = loadImage('assets/images/buttons/base/SpellButton1.svg');
+    imgSpellButtonOn = loadImage('assets/images/buttons/base/SpellButton2.svg');
+
     musicTrobbioButItsTheWorldRevolving = loadSound('assets/audio/music/Trobbio_but_its_THE_WORLD_REVOLVING__Tarro57.mp3')
+    musicDeltaruneUstEverAscending = loadSound('assets/audio/music/Deltarune_UST__Ever_Ascending_lexxiemow.mp3')
 }
 
 
@@ -59,6 +69,7 @@ function setup() {
         _player.remove();
         mapGroup.remove();
         inBattle = 1
+        battleMusic = musicDeltaruneUstEverAscending
         battleButtonHover = 1
 		inBattleMenu === "base"
         battleTotalTurn = 0
@@ -100,7 +111,9 @@ function setup() {
 
         console.log(shuffledBattleTurnArray)
 		battleTurn = shuffledBattleTurnArray[1]
-        musicTrobbioButItsTheWorldRevolving.loop()
+        //musicTrobbioButItsTheWorldRevolving.loop()
+        //musicDeltaruneUstEverAscending.loop()
+        battleMusic.loop()
 
         battlePlayer1 = new Sprite(100, 100, 50, 100, 'k');
         battlePlayer1Type = "Merp";
@@ -496,41 +509,41 @@ function draw() {
             };
 
             if (battleButtonHover === 1 && inBattleMenu === "base"){
-                attackButton.color = '#afafaf'
-                defendButton.color = '#000000'
-                talkButton.color = '#000000'
-                spellButton.color = '#000000'
+                attackButton.image = imgAttackButtonOn;
+                defendButton.image = imgDefendButtonOff;
+                talkButton.image = imgTalkButtonOff;
+                spellButton.image = imgSpellButtonOff;
             } else if(battleButtonHover === 2 && inBattleMenu === "base") {
-                attackButton.color = '#000000'
-                defendButton.color = '#afafaf'
-                talkButton.color = '#000000'
-                spellButton.color = '#000000'
+                attackButton.image = imgAttackButtonOff;
+                defendButton.image = imgDefendButtonOn;
+                talkButton.image = imgTalkButtonOff;
+                spellButton.image = imgSpellButtonOff;
             } else if (battleButtonHover === 3 && inBattleMenu === "base") {
-                attackButton.color = '#000000'
-                defendButton.color = '#000000'
-                talkButton.color = '#afafaf'
-                spellButton.color = '#000000'
+                attackButton.image = imgAttackButtonOff;
+                defendButton.image = imgDefendButtonOff;
+                talkButton.image = imgTalkButtonOn;
+                spellButton.image = imgSpellButtonOff;
             } else if (battleButtonHover === 4 && inBattleMenu === "base") {
-                attackButton.color = '#000000'
-                defendButton.color = '#000000'
-                talkButton.color = '#000000'
-                spellButton.color = '#afafaf'
+                attackButton.image = imgAttackButtonOff;
+                defendButton.image = imgDefendButtonOff;
+                talkButton.image = imgTalkButtonOff;
+                spellButton.image = imgSpellButtonOn;
             } else if(inBattleMenu === "attack") {
-                attackButton.color = '#afafaf'
-                defendButton.color = '#000000'
-                talkButton.color = '#000000'
-                spellButton.color = '#000000'
-            } else if(inBattleMenu === "spells") {
-                attackButton.color = '#000000'
-                defendButton.color = '#000000'
-                talkButton.color = '#afafaf'
-                spellButton.color = '#000000'
+                attackButton.image = imgAttackButtonOn;
+                defendButton.image = imgDefendButtonOff;
+                talkButton.image = imgTalkButtonOff;
+                spellButton.image = imgSpellButtonOff;
             } else if(inBattleMenu === "talk") {
-                attackButton.color = '#000000'
-                defendButton.color = '#000000'
-                talkButton.color = '#000000'
-                spellButton.color = '#afafaf'
-            }
+                attackButton.image = imgAttackButtonOff;
+                defendButton.image = imgDefendButtonOff;
+                talkButton.image = imgTalkButtonOn;
+                spellButton.image = imgSpellButtonOff;
+            } else if(inBattleMenu === "spells") {
+                attackButton.image = imgAttackButtonOff;
+                defendButton.image = imgDefendButtonOff;
+                talkButton.image = imgTalkButtonOff;
+                spellButton.image = imgSpellButtonOn;
+            };
 
             if (battleButtonHover === 1 && inBattleMenu === "attack"){
                 attackOption1Button.color = '#afafaf'
@@ -780,24 +793,24 @@ function draw() {
             };
 
             if (kb.pressed ('x') && battleButtonHover === 3 && inBattleMenu === "base") {
-                inBattleMenu = "spells"
-                battleButtonHover = 1
-                battleSelectSpell()
-            };
-
-            if (kb.pressed ('x') && battleButtonHover === 4 && inBattleMenu === "base") {
                 inBattleMenu = "talk"
                 battleButtonHover = 1
                 battleSelectTalk()
+            };
+
+            if (kb.pressed ('x') && battleButtonHover === 4 && inBattleMenu === "base") {
+                inBattleMenu = "spells"
+                battleButtonHover = 1
+                battleSelectSpell()
             };
 
 
             if (kb.pressed ('z') && (inBattleMenu !== "base" && inBattleMenu !== "choseEnemie")) {
                 if(inBattleMenu === "attack"){
                     battleButtonHover = 1
-                } else if(inBattleMenu === "spells"){
-                    battleButtonHover = 3
                 } else if(inBattleMenu === "talk"){
+                    battleButtonHover = 3
+                } else if(inBattleMenu === "spells"){
                     battleButtonHover = 4
                 };
                 battleBackBase()
@@ -1077,12 +1090,32 @@ function startTurn(){
         defendButton = new Sprite(90, 170, 15, 15, 'k');
         talkButton = new Sprite(110, 170, 15, 15, 'k');    
         spellButton = new Sprite(130, 170, 15, 15, 'k');
+
+        attackButton.image = imgAttackButtonOff;
+        defendButton.image = imgDefendButtonOff;
+        talkButton.image = imgTalkButtonOff;
+        spellButton.image = imgSpellButtonOff;
+
+        attackButton.scale = 1.25;
+        defendButton.scale = 1.25;
+        talkButton.scale = 1.25;
+        spellButton.scale = 1.25;
     } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
         battleButtonHover = 1
         attackButton = new Sprite(70, 400, 15, 15, 'k');
         defendButton = new Sprite(90, 400, 15, 15, 'k');
         talkButton = new Sprite(110, 400, 15, 15, 'k');    
         spellButton = new Sprite(130, 400, 15, 15, 'k');
+
+        attackButton.image = imgAttackButtonOff;
+        defendButton.image = imgDefendButtonOff;
+        talkButton.image = imgTalkButtonOff;
+        spellButton.image = imgSpellButtonOff;
+
+        attackButton.scale = 1.25;
+        defendButton.scale = 1.25;
+        talkButton.scale = 1.25;
+        spellButton.scale = 1.25;
     }
 };
 
