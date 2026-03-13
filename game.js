@@ -373,18 +373,30 @@ function draw() {
 
         if(battleEnemie1HP === 0){
             battleEnemie1.visible = false
+            if(shuffledBattleTurnArray.includes('e1')){
+                shuffledBattleTurnArray.splice(shuffledBattleTurnArray.indexOf('e1'), 1)
+            };
         };
 
         if(battleEnemie2HP === 0){
             battleEnemie2.visible = false
+            if(shuffledBattleTurnArray.includes('e2')){
+                shuffledBattleTurnArray.splice(shuffledBattleTurnArray.indexOf('e2'), 1)
+            };
         };
 
         if(battleEnemie3HP === 0){
             battleEnemie3.visible = false
+            if(shuffledBattleTurnArray.includes('e3')){
+                shuffledBattleTurnArray.splice(shuffledBattleTurnArray.indexOf('e3'), 1)
+            };
         };
 
         if(battleEnemie4HP === 0){
             battleEnemie4.visible = false
+            if(shuffledBattleTurnArray.includes('e4')){
+                shuffledBattleTurnArray.splice(shuffledBattleTurnArray.indexOf('e4'), 1)
+            };
         };
 
 		
