@@ -1289,6 +1289,7 @@ async function startTurn(){
 
 async function startEnemieTurn(enemieNum){
     enemieAttackPlayerNum = battleAlivePlayersArray[Math.floor(Math.random()*battleAlivePlayersArray.length)];
+    playAnimation("attack", enemieNum)
     if(enemieAttackPlayerNum === 'p1'){
         await delay(100);
         battlePlayer1HPBarGreen.visible = true;
@@ -1330,6 +1331,7 @@ async function startEnemieTurn(enemieNum){
         battlePlayer4HPBarRed.visible = false;
 
     };
+    playAnimation("idle", enemieNum)
     endTurn();
 };
 
@@ -1362,6 +1364,42 @@ function halfEndTurn(){
         inBattleMenu = "halfEnd"
         battleButtonHover = 0
     };
+};
+
+async function playAnimation(animation, id) {
+  if(id === "e1"){
+    if(battleEnemie1Type === "Dug"){
+        if(animation === "idle"){
+            battleEnemie1.image = imgDugBattle;
+        } else if(animation === "attack"){
+            battleEnemie1.image = imgDugBattleAttack;
+        };
+    };
+  } else if(id === "e2"){
+    if(battleEnemie2Type === "Dug"){
+        if(animation === "idle"){
+            battleEnemie2.image = imgDugBattle;
+        } else if(animation === "attack"){
+            battleEnemie2.image = imgDugBattleAttack;
+        };
+    };
+  } else if(id === "e3"){
+    if(battleEnemie3Type === "Dug"){
+        if(animation === "idle"){
+            battleEnemie3.image = imgDugBattle;
+        } else if(animation === "attack"){
+            battleEnemie3.image = imgDugBattleAttack;
+        };
+    };
+  } else if(id === "e4"){
+    if(battleEnemie4Type === "Dug"){
+        if(animation === "idle"){
+            battleEnemie4.image = imgDugBattle;
+        } else if(animation === "attack"){
+            battleEnemie4.image = imgDugBattleAttack;
+        };
+    };
+  }
 };
 
 /*******************************************************/
