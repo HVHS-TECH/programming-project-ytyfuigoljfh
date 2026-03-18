@@ -25,6 +25,8 @@ preload()
     imgUnkownBattle = loadImage('assets/images/UnkownBattle.svg');
     imgGlorbBattle = loadImage('assets/images/GlorbBattleIdle.svg');
     imgTrueSaviorBattle = loadImage('assets/images/TrueSaviorBattleIdle.svg');
+    imgDugBattle = loadImage('assets/images/DugBattleIdle.svg');
+    imgDugBattleAttack = loadImage('assets/images/DugBattleAttack.svg');
     imgMerpTurnPlate = loadImage('assets/images/turnPlates/MerpTurnPlate.svg');
     imgUnkownTurnPlate = loadImage('assets/images/turnPlates/UnkownTurnPlate.svg');
     imgGlorbTurnPlate = loadImage('assets/images/turnPlates/GlorbTurnPlate.svg');
@@ -55,6 +57,7 @@ function setup() {
     var unkownMaxHP = 35;
 
     var defaultGlorbMaxHP = 40
+    var defaultDugMaxHP = 15
     var defaultTrueSaviorMaxHP = 200
 
     mapGroup = new Group();
@@ -75,10 +78,15 @@ function setup() {
     enemiesGroup.add(badGuy);
     badGuy.collides(player, preBattleStart1);
 
-    badGuy2 = new Sprite(700, 306, 50, 100, 'd');
+    badGuy2 = new Sprite(700, 206, 50, 100, 'd');
     badGuy2.image = imgTrueSaviorBattle;
     enemiesGroup.add(badGuy2);
     badGuy2.collides(player, preBattleStart2);
+
+    badGuy3 = new Sprite(100, 306, 50, 100, 'd');
+    badGuy3.image = imgDugBattle;
+    enemiesGroup.add(badGuy3);
+    badGuy3.collides(player, preBattleStart3);
 
     function preBattleStart1(){
         enemiesAndPlayersInBattleArray = ['p1', 'p2', 'e1', 'e2', 'e3', 'e4']
@@ -88,7 +96,12 @@ function setup() {
     function preBattleStart2(){
         enemiesAndPlayersInBattleArray = ['p1', 'p2', 'e1']
         battleStart(badGuy, player, "Merp", 100, 100, merpMaxHP, merpHP, imgPlayerBattle, "Unkown", 100, 300, unkownMaxHP, unkownHP, imgUnkownBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "TrueSavior", 800, 306, defaultTrueSaviorMaxHP, defaultTrueSaviorMaxHP, imgTrueSaviorBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "boss", musicDeltaruneUstEverAscending)
-    }
+    };
+
+    function preBattleStart3(){
+        enemiesAndPlayersInBattleArray = ['p1', 'p2', 'e1', 'e2']
+        battleStart(badGuy, player, "Merp", 100, 100, merpMaxHP, merpHP, imgPlayerBattle, "Unkown", 100, 300, unkownMaxHP, unkownHP, imgUnkownBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "Dug", 750, 200, defaultDugMaxHP, defaultDugMaxHP, imgDugBattle, "Dug", 750, 400, defaultDugMaxHP, defaultDugMaxHP, imgDugBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "normal", musicTrobbioButItsTheWorldRevolving)
+    };
 
     function battleStart(_badGuy, _player, p1Type, p1X, p1Y, p1MaxHp, p1HP, p1Img, p2Type, p2X, p2Y, p2MaxHp, p2HP, p2Img, p3Type, p3X, p3Y, p3MaxHp, p3HP, p3Img, p4Type, p4X, p4Y, p4MaxHp, p4HP, p4Img, e1Type, e1X, e1Y, e1MaxHp, e1HP, e1Img, e2Type, e2X, e2Y, e2MaxHp, e2HP, e2Img, e3Type, e3X, e3Y, e3MaxHp, e3HP, e3Img, e4Type, e4X, e4Y, e4MaxHp, e4HP, e4Img, battleType, music) {
         _badGuy.remove();
@@ -268,6 +281,8 @@ function setup() {
             battlePlayer1TypeImg = imgGlorbTurnPlate;
         } else if (battlePlayer1Type === "TrueSavior") {
             battlePlayer1TypeImg = imgTrueSaviorTurnPlate;
+        } else if (battlePlayer1Type === "Dug") {
+            battlePlayer1TypeImg = imgTrueSaviorTurnPlate;
         };
 
         if (battlePlayer2Type === "Merp") {
@@ -281,6 +296,8 @@ function setup() {
         } else if (battlePlayer2Type === "Glorb") {
             battlePlayer2TypeImg = imgGlorbTurnPlate;
         } else if (battlePlayer2Type === "TrueSavior") {
+            battlePlayer2TypeImg = imgTrueSaviorTurnPlate;
+        } else if (battlePlayer2Type === "Dug") {
             battlePlayer2TypeImg = imgTrueSaviorTurnPlate;
         };
 
@@ -296,6 +313,8 @@ function setup() {
             battlePlayer3TypeImg = imgGlorbTurnPlate;
         } else if (battlePlayer3Type === "TrueSavior") {
             battlePlayer3TypeImg = imgTrueSaviorTurnPlate;
+        } else if (battlePlayer3Type === "Dug") {
+            battlePlayer3TypeImg = imgTrueSaviorTurnPlate;
         };
 
         if (battlePlayer4Type === "Merp") {
@@ -309,6 +328,8 @@ function setup() {
         } else if (battlePlayer4Type === "Glorb") {
             battlePlayer4TypeImg = imgGlorbTurnPlate;
         } else if (battlePlayer4Type === "TrueSavior") {
+            battlePlayer4TypeImg = imgTrueSaviorTurnPlate;
+        } else if (battlePlayer4Type === "Dug") {
             battlePlayer4TypeImg = imgTrueSaviorTurnPlate;
         };
 
@@ -325,6 +346,8 @@ function setup() {
             battleEnemie1TypeImg = imgGlorbTurnPlate;
         } else if (battleEnemie1Type === "TrueSavior") {
             battleEnemie1TypeImg = imgTrueSaviorTurnPlate;
+        } else if (battleEnemie1Type === "Dug") {
+            battleEnemie1TypeImg = imgTrueSaviorTurnPlate;
         };
 
 
@@ -340,6 +363,8 @@ function setup() {
             battleEnemie2TypeImg = imgGlorbTurnPlate;
         } else if (battleEnemie2Type === "TrueSavior") {
             battleEnemie2TypeImg = imgTrueSaviorTurnPlate;
+        } else if (battleEnemie2Type === "Dug") {
+            battleEnemie2TypeImg = imgTrueSaviorTurnPlate;
         };
 
         if (battleEnemie3Type === "Merp") {
@@ -354,6 +379,8 @@ function setup() {
             battleEnemie3TypeImg = imgGlorbTurnPlate;
         } else if (battleEnemie3Type === "TrueSavior") {
             battleEnemie3TypeImg = imgTrueSaviorTurnPlate;
+        } else if (battleEnemie3Type === "Dug") {
+            battleEnemie3TypeImg = imgTrueSaviorTurnPlate;
         };
 
         if (battleEnemie4Type === "Merp") {
@@ -367,6 +394,8 @@ function setup() {
         } else if (battleEnemie4Type === "Glorb") {
             battleEnemie4TypeImg = imgGlorbTurnPlate;
         } else if (battleEnemie4Type === "TrueSavior") {
+            battleEnemie4TypeImg = imgTrueSaviorTurnPlate;
+        } else if (battleEnemie4Type === "Dug") {
             battleEnemie4TypeImg = imgTrueSaviorTurnPlate;
         };
 
@@ -463,6 +492,18 @@ function draw() {
             battleEnemie4.visible = false
             if(shuffledBattleTurnArray.includes('e4')){
                 shuffledBattleTurnArray.splice(shuffledBattleTurnArray.indexOf('e4'), 1)
+            };
+        };
+
+        if(battlePlayer1HP <= 0){
+            if(battleAlivePlayersArray.includes('p1')){
+                battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('p1'), 1)
+            };
+        };
+
+        if(battlePlayer2HP <= 0){
+            if(battleAlivePlayersArray.includes('p2')){
+                battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('p2'), 1)
             };
         };
 
@@ -1192,9 +1233,18 @@ function battleBackAttack(){
     inBattleMenu = "attack"
 }
 
-function startTurn(){
-    if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
+async function startTurn(){
+    if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1" && battlePlayer1HP <= 0){
+        halfEndTurn()
+        await delay(1000);
+        endTurn()
+    } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2" && battlePlayer2HP <= 0){
+        halfEndTurn()
+        await delay(1000);
+        endTurn()
+    } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
         battleButtonHover = 1
+        inBattleMenu = "base"
         attackButton = new Sprite(70, 170, 15, 15, 'k');
         defendButton = new Sprite(90, 170, 15, 15, 'k');
         talkButton = new Sprite(110, 170, 15, 15, 'k');    
@@ -1211,6 +1261,7 @@ function startTurn(){
         spellButton.scale = 1.25;
     } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
         battleButtonHover = 1
+        inBattleMenu = "base"
         attackButton = new Sprite(70, 400, 15, 15, 'k');
         defendButton = new Sprite(90, 400, 15, 15, 'k');
         talkButton = new Sprite(110, 400, 15, 15, 'k');    
