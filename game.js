@@ -61,6 +61,8 @@ function setup() {
     var defaultDugMaxHP = 15
     var defaultTrueSaviorMaxHP = 200
 
+    var p1EquippedWeppon = "transcendedScythe"
+
     mapGroup = new Group();
     upperWall = new Sprite(544, 0, 1088, 306, 's')
     upperWall.color = '#000000'
@@ -196,19 +198,33 @@ function setup() {
         battlePlayer2HPBarRed.visible = false;
         battlePlayer2HPBarGreen.visible = false;
 
-        //battlePlayer1 = new Sprite(100, 100, 50, 100, 'k');
+        battlePlayer3 = new Sprite(p3X, p3Y, 50, 100, 'k');
         battlePlayer3Type = p3Type;
         battlePlayer3State = "idle";
         battlePlayer3MaxHP = p3MaxHp;
         battlePlayer3HP = p3HP;
-    //  battlePlayer1.image = imgPlayerBattle;
+        battlePlayer3.image = p3Img;
 
-        //battlePlayer1 = new Sprite(100, 100, 50, 100, 'k');
+        battlePlayer3HPBarRed = new Sprite(p3X, (p3Y - 70), 100, 10, 'k');
+        battlePlayer3HPBarRed.color = '#720000'
+        battlePlayer3HPBarGreen = new Sprite(p3X, (p3Y - 70), battlePlayer3HP * (100/battlePlayer3MaxHP), 10, 'k');
+        battlePlayer3HPBarGreen.color = '#30ff7f'
+        battlePlayer3HPBarRed.visible = false;
+        battlePlayer3HPBarGreen.visible = false;
+
+        battlePlayer4 = new Sprite(p4X, p4Y, 50, 100, 'k');
         battlePlayer4Type = p4Type;
         battlePlayer4State = "idle";
         battlePlayer4MaxHP = p4MaxHp;
         battlePlayer4HP = p4HP;
-    //  battlePlayer4.image = imgPlayerBattle;
+        battlePlayer4.image = p4Img;
+
+        battlePlayer4HPBarRed = new Sprite(p2X, (p2Y - 70), 100, 10, 'k');
+        battlePlayer4HPBarRed.color = '#720000'
+        battlePlayer4HPBarGreen = new Sprite(p2X, (p2Y - 70), battlePlayer4HP * (100/battlePlayer4MaxHP), 10, 'k');
+        battlePlayer4HPBarGreen.color = '#30ff7f'
+        battlePlayer4HPBarRed.visible = false;
+        battlePlayer4HPBarGreen.visible = false;
 
         battleEnemie1 = new Sprite(e1X, e1Y, 50, 100, 'k');
         battleEnemie1Type = e1Type;
@@ -508,6 +524,18 @@ function draw() {
             };
         };
 
+        if(battlePlayer1HP > 0){
+            if(!battleAlivePlayersArray.includes('p1')){
+                battleAlivePlayersArray.push('p1')
+            };
+        };
+
+        if(battlePlayer2HP > 0){
+            if(!battleAlivePlayersArray.includes('p2')){
+                battleAlivePlayersArray.push('p2')
+            };
+        };
+
 		
         if (kb.pressed ('e')) {
             endTurn();
@@ -601,6 +629,19 @@ function draw() {
                 };
                 if (kb.pressed ('down')) {
                     changeBattleButtonHoverEnemie(1)
+                };
+            } else if ( inBattleMenu === "chosePlayer"){
+                if (kb.pressed('left')) {
+                    changeBattleButtonHoverPlayer(-1)
+                };
+                if (kb.pressed ('right')) {
+                    changeBattleButtonHoverPlayer(1)
+                };
+                if (kb.pressed('up')) {
+                    changeBattleButtonHoverPlayer(-1)
+                };
+                if (kb.pressed ('down')) {
+                    changeBattleButtonHoverPlayer(1)
                 };
             };
 
@@ -765,7 +806,61 @@ function draw() {
                 battleEnemie2.tint = 155
                 battleEnemie3.tint = 155
                 battleEnemie4.tint = 255
-            }
+            };
+
+            if (battleButtonHover === 1 && inBattleMenu === "chosePlayer"){
+                battlePlayer1HPBarGreen.visible = true;
+                battlePlayer1HPBarRed.visible = true;
+                battlePlayer2HPBarGreen.visible = false;
+                battlePlayer2HPBarRed.visible = false;
+                battlePlayer3HPBarGreen.visible = false;
+                battlePlayer3HPBarRed.visible = false;
+                battlePlayer4HPBarGreen.visible = false;
+                battlePlayer4HPBarRed.visible = false;
+                battlePlayer1.tint = 255
+                battlePlayer2.tint = 155
+                battlePlayer3.tint = 155
+                battlePlayer4.tint = 155
+            } else if(battleButtonHover === 2 && inBattleMenu === "chosePlayer") {
+                battlePlayer1HPBarGreen.visible = false;
+                battlePlayer1HPBarRed.visible = false;
+                battlePlayer2HPBarGreen.visible = true;
+                battlePlayer2HPBarRed.visible = true;
+                battlePlayer3HPBarGreen.visible = false;
+                battlePlayer3HPBarRed.visible = false;
+                battlePlayer4HPBarGreen.visible = false;
+                battlePlayer4HPBarRed.visible = false;
+                battlePlayer1.tint = 155
+                battlePlayer2.tint = 255
+                battlePlayer3.tint = 155
+                battlePlayer4.tint = 155
+            } else if (battleButtonHover === 3 && inBattleMenu === "chosePlayer") {
+                battlePlayer1HPBarGreen.visible = false;
+                battlePlayer1HPBarRed.visible = false;
+                battlePlayer2HPBarGreen.visible = false;
+                battlePlayer2HPBarRed.visible = false;
+                battlePlayer3HPBarGreen.visible = true;
+                battlePlayer3HPBarRed.visible = true;
+                battlePlayer4HPBarGreen.visible = false;
+                battlePlayer4HPBarRed.visible = false;
+                battlePlayer1.tint = 155
+                battlePlayer2.tint = 155
+                battlePlayer3.tint = 255
+                battlePlayer4.tint = 155
+            } else if (battleButtonHover === 4 && inBattleMenu === "chosePlayer") {
+                battlePlayer1HPBarGreen.visible = false;
+                battlePlayer1HPBarRed.visible = false;
+                battlePlayer2HPBarGreen.visible = false;
+                battlePlayer2HPBarRed.visible = false;
+                battlePlayer3HPBarGreen.visible = false;
+                battlePlayer3HPBarRed.visible = false;
+                battlePlayer4HPBarGreen.visible = true;
+                battlePlayer4HPBarRed.visible = true;
+                battlePlayer1.tint = 155
+                battlePlayer2.tint = 155
+                battlePlayer3.tint = 155
+                battlePlayer4.tint = 255
+            };
 
             if (inBattleMenu === "base"){
                 if (battleButtonHover > 4){
@@ -806,35 +901,72 @@ function draw() {
                     battleButtonHover = 5
                     changeBattleButtonHoverEnemie(-1)
                 }
+            } else if (inBattleMenu === "chosePlayer"){
+                if (battleButtonHover > 4){
+                    battleButtonHover = 0
+                    changeBattleButtonHoverPlayer(1)
+                }
+                if (battleButtonHover < 1){
+                    battleButtonHover = 5
+                    changeBattleButtonHoverPlayer(-1)
+                }
             };
 
 
             if (kb.pressed ('z') && battleButtonHover === 1 && inBattleMenu === "choseEnemie") {
-                battleBackAttack()
+                battleBackAttack(false)
                 battleBackBase()
                 halfEndTurn()
                 attackEnemie("e1")
             };
 
             if (kb.pressed ('z') && battleButtonHover === 2 && inBattleMenu === "choseEnemie") {
-                battleBackAttack()
+                battleBackAttack(false)
                 battleBackBase()
                 halfEndTurn()
                 attackEnemie("e2")
             };
 
             if (kb.pressed ('z') && battleButtonHover === 3 && inBattleMenu === "choseEnemie") {
-                battleBackAttack()
+                battleBackAttack(false)
                 battleBackBase()
                 halfEndTurn()
                 attackEnemie("e3")
             };
 
             if (kb.pressed ('z') && battleButtonHover === 4 && inBattleMenu === "choseEnemie") {
-                battleBackAttack()
+                battleBackAttack(false)
                 battleBackBase()
                 halfEndTurn()
                 attackEnemie("e4")
+            };
+
+            if (kb.pressed ('z') && battleButtonHover === 1 && inBattleMenu === "chosePlayer") {
+                battleBackSpells(false)
+                battleBackBase()
+                halfEndTurn()
+                healPlayer("p1", 20)
+            };
+
+            if (kb.pressed ('z') && battleButtonHover === 2 && inBattleMenu === "chosePlayer") {
+                battleBackSpells(false)
+                battleBackBase()
+                halfEndTurn()
+                healPlayer("p2", 20)
+            };
+
+            if (kb.pressed ('z') && battleButtonHover === 3 && inBattleMenu === "chosePlayer") {
+                battleBackSpells(false)
+                battleBackBase()
+                halfEndTurn()
+                healPlayer("p3", 20)
+            };
+
+            if (kb.pressed ('z') && battleButtonHover === 4 && inBattleMenu === "chosePlayer") {
+                battleBackSpells()
+                battleBackBase()
+                halfEndTurn()
+                healPlayer("p4", 20)
             };
 
             if (kb.pressed ('z') && battleButtonHover === 1 && inBattleMenu === "attack") {
@@ -887,6 +1019,9 @@ function draw() {
 
             if (kb.pressed ('z') && battleButtonHover === 1 && inBattleMenu === "spells") {
                 battleChosenMove = "spell1"
+                inBattleMenu = "chosePlayer"
+                battleButtonHover = 0
+                changeBattleButtonHoverPlayer(1)
             };
 
             if (kb.pressed ('z') && battleButtonHover === 2 && inBattleMenu === "spells") {
@@ -933,7 +1068,7 @@ function draw() {
             };
 
 
-            if (kb.pressed ('x') && (inBattleMenu !== "base" && inBattleMenu !== "choseEnemie")) {
+            if (kb.pressed ('x') && (inBattleMenu !== "base" && inBattleMenu !== "choseEnemie" && inBattleMenu !== "chosePlayer")) {
                 if(inBattleMenu === "attack"){
                     battleButtonHover = 1
                 } else if(inBattleMenu === "talk"){
@@ -960,7 +1095,19 @@ function draw() {
                     battleButtonHover = 6
                 };
                 inBattleMenu = "attack"
-                battleBackAttack()
+                battleBackAttack(true)
+            };
+
+            if (kb.pressed ('x') && inBattleMenu === "chosePlayer") {
+                if(battleChosenMove === "spell1"){
+                    battleButtonHover = 1
+                } else if(battleChosenMove === "spell2"){
+                    battleButtonHover = 2
+                } else if(battleChosenMove === "spell3"){
+                    battleButtonHover = 3
+                };
+                inBattleMenu = "spells"
+                battleBackSpells(true)
             };
         };
 
@@ -1183,6 +1330,37 @@ function changeBattleButtonHoverEnemie(amount){
     }
 };
 
+function changeBattleButtonHoverPlayer(amount){
+    battleButtonHover = battleButtonHover + amount;
+    if(amount > 0){
+        if(battleButtonHover === 1 && !shuffledBattleTurnArray.includes("p1")){
+            changeBattleButtonHoverPlayer(1)
+        }
+        if(battleButtonHover === 2 && !shuffledBattleTurnArray.includes("p2")){
+            changeBattleButtonHoverPlayer(1)
+        }
+        if(battleButtonHover === 3 && !shuffledBattleTurnArray.includes("p3")){
+            changeBattleButtonHoverPlayer(1)
+        }
+        if(battleButtonHover === 4 && !shuffledBattleTurnArray.includes("p4")){
+            changeBattleButtonHoverPlayer(1)
+        }
+    } else if (amount < 0){
+        if(battleButtonHover === 1 && !shuffledBattleTurnArray.includes("p1")){
+            changeBattleButtonHoverPlayer(-1)
+        }
+        if(battleButtonHover === 2 && !shuffledBattleTurnArray.includes("p2")){
+            changeBattleButtonHoverPlayer(-1)
+        }
+        if(battleButtonHover === 3 && !shuffledBattleTurnArray.includes("p3")){
+            changeBattleButtonHoverPlayer(-1)
+        }
+        if(battleButtonHover === 4 && !shuffledBattleTurnArray.includes("p4")){
+            changeBattleButtonHoverPlayer(-1)
+        }
+    }
+};
+
 async function attackEnemie(enemie){
     await delay(100);
     if(enemie === "e1"){
@@ -1206,6 +1384,29 @@ async function attackEnemie(enemie){
     endTurn()
 };
 
+async function healPlayer(player, healAmount){
+    await delay(100);
+    if(player === "e1"){
+        battlePlayer1HP = battlePlayer1HP + healAmount
+    } else if(player === "e2"){
+        battlePlayer2HP = battlePlayer2HP + healAmount
+    } else if(player === "e3"){
+        battlePlayer3HP = battlePlayer3HP + healAmount
+    } else if(player === "e4"){
+        battlePlayer4HP = battlePlayer4HP + healAmount
+    };
+    await delay(500);
+    battlePlayer1HPBarGreen.visible = false;
+    battlePlayer1HPBarRed.visible = false;
+    battlePlayer2HPBarGreen.visible = false;
+    battlePlayer2HPBarRed.visible = false;
+    battlePlayer3HPBarGreen.visible = false;
+    battlePlayer3HPBarRed.visible = false;
+    battlePlayer4HPBarGreen.visible = false;
+    battlePlayer4HPBarRed.visible = false;
+    endTurn()
+};
+
 function battleBackBase(){
     if(inBattleMenu === "attack"){
         attackOption1Button.remove();
@@ -1226,12 +1427,40 @@ function battleBackBase(){
     inBattleMenu = "base"
 }
 
-function battleBackAttack(){
+function battleBackAttack(hideHP){
     battleEnemie1.tint = 255
     battleEnemie2.tint = 255
     battleEnemie3.tint = 255
     battleEnemie4.tint = 255
+    if(hideHP === true){
+        battleEnemie1HPBarGreen.visible = false;
+        battleEnemie1HPBarRed.visible = false;
+        battleEnemie2HPBarGreen.visible = false;
+        battleEnemie2HPBarRed.visible = false;
+        battleEnemie3HPBarGreen.visible = false;
+        battleEnemie3HPBarRed.visible = false;
+        battleEnemie4HPBarGreen.visible = false;
+        battleEnemie4HPBarRed.visible = false;
+    };
     inBattleMenu = "attack"
+};
+
+function battleBackSpells(hideHP){
+    battlePlayer1.tint = 255
+    battlePlayer2.tint = 255
+    battlePlayer3.tint = 255
+    battlePlayer4.tint = 255
+    if(hideHP === true){
+        battlePlayer1HPBarGreen.visible = false;
+        battlePlayer1HPBarRed.visible = false;
+        battlePlayer2HPBarGreen.visible = false;
+        battlePlayer2HPBarRed.visible = false;
+        battlePlayer3HPBarGreen.visible = false;
+        battlePlayer3HPBarRed.visible = false;
+        battlePlayer4HPBarGreen.visible = false;
+        battlePlayer4HPBarRed.visible = false;
+    }
+    inBattleMenu = "spells"
 }
 
 async function startTurn(){
