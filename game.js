@@ -1122,10 +1122,16 @@ function draw() {
 
             if (kb.pressed ('z') && battleButtonHover === 2 && inBattleMenu === "spells") {
                 battleChosenMove = "spell2"
+                inBattleMenu = "chosePlayer"
+                battleButtonHover = 0
+                changeBattleButtonHoverPlayer(1)
             };
 
             if (kb.pressed ('z') && battleButtonHover === 3 && inBattleMenu === "spells") {
                 battleChosenMove = "spell3"
+                inBattleMenu = "chosePlayer"
+                battleButtonHover = 0
+                changeBattleButtonHoverPlayer(1)
             };
 
             if (kb.pressed ('z') && battleButtonHover === 1 && inBattleMenu === "talk") {
