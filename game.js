@@ -174,6 +174,7 @@ function setup() {
         battlePlayer1State = "idle";
         battlePlayer1MaxHP = p1MaxHp;
         battlePlayer1HP = p1HP;
+        battlePlayer1EX = 20;
         battlePlayer1.image = p1Img;
 
         battlePlayer1HPBarRed = new Sprite(p1X, (p1Y - 70), 100, 10, 'k');
@@ -183,12 +184,25 @@ function setup() {
         battlePlayer1HPBarRed.visible = false;
         battlePlayer1HPBarGreen.visible = false;
 
+        battlePlayer1EXBarGray = new Sprite((p1X - 60), p1Y, 5, 100, 'k');
+        battlePlayer1EXBarGray.color = '#292929'
+        battlePlayer1EXBarCyan = new Sprite((p1X - 60), p1Y, 5, battlePlayer1EX, 'k');
+        battlePlayer1EXBarCyan.color = '#30fff1'
+
+        if(p1Type === "no"){
+            battlePlayer1.visible = false;
+            battlePlayer1HPBarGreen.visible = false;
+            battlePlayer1HPBarRed.visible = false;
+            battlePlayer1EXBarCyan.visible = false;
+            battlePlayer1EXBarGray.visible = false;
+        };
 
         battlePlayer2 = new Sprite(p2X, p2Y, 50, 100, 'k');
         battlePlayer2Type = p2Type;
         battlePlayer2State = "idle";
         battlePlayer2MaxHP = p2MaxHp;
         battlePlayer2HP = p2HP;
+        battlePlayer2EX = 20;
         battlePlayer2.image = p2Img;
 
         battlePlayer2HPBarRed = new Sprite(p2X, (p2Y - 70), 100, 10, 'k');
@@ -198,11 +212,25 @@ function setup() {
         battlePlayer2HPBarRed.visible = false;
         battlePlayer2HPBarGreen.visible = false;
 
+        battlePlayer2EXBarGray = new Sprite((p2X - 60), p2Y, 5, 100, 'k');
+        battlePlayer2EXBarGray.color = '#292929'
+        battlePlayer2EXBarCyan = new Sprite((p2X - 60), p2Y, 5, battlePlayer2EX, 'k');
+        battlePlayer2EXBarCyan.color = '#30fff1'
+
+        if(p2Type === "no"){
+            battlePlayer2.visible = false;
+            battlePlayer2HPBarGreen.visible = false;
+            battlePlayer2HPBarRed.visible = false;
+            battlePlayer2EXBarCyan.visible = false;
+            battlePlayer2EXBarGray.visible = false;
+        };
+
         battlePlayer3 = new Sprite(p3X, p3Y, 50, 100, 'k');
         battlePlayer3Type = p3Type;
         battlePlayer3State = "idle";
         battlePlayer3MaxHP = p3MaxHp;
         battlePlayer3HP = p3HP;
+        battlePlayer3EX = 20;
         battlePlayer3.image = p3Img;
 
         battlePlayer3HPBarRed = new Sprite(p3X, (p3Y - 70), 100, 10, 'k');
@@ -212,11 +240,25 @@ function setup() {
         battlePlayer3HPBarRed.visible = false;
         battlePlayer3HPBarGreen.visible = false;
 
+        battlePlayer3EXBarGray = new Sprite((p3X - 60), p3Y, 5, 100, 'k');
+        battlePlayer3EXBarGray.color = '#292929'
+        battlePlayer3EXBarCyan = new Sprite((p3X - 60), p3Y, 5, battlePlayer3EX, 'k');
+        battlePlayer3EXBarCyan.color = '#30fff1'
+
+        if(p3Type === "no"){
+            battlePlayer3.visible = false;
+            battlePlayer3HPBarGreen.visible = false;
+            battlePlayer3HPBarRed.visible = false;
+            battlePlayer3EXBarCyan.visible = false;
+            battlePlayer3EXBarGray.visible = false;
+        };
+
         battlePlayer4 = new Sprite(p4X, p4Y, 50, 100, 'k');
         battlePlayer4Type = p4Type;
         battlePlayer4State = "idle";
         battlePlayer4MaxHP = p4MaxHp;
         battlePlayer4HP = p4HP;
+        battlePlayer4EX = 20;
         battlePlayer4.image = p4Img;
 
         battlePlayer4HPBarRed = new Sprite(p2X, (p2Y - 70), 100, 10, 'k');
@@ -225,6 +267,19 @@ function setup() {
         battlePlayer4HPBarGreen.color = '#30ff7f'
         battlePlayer4HPBarRed.visible = false;
         battlePlayer4HPBarGreen.visible = false;
+
+        battlePlayer4EXBarGray = new Sprite((p4X - 60), p4Y, 5, 100, 'k');
+        battlePlayer4EXBarGray.color = '#292929'
+        battlePlayer4EXBarCyan = new Sprite((p4X - 60), p4Y, 5, battlePlayer4EX, 'k');
+        battlePlayer4EXBarCyan.color = '#30fff1'
+
+        if(p4Type === "no"){
+            battlePlayer4.visible = false;
+            battlePlayer4HPBarGreen.visible = false;
+            battlePlayer4HPBarRed.visible = false;
+            battlePlayer4EXBarCyan.visible = false;
+            battlePlayer4EXBarGray.visible = false;
+        };
 
         battleEnemie1 = new Sprite(e1X, e1Y, 50, 100, 'k');
         battleEnemie1Type = e1Type;
@@ -512,6 +567,7 @@ function draw() {
             };
         };
 
+
         if(battlePlayer1HP <= 0){
             if(battleAlivePlayersArray.includes('p1')){
                 battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('p1'), 1)
@@ -521,6 +577,18 @@ function draw() {
         if(battlePlayer2HP <= 0){
             if(battleAlivePlayersArray.includes('p2')){
                 battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('p2'), 1)
+            };
+        };
+
+        if(battlePlayer3HP <= 0){
+            if(battleAlivePlayersArray.includes('p3')){
+                battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('p3'), 1)
+            };
+        };
+
+        if(battlePlayer4HP <= 0){
+            if(battleAlivePlayersArray.includes('p4')){
+                battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('p4'), 1)
             };
         };
 
@@ -534,6 +602,34 @@ function draw() {
             if(!battleAlivePlayersArray.includes('p2')){
                 battleAlivePlayersArray.push('p2')
             };
+        };
+
+        if(battlePlayer3HP > 0){
+            if(!battleAlivePlayersArray.includes('p3')){
+                battleAlivePlayersArray.push('p3')
+            };
+        };
+
+        if(battlePlayer4HP > 0){
+            if(!battleAlivePlayersArray.includes('p4')){
+                battleAlivePlayersArray.push('p4')
+            };
+        };
+
+        if(battlePlayer1HP > battlePlayer1MaxHP){
+            battlePlayer1HP = battlePlayer1MaxHP
+        };
+
+        if(battlePlayer2HP > battlePlayer2MaxHP){
+            battlePlayer2HP = battlePlayer2MaxHP
+        };
+
+        if(battlePlayer3HP > battlePlayer3MaxHP){
+            battlePlayer3HP = battlePlayer3MaxHP
+        };
+
+        if(battlePlayer4HP > battlePlayer4MaxHP){
+            battlePlayer4HP = battlePlayer4MaxHP
         };
 
 		
@@ -1386,14 +1482,29 @@ async function attackEnemie(enemie){
 
 async function healPlayer(player, healAmount){
     await delay(100);
-    if(player === "e1"){
+    if(player === "p1"){
         battlePlayer1HP = battlePlayer1HP + healAmount
-    } else if(player === "e2"){
+    } else if(player === "p2"){
         battlePlayer2HP = battlePlayer2HP + healAmount
-    } else if(player === "e3"){
+    } else if(player === "p3"){
         battlePlayer3HP = battlePlayer3HP + healAmount
-    } else if(player === "e4"){
+    } else if(player === "p4"){
         battlePlayer4HP = battlePlayer4HP + healAmount
+    };
+    if(battlePlayer1HP > battlePlayer1MaxHP){
+            battlePlayer1HP = battlePlayer1MaxHP
+    };
+
+    if(battlePlayer2HP > battlePlayer2MaxHP){
+        battlePlayer2HP = battlePlayer2MaxHP
+    };
+
+    if(battlePlayer3HP > battlePlayer3MaxHP){
+        battlePlayer3HP = battlePlayer3MaxHP
+    };
+
+    if(battlePlayer4HP > battlePlayer4MaxHP){
+        battlePlayer4HP = battlePlayer4MaxHP
     };
     await delay(500);
     battlePlayer1HPBarGreen.visible = false;
