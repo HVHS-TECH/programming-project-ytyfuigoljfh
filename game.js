@@ -31,6 +31,7 @@ preload()
     imgUnkownTurnPlate = loadImage('assets/images/turnPlates/UnkownTurnPlate.svg');
     imgGlorbTurnPlate = loadImage('assets/images/turnPlates/GlorbTurnPlate.svg');
     imgTrueSaviorTurnPlate = loadImage('assets/images/turnPlates/TrueSaviorTurnPlate.svg');
+    imgDugTurnPlate = loadImage('assets/images/turnPlates/DugTurnPlate.svg');
 
     imgAttackButtonOff = loadImage('assets/images/buttons/base/AttackButton1.svg');
     imgAttackButtonOn = loadImage('assets/images/buttons/base/AttackButton2.svg');
@@ -282,7 +283,7 @@ function setup() {
         } else if (battlePlayer1Type === "TrueSavior") {
             battlePlayer1TypeImg = imgTrueSaviorTurnPlate;
         } else if (battlePlayer1Type === "Dug") {
-            battlePlayer1TypeImg = imgTrueSaviorTurnPlate;
+            battlePlayer1TypeImg = imgDugTurnPlate;
         };
 
         if (battlePlayer2Type === "Merp") {
@@ -298,7 +299,7 @@ function setup() {
         } else if (battlePlayer2Type === "TrueSavior") {
             battlePlayer2TypeImg = imgTrueSaviorTurnPlate;
         } else if (battlePlayer2Type === "Dug") {
-            battlePlayer2TypeImg = imgTrueSaviorTurnPlate;
+            battlePlayer2TypeImg = imgDugTurnPlate;
         };
 
         if (battlePlayer3Type === "Merp") {
@@ -314,7 +315,7 @@ function setup() {
         } else if (battlePlayer3Type === "TrueSavior") {
             battlePlayer3TypeImg = imgTrueSaviorTurnPlate;
         } else if (battlePlayer3Type === "Dug") {
-            battlePlayer3TypeImg = imgTrueSaviorTurnPlate;
+            battlePlayer3TypeImg = imgDugTurnPlate;
         };
 
         if (battlePlayer4Type === "Merp") {
@@ -330,7 +331,7 @@ function setup() {
         } else if (battlePlayer4Type === "TrueSavior") {
             battlePlayer4TypeImg = imgTrueSaviorTurnPlate;
         } else if (battlePlayer4Type === "Dug") {
-            battlePlayer4TypeImg = imgTrueSaviorTurnPlate;
+            battlePlayer4TypeImg = imgDugTurnPlate;
         };
 
 
@@ -347,7 +348,7 @@ function setup() {
         } else if (battleEnemie1Type === "TrueSavior") {
             battleEnemie1TypeImg = imgTrueSaviorTurnPlate;
         } else if (battleEnemie1Type === "Dug") {
-            battleEnemie1TypeImg = imgTrueSaviorTurnPlate;
+            battleEnemie1TypeImg = imgDugTurnPlate;
         };
 
 
@@ -364,7 +365,7 @@ function setup() {
         } else if (battleEnemie2Type === "TrueSavior") {
             battleEnemie2TypeImg = imgTrueSaviorTurnPlate;
         } else if (battleEnemie2Type === "Dug") {
-            battleEnemie2TypeImg = imgTrueSaviorTurnPlate;
+            battleEnemie2TypeImg = imgDugTurnPlate;
         };
 
         if (battleEnemie3Type === "Merp") {
@@ -380,7 +381,7 @@ function setup() {
         } else if (battleEnemie3Type === "TrueSavior") {
             battleEnemie3TypeImg = imgTrueSaviorTurnPlate;
         } else if (battleEnemie3Type === "Dug") {
-            battleEnemie3TypeImg = imgTrueSaviorTurnPlate;
+            battleEnemie3TypeImg = imgDugTurnPlate;
         };
 
         if (battleEnemie4Type === "Merp") {
@@ -396,7 +397,7 @@ function setup() {
         } else if (battleEnemie4Type === "TrueSavior") {
             battleEnemie4TypeImg = imgTrueSaviorTurnPlate;
         } else if (battleEnemie4Type === "Dug") {
-            battleEnemie4TypeImg = imgTrueSaviorTurnPlate;
+            battleEnemie4TypeImg = imgDugTurnPlate;
         };
 
 
