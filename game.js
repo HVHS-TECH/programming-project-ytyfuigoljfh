@@ -532,6 +532,13 @@ function draw() {
 
         battlePlayer1HPBarGreen.width = battlePlayer1HP * (100/battlePlayer1MaxHP);
         battlePlayer2HPBarGreen.width = battlePlayer2HP * (100/battlePlayer2MaxHP);
+        battlePlayer3HPBarGreen.width = battlePlayer3HP * (100/battlePlayer3MaxHP);
+        battlePlayer4HPBarGreen.width = battlePlayer4HP * (100/battlePlayer4MaxHP);
+
+        battlePlayer1EXBarCyan.height = battlePlayer1EX;
+        battlePlayer2EXBarCyan.height = battlePlayer2EX;
+        battlePlayer3EXBarCyan.height = battlePlayer3EX;
+        battlePlayer4EXBarCyan.height = battlePlayer4EX;
 
         battleEnemie1HPBarGreen.width = battleEnemie1HP * (100/battleEnemie1MaxHP);
         battleEnemie2HPBarGreen.width = battleEnemie2HP * (100/battleEnemie2MaxHP);
@@ -1474,6 +1481,16 @@ async function attackEnemie(enemie){
     } else if(enemie === "e4"){
         battleEnemie4HP = battleEnemie4HP - 5
     };
+
+    if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
+        battlePlayer1EX = battlePlayer1EX + 10
+    } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
+        battlePlayer2EX = battlePlayer2EX + 10
+    } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p3"){
+        battlePlayer3EX = battlePlayer3EX + 10
+    } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p4"){
+        battlePlayer4EX = battlePlayer4EX + 10
+    };
     await delay(500);
     battleEnemie1HPBarGreen.visible = false;
     battleEnemie1HPBarRed.visible = false;
@@ -1488,14 +1505,36 @@ async function attackEnemie(enemie){
 
 async function healPlayer(player, healAmount){
     await delay(100);
-    if(player === "p1"){
-        battlePlayer1HP = battlePlayer1HP + healAmount
-    } else if(player === "p2"){
-        battlePlayer2HP = battlePlayer2HP + healAmount
-    } else if(player === "p3"){
-        battlePlayer3HP = battlePlayer3HP + healAmount
-    } else if(player === "p4"){
-        battlePlayer4HP = battlePlayer4HP + healAmount
+    if(battleChosenMove === "spell1"){
+        if(player === "p1"){
+            battlePlayer1HP = battlePlayer1HP + 7
+        } else if(player === "p2"){
+            battlePlayer2HP = battlePlayer2HP + 7
+        } else if(player === "p3"){
+            battlePlayer3HP = battlePlayer3HP + 7
+        } else if(player === "p4"){
+            battlePlayer4HP = battlePlayer4HP + 7
+        };
+    } else if(battleChosenMove === "spell2"){
+        if(player === "p1"){
+            battlePlayer1HP = battlePlayer1HP + 16
+        } else if(player === "p2"){
+            battlePlayer2HP = battlePlayer2HP + 16
+        } else if(player === "p3"){
+            battlePlayer3HP = battlePlayer3HP + 16
+        } else if(player === "p4"){
+            battlePlayer4HP = battlePlayer4HP + 16
+        };
+    } else if(battleChosenMove === "spell3"){
+        if(player === "p1"){
+            battlePlayer1HP = battlePlayer1HP + 24
+        } else if(player === "p2"){
+            battlePlayer2HP = battlePlayer2HP + 24
+        } else if(player === "p3"){
+            battlePlayer3HP = battlePlayer3HP + 24
+        } else if(player === "p4"){
+            battlePlayer4HP = battlePlayer4HP + 24
+        };
     };
     if(battlePlayer1HP > battlePlayer1MaxHP){
             battlePlayer1HP = battlePlayer1MaxHP
@@ -1591,6 +1630,7 @@ async function startTurn(){
         endTurn()
     } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
         battleButtonHover = 1
+        battlePlayer1State = "idle"
         inBattleMenu = "base"
         attackButton = new Sprite(70, 170, 15, 15, 'k');
         defendButton = new Sprite(90, 170, 15, 15, 'k');
@@ -1608,6 +1648,7 @@ async function startTurn(){
         spellButton.scale = 1.25;
     } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
         battleButtonHover = 1
+        battlePlayer2State = "idle"
         inBattleMenu = "base"
         attackButton = new Sprite(70, 400, 15, 15, 'k');
         defendButton = new Sprite(90, 400, 15, 15, 'k');
@@ -1642,7 +1683,11 @@ async function startEnemieTurn(enemieNum){
         battlePlayer1HPBarGreen.visible = true;
         battlePlayer1HPBarRed.visible = true;
         await delay(500);
-        battlePlayer1HP = battlePlayer1HP - round(random(4,6))
+        if(battlePlayer1State === "defend"){
+            battlePlayer1HP = battlePlayer1HP - round(random(0,1))
+        } else {
+            battlePlayer1HP = battlePlayer1HP - round(random(4,6))
+        }
         await delay(500);
         battlePlayer1HPBarGreen.visible = false;
         battlePlayer1HPBarRed.visible = false;
@@ -1652,7 +1697,11 @@ async function startEnemieTurn(enemieNum){
         battlePlayer2HPBarGreen.visible = true;
         battlePlayer2HPBarRed.visible = true;
         await delay(500);
-        battlePlayer2HP = battlePlayer2HP - round(random(4,6))
+        if(battlePlayer2State === "defend"){
+            battlePlayer2HP = battlePlayer2HP - round(random(0,1))
+        } else {
+            battlePlayer2HP = battlePlayer2HP - round(random(4,6))
+        }
         await delay(500);
         battlePlayer2HPBarGreen.visible = false;
         battlePlayer2HPBarRed.visible = false;
@@ -1662,7 +1711,11 @@ async function startEnemieTurn(enemieNum){
         battlePlayer3HPBarGreen.visible = true;
         battlePlayer3HPBarRed.visible = true;
         await delay(500);
-        battlePlayer3HP = battlePlayer3HP - round(random(4,6))
+        if(battlePlayer3State === "defend"){
+            battlePlayer3HP = battlePlayer3HP - round(random(0,1))
+        } else {
+            battlePlayer3HP = battlePlayer3HP - round(random(4,6))
+        }
         await delay(500);
         battlePlayer3HPBarGreen.visible = false;
         battlePlayer3HPBarRed.visible = false;
@@ -1672,7 +1725,11 @@ async function startEnemieTurn(enemieNum){
         battlePlayer4HPBarGreen.visible = true;
         battlePlayer4HPBarRed.visible = true;
         await delay(500);
-        battlePlayer4HP = battlePlayer4HP - round(random(4,6))
+        if(battlePlayer4State === "defend"){
+            battlePlayer4HP = battlePlayer4HP - round(random(0,1))
+        } else {
+            battlePlayer4HP = battlePlayer4HP - round(random(4,6))
+        }
         await delay(500);
         battlePlayer4HPBarGreen.visible = false;
         battlePlayer4HPBarRed.visible = false;
@@ -1690,7 +1747,15 @@ function endTurn(){
         spellButton.remove();
         talkButton.remove();
         if(battleChosenMove === "defend"){
-            battlePlayer1State = "defend"
+            if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
+                battlePlayer1State = "defend"
+            } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
+                battlePlayer2State = "defend"
+            } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p3"){
+                battlePlayer3State = "defend"
+            } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p4"){
+                battlePlayer4State = "defend"
+            };
         };
         battleButtonHover = 0
     }
