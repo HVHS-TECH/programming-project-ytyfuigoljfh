@@ -545,6 +545,16 @@ function draw() {
         battleEnemie3HPBarGreen.width = battleEnemie3HP * (100/battleEnemie3MaxHP);
         battleEnemie4HPBarGreen.width = battleEnemie4HP * (100/battleEnemie4MaxHP);
 
+    if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
+        currentBattleTurnEX = battlePlayer1EX
+    } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
+        currentBattleTurnEX = battlePlayer2EX
+    } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p3"){
+        currentBattleTurnEX = battlePlayer3EX
+    } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p4"){
+        currentBattleTurnEX = battlePlayer4EX
+    };
+
 
         if(battleEnemie1HP === 0){
             battleEnemie1.visible = false
@@ -1121,24 +1131,30 @@ function draw() {
             };
 
             if (kb.pressed ('z') && battleButtonHover === 1 && inBattleMenu === "spells") {
-                battleChosenMove = "spell1"
-                inBattleMenu = "chosePlayer"
-                battleButtonHover = 0
-                changeBattleButtonHoverPlayer(1)
+                if(currentBattleTurnEX >= 20){
+                    battleChosenMove = "spell1"
+                    inBattleMenu = "chosePlayer"
+                    battleButtonHover = 0
+                    changeBattleButtonHoverPlayer(1)
+                };
             };
 
             if (kb.pressed ('z') && battleButtonHover === 2 && inBattleMenu === "spells") {
-                battleChosenMove = "spell2"
-                inBattleMenu = "chosePlayer"
-                battleButtonHover = 0
-                changeBattleButtonHoverPlayer(1)
+                if(currentBattleTurnEX >= 40){
+                    battleChosenMove = "spell2"
+                    inBattleMenu = "chosePlayer"
+                    battleButtonHover = 0
+                    changeBattleButtonHoverPlayer(1)
+                };
             };
 
             if (kb.pressed ('z') && battleButtonHover === 3 && inBattleMenu === "spells") {
-                battleChosenMove = "spell3"
-                inBattleMenu = "chosePlayer"
-                battleButtonHover = 0
-                changeBattleButtonHoverPlayer(1)
+                if(currentBattleTurnEX >= 60){
+                    battleChosenMove = "spell3"
+                    inBattleMenu = "chosePlayer"
+                    battleButtonHover = 0
+                    changeBattleButtonHoverPlayer(1)
+                };
             };
 
             if (kb.pressed ('z') && battleButtonHover === 1 && inBattleMenu === "talk") {
@@ -1525,6 +1541,7 @@ async function healPlayer(player, healAmount){
         } else if(player === "p4"){
             battlePlayer4HP = battlePlayer4HP + 16
         };
+        
     } else if(battleChosenMove === "spell3"){
         if(player === "p1"){
             battlePlayer1HP = battlePlayer1HP + 24
