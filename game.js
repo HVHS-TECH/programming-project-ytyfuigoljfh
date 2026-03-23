@@ -1058,28 +1058,28 @@ function draw() {
                 battleBackSpells(false)
                 battleBackBase()
                 halfEndTurn()
-                healPlayer("p1", 20)
+                healPlayer("p1")
             };
 
             if (kb.pressed ('z') && battleButtonHover === 2 && inBattleMenu === "chosePlayer") {
                 battleBackSpells(false)
                 battleBackBase()
                 halfEndTurn()
-                healPlayer("p2", 20)
+                healPlayer("p2")
             };
 
             if (kb.pressed ('z') && battleButtonHover === 3 && inBattleMenu === "chosePlayer") {
                 battleBackSpells(false)
                 battleBackBase()
                 halfEndTurn()
-                healPlayer("p3", 20)
+                healPlayer("p3")
             };
 
             if (kb.pressed ('z') && battleButtonHover === 4 && inBattleMenu === "chosePlayer") {
                 battleBackSpells()
                 battleBackBase()
                 halfEndTurn()
-                healPlayer("p4", 20)
+                healPlayer("p4")
             };
 
             if (kb.pressed ('z') && battleButtonHover === 1 && inBattleMenu === "attack") {
@@ -1132,6 +1132,7 @@ function draw() {
 
             if (kb.pressed ('z') && battleButtonHover === 1 && inBattleMenu === "spells") {
                 if(currentBattleTurnEX >= 20){
+                    EXCost = 20
                     battleChosenMove = "spell1"
                     inBattleMenu = "chosePlayer"
                     battleButtonHover = 0
@@ -1141,6 +1142,7 @@ function draw() {
 
             if (kb.pressed ('z') && battleButtonHover === 2 && inBattleMenu === "spells") {
                 if(currentBattleTurnEX >= 40){
+                    EXCost = 40
                     battleChosenMove = "spell2"
                     inBattleMenu = "chosePlayer"
                     battleButtonHover = 0
@@ -1150,6 +1152,7 @@ function draw() {
 
             if (kb.pressed ('z') && battleButtonHover === 3 && inBattleMenu === "spells") {
                 if(currentBattleTurnEX >= 60){
+                    EXCost = 60
                     battleChosenMove = "spell3"
                     inBattleMenu = "chosePlayer"
                     battleButtonHover = 0
@@ -1519,8 +1522,9 @@ async function attackEnemie(enemie){
     endTurn()
 };
 
-async function healPlayer(player, healAmount){
+async function healPlayer(player){
     await delay(100);
+    currentBattleTurnEX = currentBattleTurnEX - EXCost
     if(battleChosenMove === "spell1"){
         if(player === "p1"){
             battlePlayer1HP = battlePlayer1HP + 7
