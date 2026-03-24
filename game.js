@@ -1523,8 +1523,16 @@ async function attackEnemie(enemie){
 };
 
 async function healPlayer(player){
+    if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
+        battlePlayer1EX = battlePlayer1EX - EXCost
+    } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
+        battlePlayer2EX = battlePlayer2EX - EXCost
+    } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p3"){
+        battlePlayer3EX = battlePlayer3EX - EXCost
+    } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p4"){
+        battlePlayer4EX = battlePlayer4EX - EXCost
+    };
     await delay(100);
-    currentBattleTurnEX = currentBattleTurnEX - EXCost
     if(battleChosenMove === "spell1"){
         if(player === "p1"){
             battlePlayer1HP = battlePlayer1HP + 7
