@@ -535,10 +535,10 @@ function draw() {
         battlePlayer3HPBarGreen.width = battlePlayer3HP * (100/battlePlayer3MaxHP);
         battlePlayer4HPBarGreen.width = battlePlayer4HP * (100/battlePlayer4MaxHP);
 
-        battlePlayer1EXBarCyan.height = battlePlayer1EX;
-        battlePlayer2EXBarCyan.height = battlePlayer2EX;
-        battlePlayer3EXBarCyan.height = battlePlayer3EX;
-        battlePlayer4EXBarCyan.height = battlePlayer4EX;
+        battlePlayer1EXBarCyan.height = battlePlayer1EX + 0.01;
+        battlePlayer2EXBarCyan.height = battlePlayer2EX + 0.01;
+        battlePlayer3EXBarCyan.height = battlePlayer3EX + 0.01;
+        battlePlayer4EXBarCyan.height = battlePlayer4EX + 0.01;
 
         battleEnemie1HPBarGreen.width = battleEnemie1HP * (100/battleEnemie1MaxHP);
         battleEnemie2HPBarGreen.width = battleEnemie2HP * (100/battleEnemie2MaxHP);
