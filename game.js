@@ -22,7 +22,9 @@ preload()
     function preload() {
     imgFace = loadImage('assets/images/Merp.svg');
     imgPlayerBattle = loadImage('assets/images/MerpBattle.svg');
+    imgPlayerBattleDown = loadImage('assets/images/MerpBattleDown.svg');
     imgUnkownBattle = loadImage('assets/images/UnkownBattle.svg');
+    imgUnkownBattleDown = loadImage('assets/images/UnkownBattleDown.svg');
     imgGlorbBattle = loadImage('assets/images/GlorbBattleIdle.svg');
     imgTrueSaviorBattle = loadImage('assets/images/TrueSaviorBattleIdle.svg');
     imgDugBattle = loadImage('assets/images/DugBattleIdle.svg');
@@ -179,9 +181,12 @@ function setup() {
 
         battlePlayer1HPBarRed = new Sprite(p1X, (p1Y - 70), 100, 10, 'k');
         battlePlayer1HPBarRed.color = '#720000'
+        battlePlayer1HPBarYellow = new Sprite(p1X, (p1Y - 70), (battlePlayer1HP * -1) * (100/battlePlayer1MaxHP), 10, 'k');
+        battlePlayer1HPBarYellow.color = '#fff530'
         battlePlayer1HPBarGreen = new Sprite(p1X, (p1Y - 70), battlePlayer1HP * (100/battlePlayer1MaxHP), 10, 'k');
         battlePlayer1HPBarGreen.color = '#30ff7f'
         battlePlayer1HPBarRed.visible = false;
+        battlePlayer1HPBarYellow.visible = false;
         battlePlayer1HPBarGreen.visible = false;
 
         battlePlayer1EXBarGray = new Sprite((p1X - 60), p1Y, 5, 100, 'k');
@@ -192,6 +197,7 @@ function setup() {
         if(p1Type === "no"){
             battlePlayer1.visible = false;
             battlePlayer1HPBarGreen.visible = false;
+            battlePlayer1HPBarYellow.visible = false;
             battlePlayer1HPBarRed.visible = false;
             battlePlayer1EXBarCyan.visible = false;
             battlePlayer1EXBarGray.visible = false;
@@ -207,9 +213,12 @@ function setup() {
 
         battlePlayer2HPBarRed = new Sprite(p2X, (p2Y - 70), 100, 10, 'k');
         battlePlayer2HPBarRed.color = '#720000'
+        battlePlayer2HPBarYellow = new Sprite(p2X, (p2Y - 70), (battlePlayer2HP * -1) * (100/battlePlayer2MaxHP), 10, 'k');
+        battlePlayer2HPBarYellow.color = '#fff530'
         battlePlayer2HPBarGreen = new Sprite(p2X, (p2Y - 70), battlePlayer2HP * (100/battlePlayer2MaxHP), 10, 'k');
         battlePlayer2HPBarGreen.color = '#30ff7f'
         battlePlayer2HPBarRed.visible = false;
+        battlePlayer2HPBarYellow.visible = false;
         battlePlayer2HPBarGreen.visible = false;
 
         battlePlayer2EXBarGray = new Sprite((p2X - 60), p2Y, 5, 100, 'k');
@@ -220,6 +229,7 @@ function setup() {
         if(p2Type === "no"){
             battlePlayer2.visible = false;
             battlePlayer2HPBarGreen.visible = false;
+            battlePlayer2HPBarYellow.visible = false;
             battlePlayer2HPBarRed.visible = false;
             battlePlayer2EXBarCyan.visible = false;
             battlePlayer2EXBarGray.visible = false;
@@ -235,9 +245,12 @@ function setup() {
 
         battlePlayer3HPBarRed = new Sprite(p3X, (p3Y - 70), 100, 10, 'k');
         battlePlayer3HPBarRed.color = '#720000'
+        battlePlayer3HPBarYellow = new Sprite(p3X, (p3Y - 70), (battlePlayer3HP * -1) * (100/battlePlayer3MaxHP), 10, 'k');
+        battlePlayer3HPBarYellow.color = '#fff530'
         battlePlayer3HPBarGreen = new Sprite(p3X, (p3Y - 70), battlePlayer3HP * (100/battlePlayer3MaxHP), 10, 'k');
         battlePlayer3HPBarGreen.color = '#30ff7f'
         battlePlayer3HPBarRed.visible = false;
+        battlePlayer3HPBarYellow.visible = false;
         battlePlayer3HPBarGreen.visible = false;
 
         battlePlayer3EXBarGray = new Sprite((p3X - 60), p3Y, 5, 100, 'k');
@@ -248,6 +261,7 @@ function setup() {
         if(p3Type === "no"){
             battlePlayer3.visible = false;
             battlePlayer3HPBarGreen.visible = false;
+            battlePlayer3HPBarYellow.visible = false;
             battlePlayer3HPBarRed.visible = false;
             battlePlayer3EXBarCyan.visible = false;
             battlePlayer3EXBarGray.visible = false;
@@ -263,9 +277,12 @@ function setup() {
 
         battlePlayer4HPBarRed = new Sprite(p2X, (p2Y - 70), 100, 10, 'k');
         battlePlayer4HPBarRed.color = '#720000'
+        battlePlayer4HPBarYellow = new Sprite(p4X, (p4Y - 70), (battlePlayer4HP * -1) * (100/battlePlayer4MaxHP), 10, 'k');
+        battlePlayer4HPBarYellow.color = '#fff530'
         battlePlayer4HPBarGreen = new Sprite(p2X, (p2Y - 70), battlePlayer4HP * (100/battlePlayer4MaxHP), 10, 'k');
         battlePlayer4HPBarGreen.color = '#30ff7f'
         battlePlayer4HPBarRed.visible = false;
+        battlePlayer4HPBarYellow.visible = false;
         battlePlayer4HPBarGreen.visible = false;
 
         battlePlayer4EXBarGray = new Sprite((p4X - 60), p4Y, 5, 100, 'k');
@@ -276,6 +293,7 @@ function setup() {
         if(p4Type === "no"){
             battlePlayer4.visible = false;
             battlePlayer4HPBarGreen.visible = false;
+            battlePlayer4HPBarYellow.visible = false;
             battlePlayer4HPBarRed.visible = false;
             battlePlayer4EXBarCyan.visible = false;
             battlePlayer4EXBarGray.visible = false;
@@ -530,6 +548,11 @@ function draw() {
         text(battleTotalTurn, 500, 50);
         text(battleChosenMove, 450, 100);
 
+        battlePlayer1HPBarYellow.width = (battlePlayer1HP * -1) * (100/battlePlayer1MaxHP);
+        battlePlayer2HPBarYellow.width = (battlePlayer2HP * -1) * (100/battlePlayer2MaxHP);
+        battlePlayer3HPBarYellow.width = (battlePlayer3HP * -1) * (100/battlePlayer3MaxHP);
+        battlePlayer4HPBarYellow.width = (battlePlayer4HP * -1) * (100/battlePlayer4MaxHP);
+
         battlePlayer1HPBarGreen.width = battlePlayer1HP * (100/battlePlayer1MaxHP);
         battlePlayer2HPBarGreen.width = battlePlayer2HP * (100/battlePlayer2MaxHP);
         battlePlayer3HPBarGreen.width = battlePlayer3HP * (100/battlePlayer3MaxHP);
@@ -589,24 +612,28 @@ function draw() {
             if(battleAlivePlayersArray.includes('p1')){
                 battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('p1'), 1)
             };
+            playAnimation("down", "p1")
         };
 
         if(battlePlayer2HP <= 0){
             if(battleAlivePlayersArray.includes('p2')){
                 battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('p2'), 1)
             };
+            playAnimation("down", "p2")
         };
 
         if(battlePlayer3HP <= 0){
             if(battleAlivePlayersArray.includes('p3')){
                 battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('p3'), 1)
             };
+            playAnimation("down", "p3")
         };
 
         if(battlePlayer4HP <= 0){
             if(battleAlivePlayersArray.includes('p4')){
                 battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('p4'), 1)
             };
+            playAnimation("down", "p4")
         };
 
         if(battlePlayer1HP > 0){
@@ -923,12 +950,16 @@ function draw() {
 
             if (battleButtonHover === 1 && inBattleMenu === "chosePlayer"){
                 battlePlayer1HPBarGreen.visible = true;
+                battlePlayer1HPBarYellow.visible = true;
                 battlePlayer1HPBarRed.visible = true;
                 battlePlayer2HPBarGreen.visible = false;
+                battlePlayer2HPBarYellow.visible = false;
                 battlePlayer2HPBarRed.visible = false;
                 battlePlayer3HPBarGreen.visible = false;
+                battlePlayer3HPBarYellow.visible = false;
                 battlePlayer3HPBarRed.visible = false;
                 battlePlayer4HPBarGreen.visible = false;
+                battlePlayer4HPBarYellow.visible = false;
                 battlePlayer4HPBarRed.visible = false;
                 battlePlayer1.tint = 255
                 battlePlayer2.tint = 155
@@ -936,12 +967,16 @@ function draw() {
                 battlePlayer4.tint = 155
             } else if(battleButtonHover === 2 && inBattleMenu === "chosePlayer") {
                 battlePlayer1HPBarGreen.visible = false;
+                battlePlayer1HPBarYellow.visible = false;
                 battlePlayer1HPBarRed.visible = false;
                 battlePlayer2HPBarGreen.visible = true;
+                battlePlayer2HPBarYellow.visible = true;
                 battlePlayer2HPBarRed.visible = true;
                 battlePlayer3HPBarGreen.visible = false;
+                battlePlayer3HPBarYellow.visible = false;
                 battlePlayer3HPBarRed.visible = false;
                 battlePlayer4HPBarGreen.visible = false;
+                battlePlayer4HPBarYellow.visible = false;
                 battlePlayer4HPBarRed.visible = false;
                 battlePlayer1.tint = 155
                 battlePlayer2.tint = 255
@@ -949,12 +984,16 @@ function draw() {
                 battlePlayer4.tint = 155
             } else if (battleButtonHover === 3 && inBattleMenu === "chosePlayer") {
                 battlePlayer1HPBarGreen.visible = false;
+                battlePlayer1HPBarYellow.visible = false;
                 battlePlayer1HPBarRed.visible = false;
                 battlePlayer2HPBarGreen.visible = false;
+                battlePlayer2HPBarYellow.visible = false;
                 battlePlayer2HPBarRed.visible = false;
                 battlePlayer3HPBarGreen.visible = true;
+                battlePlayer3HPBarYellow.visible = true;
                 battlePlayer3HPBarRed.visible = true;
                 battlePlayer4HPBarGreen.visible = false;
+                battlePlayer4HPBarYellow.visible = false;
                 battlePlayer4HPBarRed.visible = false;
                 battlePlayer1.tint = 155
                 battlePlayer2.tint = 155
@@ -962,12 +1001,16 @@ function draw() {
                 battlePlayer4.tint = 155
             } else if (battleButtonHover === 4 && inBattleMenu === "chosePlayer") {
                 battlePlayer1HPBarGreen.visible = false;
+                battlePlayer1HPBarYellow.visible = false;
                 battlePlayer1HPBarRed.visible = false;
                 battlePlayer2HPBarGreen.visible = false;
+                battlePlayer2HPBarYellow.visible = false;
                 battlePlayer2HPBarRed.visible = false;
                 battlePlayer3HPBarGreen.visible = false;
+                battlePlayer3HPBarYellow.visible = false;
                 battlePlayer3HPBarRed.visible = false;
                 battlePlayer4HPBarGreen.visible = true;
+                battlePlayer4HPBarYellow.visible = true;
                 battlePlayer4HPBarRed.visible = true;
                 battlePlayer1.tint = 155
                 battlePlayer2.tint = 155
@@ -1582,12 +1625,16 @@ async function healPlayer(player){
     };
     await delay(500);
     battlePlayer1HPBarGreen.visible = false;
+    battlePlayer1HPBarYellow.visible = false;
     battlePlayer1HPBarRed.visible = false;
     battlePlayer2HPBarGreen.visible = false;
+    battlePlayer2HPBarYellow.visible = false;
     battlePlayer2HPBarRed.visible = false;
     battlePlayer3HPBarGreen.visible = false;
+    battlePlayer3HPBarYellow.visible = false;
     battlePlayer3HPBarRed.visible = false;
     battlePlayer4HPBarGreen.visible = false;
+    battlePlayer4HPBarYellow.visible = false;
     battlePlayer4HPBarRed.visible = false;
     endTurn()
 };
@@ -1637,16 +1684,20 @@ function battleBackSpells(hideHP){
     battlePlayer4.tint = 255
     if(hideHP === true){
         battlePlayer1HPBarGreen.visible = false;
+        battlePlayer1HPBarYellow.visible = false;
         battlePlayer1HPBarRed.visible = false;
         battlePlayer2HPBarGreen.visible = false;
+        battlePlayer2HPBarYellow.visible = false;
         battlePlayer2HPBarRed.visible = false;
         battlePlayer3HPBarGreen.visible = false;
+        battlePlayer3HPBarYellow.visible = false;
         battlePlayer3HPBarRed.visible = false;
         battlePlayer4HPBarGreen.visible = false;
+        battlePlayer4HPBarYellow.visible = false;
         battlePlayer4HPBarRed.visible = false;
     }
     inBattleMenu = "spells"
-}
+};
 
 async function startTurn(){
     if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1" && battlePlayer1HP <= 0){
@@ -1710,6 +1761,7 @@ async function startEnemieTurn(enemieNum){
     if(enemieAttackPlayerNum === 'p1'){
         await delay(100);
         battlePlayer1HPBarGreen.visible = true;
+        battlePlayer1HPBarYellow.visible = true;
         battlePlayer1HPBarRed.visible = true;
         await delay(500);
         if(battlePlayer1State === "defend"){
@@ -1719,11 +1771,13 @@ async function startEnemieTurn(enemieNum){
         }
         await delay(500);
         battlePlayer1HPBarGreen.visible = false;
+        battlePlayer1HPBarYellow.visible = false;
         battlePlayer1HPBarRed.visible = false;
 
     } else if(enemieAttackPlayerNum === 'p2'){
         await delay(100);
         battlePlayer2HPBarGreen.visible = true;
+        battlePlayer2HPBarYellow.visible = true;
         battlePlayer2HPBarRed.visible = true;
         await delay(500);
         if(battlePlayer2State === "defend"){
@@ -1733,11 +1787,13 @@ async function startEnemieTurn(enemieNum){
         }
         await delay(500);
         battlePlayer2HPBarGreen.visible = false;
+        battlePlayer2HPBarYellow.visible = false;
         battlePlayer2HPBarRed.visible = false;
 
     } else if(enemieAttackPlayerNum === 'p3'){
         await delay(100);
         battlePlayer3HPBarGreen.visible = true;
+        battlePlayer3HPBarYellow.visible = true;
         battlePlayer3HPBarRed.visible = true;
         await delay(500);
         if(battlePlayer3State === "defend"){
@@ -1747,11 +1803,13 @@ async function startEnemieTurn(enemieNum){
         }
         await delay(500);
         battlePlayer3HPBarGreen.visible = false;
+        battlePlayer3HPBarYellow.visible = false;
         battlePlayer3HPBarRed.visible = false;
 
     } else if(enemieAttackPlayerNum === 'p4'){
         await delay(100);
         battlePlayer4HPBarGreen.visible = true;
+        battlePlayer4HPBarYellow.visible = true;
         battlePlayer4HPBarRed.visible = true;
         await delay(500);
         if(battlePlayer4State === "defend"){
@@ -1761,6 +1819,7 @@ async function startEnemieTurn(enemieNum){
         }
         await delay(500);
         battlePlayer4HPBarGreen.visible = false;
+        battlePlayer4HPBarYellow.visible = false;
         battlePlayer4HPBarRed.visible = false;
 
     };
@@ -1840,8 +1899,64 @@ async function playAnimation(animation, id) {
             battleEnemie4.image = imgDugBattleAttack;
         };
     };
-  }
-};
+  } else if(id === "p1"){
+    if(battlePlayer1Type === "Merp"){
+        if(animation === "idle"){
+            battlePlayer1.image = imgPlayerBattle;
+        } else if(animation === "down"){
+            battlePlayer1.image = imgPlayerBattleDown;
+        };
+    } else if(battlePlayer1Type === "Unkown"){
+        if(animation === "idle"){
+            battlePlayer1.image = imgUnkownBattle;
+        } else if(animation === "down"){
+            battlePlayer1.image = imgUnkownBattleDown;
+        };
+    };
+  } else if(id === "p2"){
+    if(battlePlayer2Type === "Merp"){
+        if(animation === "idle"){
+            battlePlayer2.image = imgPlayerBattle;
+        } else if(animation === "down"){
+            battlePlayer2.image = imgPlayerBattleDown;
+        };
+    } else if(battlePlayer2Type === "Unkown"){
+        if(animation === "idle"){
+            battlePlayer2.image = imgUnkownBattle;
+        } else if(animation === "down"){
+            battlePlayer2.image = imgUnkownBattleDown;
+        };
+    };
+  } else if(id === "p3"){
+    if(battlePlayer3Type === "Merp"){
+        if(animation === "idle"){
+            battlePlayer3.image = imgPlayerBattle;
+        } else if(animation === "down"){
+            battlePlayer3.image = imgPlayerBattleDown;
+        };
+    } else if(battlePlayer3Type === "Unkown"){
+        if(animation === "idle"){
+            battlePlayer3.image = imgUnkownBattle;
+        } else if(animation === "down"){
+            battlePlayer3.image = imgUnkownBattleDown;
+        };
+    };
+  } else if(id === "p4"){
+    if(battlePlayer4Type === "Merp"){
+        if(animation === "idle"){
+            battlePlayer4.image = imgPlayerBattle;
+        } else if(animation === "down"){
+            battlePlayer4.image = imgPlayerBattleDown;
+        };
+    } else if(battlePlayer4Type === "Unkown"){
+        if(animation === "idle"){
+            battlePlayer4.image = imgUnkownBattle;
+        } else if(animation === "down"){
+            battlePlayer4.image = imgUnkownBattleDown;
+        };
+    };
+  };
+}
 
 /*******************************************************/
 //  END OF APP
