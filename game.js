@@ -1410,87 +1410,156 @@ function draw() {
 function battleSelectAttack(){
     if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
         attackOption1Button = new Sprite(200, 75, 70, 20, 'k');
-        attackOption1Button.color = '#000000'
+        attackOption1Button.color = '#ffffff'
         attackOption1Button.textSize = 12.5
         attackOption1Button.textColor = '#000000'
-        attackOption1Button.text = attackButton1Text + "    " + attackButton1EXCost
+        attackOption1Button.text = attackButton1Text
 
         attackOption3Button = new Sprite(200, 110, 70, 20, 'k');
-        attackOption3Button.color = '#000000'
+        attackOption3Button.color = '#ffffff'
+        attackOption3Button.textSize = 12.5
+        attackOption3Button.textColor = '#000000'
+        attackOption3Button.text = attackButton3Text
 
         attackOption5Button = new Sprite(200, 145, 70, 20, 'k');
-        attackOption5Button.color = '#000000'
+        attackOption5Button.color = '#ffffff'
+        attackOption5Button.textSize = 12.5
+        attackOption5Button.textColor = '#000000'
+        attackOption5Button.text = attackButton5Text
 
         attackOption2Button = new Sprite(280, 75, 70, 20, 'k');
-        attackOption2Button.color = '#000000'
+        attackOption2Button.color = '#ffffff'
+        attackOption2Button.textSize = 12.5
+        attackOption2Button.textColor = '#000000'
+        attackOption2Button.text = attackButton2Text
 
         attackOption4Button = new Sprite(280, 110, 70, 20, 'k');
-        attackOption4Button.color = '#000000'
+        attackOption4Button.color = '#ffffff'
+        attackOption4Button.textSize = 12.5
+        attackOption4Button.textColor = '#000000'
+        attackOption4Button.text = attackButton4Text
 
         attackOption6Button = new Sprite(280, 145, 70, 20, 'k');
-        attackOption6Button.color = '#000000'
+        attackOption6Button.color = '#ffffff'
+        attackOption6Button.textSize = 12.5
+        attackOption6Button.textColor = '#000000'
+        attackOption6Button.text = attackButton6Text
     } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
         attackOption1Button = new Sprite(200, 275, 70, 20, 'k');
-        attackOption1Button.color = '#000000'
+        attackOption1Button.color = '#ffffff'
+        attackOption1Button.textSize = 12.5
+        attackOption1Button.textColor = '#000000'
+        attackOption1Button.text = attackButton1Text
 
         attackOption3Button = new Sprite(200, 310, 70, 20, 'k');
-        attackOption3Button.color = '#000000'
+        attackOption3Button.color = '#ffffff'
+        attackOption3Button.textSize = 12.5
+        attackOption3Button.textColor = '#000000'
+        attackOption3Button.text = attackButton3Text
 
         attackOption5Button = new Sprite(200, 345, 70, 20, 'k');
-        attackOption5Button.color = '#000000'
+        attackOption5Button.color = '#ffffff'
+        attackOption5Button.textSize = 12.5
+        attackOption5Button.textColor = '#000000'
+        attackOption5Button.text = attackButton5Text
 
         attackOption2Button = new Sprite(280, 275, 70, 20, 'k');
-        attackOption2Button.color = '#000000'
+        attackOption2Button.color = '#ffffff'
+        attackOption2Button.textSize = 12.5
+        attackOption2Button.textColor = '#000000'
+        attackOption2Button.text = attackButton2Text
 
         attackOption4Button = new Sprite(280, 310, 70, 20, 'k');
-        attackOption4Button.color = '#000000'
+        attackOption4Button.color = '#ffffff'
+        attackOption4Button.textSize = 12.5
+        attackOption4Button.textColor = '#000000'
+        attackOption4Button.text = attackButton4Text
 
         attackOption6Button = new Sprite(280, 345, 70, 20, 'k');
-        attackOption6Button.color = '#000000'
+        attackOption6Button.color = '#ffffff'
+        attackOption6Button.textSize = 12.5
+        attackOption6Button.textColor = '#000000'
+        attackOption6Button.text = attackButton6Text
     };
 };
 
 function battleSelectSpell(){
     if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
         spellOption1Button = new Sprite(200, 75, 70, 20, 'k');
-        spellOption1Button.color = '#000000'
+        spellOption1Button.color = '#ffffff'
+        spellOption1Button.textSize = 12.5
+        spellOption1Button.textColor = '#000000'
+        spellOption1Button.text = spellButton1Text
 
         spellOption2Button = new Sprite(200, 110, 70, 20, 'k');
-        spellOption2Button.color = '#000000'
+        spellOption2Button.color = '#ffffff'
+        spellOption2Button.textSize = 12.5
+        spellOption2Button.textColor = '#000000'
+        spellOption2Button.text = spellButton2Text
 
         spellOption3Button = new Sprite(200, 145, 70, 20, 'k');
-        spellOption3Button.color = '#000000'
+        spellOption3Button.color = '#ffffff'
+        spellOption3Button.textSize = 12.5
+        spellOption3Button.textColor = '#000000'
+        spellOption3Button.text = spellButton3Text
     } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
         spellOption1Button = new Sprite(200, 275, 70, 20, 'k');
-        spellOption1Button.color = '#000000'
+        spellOption1Button.color = '#ffffff'
+        spellOption1Button.textSize = 12.5
+        spellOption1Button.textColor = '#000000'
+        spellOption1Button.text = spellButton1Text
 
         spellOption2Button = new Sprite(200, 310, 70, 20, 'k');
-        spellOption2Button.color = '#000000'
+        spellOption2Button.color = '#ffffff'
+        spellOption2Button.textSize = 12.5
+        spellOption2Button.textColor = '#000000'
+        spellOption2Button.text = spellButton2Text
 
         spellOption3Button = new Sprite(200, 345, 70, 20, 'k');
-        spellOption3Button.color = '#000000'
+        spellOption3Button.color = '#ffffff'
+        spellOption3Button.textSize = 12.5
+        spellOption3Button.textColor = '#000000'
+        spellOption3Button.text = spellButton3Text
     };
 };
 
 function battleSelectTalk(){
     if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
         talkOption1Button = new Sprite(200, 75, 70, 20, 'k');
-        talkOption1Button.color = '#000000'
+        talkOption1Button.color = '#ffffff'
+        talkOption1Button.textSize = 12.5
+        talkOption1Button.textColor = '#000000'
+        talkOption1Button.text = talkButton1Text
 
         talkOption2Button = new Sprite(200, 110, 70, 20, 'k');
-        talkOption2Button.color = '#000000'
+        talkOption2Button.color = '#ffffff'
+        talkOption2Button.textSize = 12.5
+        talkOption2Button.textColor = '#000000'
+        talkOption2Button.text = talkButton2Text
 
         talkOption3Button = new Sprite(200, 145, 70, 20, 'k');
-        talkOption3Button.color = '#000000'
+        talkOption3Button.color = '#ffffff'
+        talkOption3Button.textSize = 12.5
+        talkOption3Button.textColor = '#000000'
+        talkOption3Button.text = talkButton3Text
     } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
         talkOption1Button = new Sprite(200, 275, 70, 20, 'k');
-        talkOption1Button.color = '#000000'
+        talkOption1Button.color = '#ffffff'
+        talkOption1Button.textSize = 12.5
+        talkOption1Button.textColor = '#000000'
+        talkOption1Button.text = talkButton1Text
 
         talkOption2Button = new Sprite(200, 310, 70, 20, 'k');
-        talkOption2Button.color = '#000000'
+        talkOption2Button.color = '#ffffff'
+        talkOption2Button.textSize = 12.5
+        talkOption2Button.textColor = '#000000'
+        talkOption2Button.text = talkButton2Text
 
         talkOption3Button = new Sprite(200, 345, 70, 20, 'k');
-        talkOption3Button.color = '#000000'
+        talkOption3Button.color = '#ffffff'
+        talkOption3Button.textSize = 12.5
+        talkOption3Button.textColor = '#000000'
+        talkOption3Button.text = talkButton3Text
     }
 };
 
