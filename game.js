@@ -169,6 +169,31 @@ function setup() {
 
         console.log(shuffledBattleTurnArray)
 		battleTurn = shuffledBattleTurnArray[1]
+        attackButton1Text = "attack 1"
+        attackButton2Text = "attack 2"
+        attackButton3Text = "attack 3"
+        attackButton4Text = "attack 4"
+        attackButton5Text = "attack 5"
+        attackButton6Text = "attack 6"
+        talkButton1Text = "talk 1"
+        talkButton2Text = "talk 2"
+        talkButton3Text = "talk 3"
+        spellButton1Text = "heal 1"
+        spellButton2Text = "heal 2"
+        spellButton3Text = "heal 3"
+        
+        attackButton1EXCost = 0
+        attackButton2EXCost = 0
+        attackButton3EXCost = 0
+        attackButton4EXCost = 0
+        attackButton5EXCost = 0
+        attackButton6EXCost = 0
+        talkButton1EXCost = 0
+        talkButton2EXCost = 0
+        talkButton3EXCost = 0
+        spellButton1EXCost = 20
+        spellButton2EXCost = 40
+        spellButton3EXCost = 60
         battleMusic.loop()
 
         battlePlayer1 = new Sprite(p1X, p1Y, 50, 100, 'k');
@@ -544,9 +569,9 @@ function draw() {
         textSize(25);
         fill('#000000');
         text("Turn:", 888, 50);
-        text(battleButtonHover, 450, 50);
-        text(battleTotalTurn, 500, 50);
-        text(battleChosenMove, 450, 100);
+        //text(battleButtonHover, 450, 50);
+        //text(battleTotalTurn, 500, 50);
+        //text(battleChosenMove, 450, 100);
 
         battlePlayer1HPBarYellow.width = (battlePlayer1HP * -1) * (100/battlePlayer1MaxHP);
         battlePlayer2HPBarYellow.width = (battlePlayer2HP * -1) * (100/battlePlayer2MaxHP);
@@ -823,75 +848,75 @@ function draw() {
             };
 
             if (battleButtonHover === 1 && inBattleMenu === "attack"){
-                attackOption1Button.color = '#afafaf'
-                attackOption2Button.color = '#000000'
-                attackOption3Button.color = '#000000'
-                attackOption4Button.color = '#000000'
-                attackOption5Button.color = '#000000'
-                attackOption6Button.color = '#000000'
+                attackOption1Button.color = '#dfdfdf'
+                attackOption2Button.color = '#ffffff'
+                attackOption3Button.color = '#ffffff'
+                attackOption4Button.color = '#ffffff'
+                attackOption5Button.color = '#ffffff'
+                attackOption6Button.color = '#ffffff'
             } else if(battleButtonHover === 2 && inBattleMenu === "attack") {
-                attackOption1Button.color = '#000000'
-                attackOption2Button.color = '#afafaf'
-                attackOption3Button.color = '#000000'
-                attackOption4Button.color = '#000000'
-                attackOption5Button.color = '#000000'
-                attackOption6Button.color = '#000000'
+                attackOption1Button.color = '#ffffff'
+                attackOption2Button.color = '#dfdfdf'
+                attackOption3Button.color = '#ffffff'
+                attackOption4Button.color = '#ffffff'
+                attackOption5Button.color = '#ffffff'
+                attackOption6Button.color = '#ffffff'
             } else if (battleButtonHover === 3 && inBattleMenu === "attack") {
-                attackOption1Button.color = '#000000'
-                attackOption2Button.color = '#000000'
-                attackOption3Button.color = '#afafaf'
-                attackOption4Button.color = '#000000'
-                attackOption5Button.color = '#000000'
-                attackOption6Button.color = '#000000'
+                attackOption1Button.color = '#ffffff'
+                attackOption2Button.color = '#ffffff'
+                attackOption3Button.color = '#dfdfdf'
+                attackOption4Button.color = '#ffffff'
+                attackOption5Button.color = '#ffffff'
+                attackOption6Button.color = '#ffffff'
             } else if (battleButtonHover === 4 && inBattleMenu === "attack") {
-                attackOption1Button.color = '#000000'
-                attackOption2Button.color = '#000000'
-                attackOption3Button.color = '#000000'
-                attackOption4Button.color = '#afafaf'
-                attackOption5Button.color = '#000000'
-                attackOption6Button.color = '#000000'
+                attackOption1Button.color = '#ffffff'
+                attackOption2Button.color = '#ffffff'
+                attackOption3Button.color = '#ffffff'
+                attackOption4Button.color = '#dfdfdf'
+                attackOption5Button.color = '#ffffff'
+                attackOption6Button.color = '#ffffff'
             } else if(battleButtonHover === 5 && inBattleMenu === "attack") {
-                attackOption1Button.color = '#000000'
-                attackOption2Button.color = '#000000'
-                attackOption3Button.color = '#000000'
-                attackOption4Button.color = '#000000'
-                attackOption5Button.color = '#afafaf'
-                attackOption6Button.color = '#000000'
+                attackOption1Button.color = '#ffffff'
+                attackOption2Button.color = '#ffffff'
+                attackOption3Button.color = '#ffffff'
+                attackOption4Button.color = '#ffffff'
+                attackOption5Button.color = '#dfdfdf'
+                attackOption6Button.color = '#ffffff'
             } else if(battleButtonHover === 6 && inBattleMenu === "attack") {
-                attackOption1Button.color = '#000000'
-                attackOption2Button.color = '#000000'
-                attackOption3Button.color = '#000000'
-                attackOption4Button.color = '#000000'
-                attackOption5Button.color = '#000000'
-                attackOption6Button.color = '#afafaf'
+                attackOption1Button.color = '#ffffff'
+                attackOption2Button.color = '#ffffff'
+                attackOption3Button.color = '#ffffff'
+                attackOption4Button.color = '#ffffff'
+                attackOption5Button.color = '#ffffff'
+                attackOption6Button.color = '#dfdfdf'
             }
 
             if (battleButtonHover === 1 && inBattleMenu === "spells"){
-                spellOption1Button.color = '#afafaf'
-                spellOption2Button.color = '#000000'
-                spellOption3Button.color = '#000000'
+                spellOption1Button.color = '#dfdfdf'
+                spellOption2Button.color = '#ffffff'
+                spellOption3Button.color = '#ffffff'
             } else if(battleButtonHover === 2 && inBattleMenu === "spells") {
-                spellOption1Button.color = '#000000'
-                spellOption2Button.color = '#afafaf'
-                spellOption3Button.color = '#000000'
+                spellOption1Button.color = '#ffffff'
+                spellOption2Button.color = '#dfdfdf'
+                spellOption3Button.color = '#ffffff'
             } else if (battleButtonHover === 3 && inBattleMenu === "spells") {
-                spellOption1Button.color = '#000000'
-                spellOption2Button.color = '#000000'
-                spellOption3Button.color = '#afafaf'
+                spellOption1Button.color = '#ffffff'
+                spellOption2Button.color = '#ffffff'
+                spellOption3Button.color = '#dfdfdf'
             }
 
             if (battleButtonHover === 1 && inBattleMenu === "talk"){
-                talkOption1Button.color = '#afafaf'
-                talkOption2Button.color = '#000000'
-                talkOption3Button.color = '#000000'
+                talkOption1Button.color = '#dfdfdf'
+                talkOption2Button.color = '#ffffff'
+                talkOption3Button.color = '#ffffff'
             } else if(battleButtonHover === 2 && inBattleMenu === "talk") {
-                talkOption1Button.color = '#000000'
-                talkOption2Button.color = '#afafaf'
-                talkOption3Button.color = '#000000'
+                talkOption1Button.color = '#ffffff'
+                talkOption2Button.color = '#dfdfdf'
+                talkOption3Button.color = '#ffffff'
             } else if (battleButtonHover === 3 && inBattleMenu === "talk") {
-                talkOption1Button.color = '#000000'
-                talkOption2Button.color = '#000000'
-                talkOption3Button.color = '#afafaf'
+                talkOption1Button.color = '#ffffff'
+                talkOption2Button.color = '#ffffff'
+                talkOption3Button.color = '#dfdfdf'
             }
 
             if (battleButtonHover === 1 && inBattleMenu === "choseEnemie"){
@@ -1386,6 +1411,9 @@ function battleSelectAttack(){
     if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
         attackOption1Button = new Sprite(200, 75, 70, 20, 'k');
         attackOption1Button.color = '#000000'
+        attackOption1Button.textSize = 12.5
+        attackOption1Button.textColor = '#000000'
+        attackOption1Button.text = attackButton1Text + "    " + attackButton1EXCost
 
         attackOption3Button = new Sprite(200, 110, 70, 20, 'k');
         attackOption3Button.color = '#000000'
