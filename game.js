@@ -64,6 +64,7 @@ function setup() {
     var defaultTrueSaviorMaxHP = 200
 
     var p1EquippedWeppon = "transcendedScythe"
+    var p2EquippedWeppon = "gun"
 
     mapGroup = new Group();
     upperWall = new Sprite(544, 0, 1088, 306, 's')
@@ -573,15 +574,15 @@ function draw() {
         //text(battleTotalTurn, 500, 50);
         //text(battleChosenMove, 450, 100);
 
-        battlePlayer1HPBarYellow.width = (battlePlayer1HP * -1) * (100/battlePlayer1MaxHP);
-        battlePlayer2HPBarYellow.width = (battlePlayer2HP * -1) * (100/battlePlayer2MaxHP);
-        battlePlayer3HPBarYellow.width = (battlePlayer3HP * -1) * (100/battlePlayer3MaxHP);
-        battlePlayer4HPBarYellow.width = (battlePlayer4HP * -1) * (100/battlePlayer4MaxHP);
+        battlePlayer1HPBarYellow.width = ((battlePlayer1HP * -1) * (100/battlePlayer1MaxHP)) + 0.01;
+        battlePlayer2HPBarYellow.width = ((battlePlayer2HP * -1) * (100/battlePlayer2MaxHP)) + 0.01;
+        battlePlayer3HPBarYellow.width = ((battlePlayer3HP * -1) * (100/battlePlayer3MaxHP)) + 0.01;
+        battlePlayer4HPBarYellow.width = ((battlePlayer4HP * -1) * (100/battlePlayer4MaxHP)) + 0.01;
 
-        battlePlayer1HPBarGreen.width = battlePlayer1HP * (100/battlePlayer1MaxHP);
-        battlePlayer2HPBarGreen.width = battlePlayer2HP * (100/battlePlayer2MaxHP);
-        battlePlayer3HPBarGreen.width = battlePlayer3HP * (100/battlePlayer3MaxHP);
-        battlePlayer4HPBarGreen.width = battlePlayer4HP * (100/battlePlayer4MaxHP);
+        battlePlayer1HPBarGreen.width = (battlePlayer1HP * (100/battlePlayer1MaxHP)) + 0.01;
+        battlePlayer2HPBarGreen.width = (battlePlayer2HP * (100/battlePlayer2MaxHP)) + 0.01;
+        battlePlayer3HPBarGreen.width = (battlePlayer3HP * (100/battlePlayer3MaxHP)) + 0.01;
+        battlePlayer4HPBarGreen.width = (battlePlayer4HP * (100/battlePlayer4MaxHP)) + 0.01;
 
         battlePlayer1EXBarCyan.height = battlePlayer1EX + 0.01;
         battlePlayer2EXBarCyan.height = battlePlayer2EX + 0.01;
@@ -604,28 +605,28 @@ function draw() {
     };
 
 
-        if(battleEnemie1HP === 0){
+        if(battleEnemie1HP <= 0){
             battleEnemie1.visible = false
             if(shuffledBattleTurnArray.includes('e1')){
                 shuffledBattleTurnArray.splice(shuffledBattleTurnArray.indexOf('e1'), 1)
             };
         };
 
-        if(battleEnemie2HP === 0){
+        if(battleEnemie2HP <= 0){
             battleEnemie2.visible = false
             if(shuffledBattleTurnArray.includes('e2')){
                 shuffledBattleTurnArray.splice(shuffledBattleTurnArray.indexOf('e2'), 1)
             };
         };
 
-        if(battleEnemie3HP === 0){
+        if(battleEnemie3HP <= 0){
             battleEnemie3.visible = false
             if(shuffledBattleTurnArray.includes('e3')){
                 shuffledBattleTurnArray.splice(shuffledBattleTurnArray.indexOf('e3'), 1)
             };
         };
 
-        if(battleEnemie4HP === 0){
+        if(battleEnemie4HP <= 0){
             battleEnemie4.visible = false
             if(shuffledBattleTurnArray.includes('e4')){
                 shuffledBattleTurnArray.splice(shuffledBattleTurnArray.indexOf('e4'), 1)
@@ -664,24 +665,28 @@ function draw() {
         if(battlePlayer1HP > 0){
             if(!battleAlivePlayersArray.includes('p1')){
                 battleAlivePlayersArray.push('p1')
+                playAnimation("idle", "p1")
             };
         };
 
         if(battlePlayer2HP > 0){
             if(!battleAlivePlayersArray.includes('p2')){
                 battleAlivePlayersArray.push('p2')
+                playAnimation("idle", "p2")
             };
         };
 
         if(battlePlayer3HP > 0){
             if(!battleAlivePlayersArray.includes('p3')){
                 battleAlivePlayersArray.push('p3')
+                playAnimation("idle", "p3")
             };
         };
 
         if(battlePlayer4HP > 0){
             if(!battleAlivePlayersArray.includes('p4')){
                 battleAlivePlayersArray.push('p4')
+                playAnimation("idle", "p4")
             };
         };
 
@@ -1215,8 +1220,8 @@ function draw() {
             };
 
             if (kb.pressed ('z') && battleButtonHover === 1 && inBattleMenu === "spells") {
-                if(currentBattleTurnEX >= 20){
-                    EXCost = 20
+                if(currentBattleTurnEX >= spellButton1EXCost){
+                    EXCost = spellButton1EXCost
                     battleChosenMove = "spell1"
                     inBattleMenu = "chosePlayer"
                     battleButtonHover = 0
@@ -1225,8 +1230,8 @@ function draw() {
             };
 
             if (kb.pressed ('z') && battleButtonHover === 2 && inBattleMenu === "spells") {
-                if(currentBattleTurnEX >= 40){
-                    EXCost = 40
+                if(currentBattleTurnEX >= spellButton2EXCost){
+                    EXCost = spellButton2EXCost
                     battleChosenMove = "spell2"
                     inBattleMenu = "chosePlayer"
                     battleButtonHover = 0
@@ -1235,8 +1240,8 @@ function draw() {
             };
 
             if (kb.pressed ('z') && battleButtonHover === 3 && inBattleMenu === "spells") {
-                if(currentBattleTurnEX >= 60){
-                    EXCost = 60
+                if(currentBattleTurnEX >= spellButton3EXCost){
+                    EXCost = spellButton3EXCost
                     battleChosenMove = "spell3"
                     inBattleMenu = "chosePlayer"
                     battleButtonHover = 0
@@ -1586,29 +1591,29 @@ function choseEnemieToAttack(){
 function changeBattleButtonHoverEnemie(amount){
     battleButtonHover = battleButtonHover + amount;
     if(amount > 0){
-        if(battleButtonHover === 1 && battleEnemie1HP === 0){
+        if(battleButtonHover === 1 && battleEnemie1HP <= 0){
             changeBattleButtonHoverEnemie(1)
         }
-        if(battleButtonHover === 2 && battleEnemie2HP === 0){
+        if(battleButtonHover === 2 && battleEnemie2HP <= 0){
             changeBattleButtonHoverEnemie(1)
         }
-        if(battleButtonHover === 3 && battleEnemie3HP === 0){
+        if(battleButtonHover === 3 && battleEnemie3HP <= 0){
             changeBattleButtonHoverEnemie(1)
         }
-        if(battleButtonHover === 4 && battleEnemie4HP === 0){
+        if(battleButtonHover === 4 && battleEnemie4HP <= 0){
             changeBattleButtonHoverEnemie(1)
         }
     } else if (amount < 0){
-        if(battleButtonHover === 1 && battleEnemie1HP === 0){
+        if(battleButtonHover === 1 && battleEnemie1HP <= 0){
             changeBattleButtonHoverEnemie(-1)
         }
-        if(battleButtonHover === 2 && battleEnemie2HP === 0){
+        if(battleButtonHover === 2 && battleEnemie2HP <= 0){
             changeBattleButtonHoverEnemie(-1)
         }
-        if(battleButtonHover === 3 && battleEnemie3HP === 0){
+        if(battleButtonHover === 3 && battleEnemie3HP <= 0){
             changeBattleButtonHoverEnemie(-1)
         }
-        if(battleButtonHover === 4 && battleEnemie4HP === 0){
+        if(battleButtonHover === 4 && battleEnemie4HP <= 0){
             changeBattleButtonHoverEnemie(-1)
         }
     }
@@ -1647,14 +1652,27 @@ function changeBattleButtonHoverPlayer(amount){
 
 async function attackEnemie(enemie){
     await delay(100);
+    if(battleChosenMove === "attack1"){
+        playerDamageValue = attackButton1Damage
+    } else if(battleChosenMove === "attack2"){
+        playerDamageValue = attackButton2Damage
+    } else if(battleChosenMove === "attack3"){
+        playerDamageValue = attackButton3Damage
+    } else if(battleChosenMove === "attack4"){
+        playerDamageValue = attackButton4Damage
+    } else if(battleChosenMove === "attack5"){
+        playerDamageValue = attackButton5Damage
+    } else if(battleChosenMove === "attack6"){
+        playerDamageValue = attackButton6Damage
+    };
     if(enemie === "e1"){
-        battleEnemie1HP = battleEnemie1HP - 5
+        battleEnemie1HP = battleEnemie1HP - playerDamageValue
     } else if(enemie === "e2"){
-        battleEnemie2HP = battleEnemie2HP - 5
+        battleEnemie2HP = battleEnemie2HP - playerDamageValue
     } else if(enemie === "e3"){
-        battleEnemie3HP = battleEnemie3HP - 5
+        battleEnemie3HP = battleEnemie3HP - playerDamageValue
     } else if(enemie === "e4"){
-        battleEnemie4HP = battleEnemie4HP - 5
+        battleEnemie4HP = battleEnemie4HP - playerDamageValue
     };
 
     if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
@@ -1665,6 +1683,19 @@ async function attackEnemie(enemie){
         battlePlayer3EX = battlePlayer3EX + 12
     } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p4"){
         battlePlayer4EX = battlePlayer4EX + 12
+    };
+
+    if(battlePlayer1EX > 100){
+        battlePlayer1EX = 100
+    };
+    if(battlePlayer2EX > 100){
+        battlePlayer2EX = 100
+    };
+    if(battlePlayer3EX > 100){
+        battlePlayer3EX = 100
+    };
+    if(battlePlayer4EX > 100){
+        battlePlayer4EX = 100
     };
     await delay(500);
     battleEnemie1HPBarGreen.visible = false;
@@ -1824,6 +1855,7 @@ async function startTurn(){
     } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
         battleButtonHover = 1
         battlePlayer1State = "idle"
+        changeBattleMenuOptions("p1")
         inBattleMenu = "base"
         attackButton = new Sprite(70, 170, 15, 15, 'k');
         defendButton = new Sprite(90, 170, 15, 15, 'k');
@@ -1842,6 +1874,7 @@ async function startTurn(){
     } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
         battleButtonHover = 1
         battlePlayer2State = "idle"
+        changeBattleMenuOptions("p2")
         inBattleMenu = "base"
         attackButton = new Sprite(70, 400, 15, 15, 'k');
         defendButton = new Sprite(90, 400, 15, 15, 'k');
@@ -1988,7 +2021,139 @@ function getEnemieAttackValue(ememieNum){
     } else if(battleEnemie1Type === "TrueSavior"){
         enemieDamageValue = 9
     };
-}
+};
+
+function changeBattleMenuOptions(id){
+    if(id === "p1"){
+        if(battlePlayer1Type === "Merp"){
+            attackButton1Text = "attack 1"
+            attackButton1Damage = 10
+            attackButton1EXCost = 0
+            attackButton2Text = "attack 2"
+            attackButton2Damage = 10
+            attackButton2EXCost = 0
+            attackButton3Text = "attack 3"
+            attackButton3Damage = 10
+            attackButton3EXCost = 0
+            attackButton4Text = "attack 4"
+            attackButton4Damage = 10
+            attackButton4EXCost = 0
+            attackButton5Text = "Egg"
+            attackButton5Damage = 10
+            attackButton5EXCost = 0
+            attackButton6Text = "gun :3"
+            attackButton6Damage = 999999999
+            attackButton6EXCost = 5
+            talkButton1Text = "talk 1"
+            talkButton1EXCost = 0
+            talkButton2Text = "talk 2"
+            talkButton2EXCost = 0
+            talkButton3Text = "talk 3"
+            talkButton3EXCost = 0
+            spellButton1Text = "heal 1"
+            spellButton1EXCost = 20
+            spellButton2Text = "heal 2"
+            spellButton2EXCost = 40
+            spellButton3Text = "heal 3"
+            spellButton3EXCost = 60
+        } else if(battlePlayer1Type === "Unkown"){
+            attackButton1Text = "attack 1"
+            attackButton1Damage = 10
+            attackButton1EXCost = 0
+            attackButton2Text = "attack 2"
+            attackButton2Damage = 10
+            attackButton2EXCost = 0
+            attackButton3Text = "attack 3"
+            attackButton3Damage = 10
+            attackButton3EXCost = 0
+            attackButton4Text = "attack 4"
+            attackButton4Damage = 10
+            attackButton4EXCost = 0
+            attackButton5Text = "orange"
+            attackButton5Damage = 10
+            attackButton5EXCost = 0
+            attackButton6Text = "oh..."
+            attackButton6Damage = 999999999
+            attackButton6EXCost = 5
+            talkButton1Text = "talk 1"
+            talkButton1EXCost = 0
+            talkButton2Text = "talk 2"
+            talkButton2EXCost = 0
+            talkButton3Text = "talk 3"
+            talkButton3EXCost = 0
+            spellButton1Text = "heal 1"
+            spellButton1EXCost = 20
+            spellButton2Text = "heal 2"
+            spellButton2EXCost = 40
+            spellButton3Text = "heal 3"
+            spellButton3EXCost = 60
+        };
+    } else if(id === "p2"){
+        if(battlePlayer2Type === "Merp"){
+            attackButton1Text = "attack 1"
+            attackButton1Damage = 10
+            attackButton1EXCost = 0
+            attackButton2Text = "attack 2"
+            attackButton2Damage = 10
+            attackButton2EXCost = 0
+            attackButton3Text = "attack 3"
+            attackButton3Damage = 10
+            attackButton3EXCost = 0
+            attackButton4Text = "attack 4"
+            attackButton4Damage = 10
+            attackButton4EXCost = 0
+            attackButton5Text = "Egg"
+            attackButton5Damage = 10
+            attackButton5EXCost = 0
+            attackButton6Text = "gun :3"
+            attackButton6Damage = 999999999
+            attackButton6EXCost = 5
+            talkButton1Text = "talk 1"
+            talkButton1EXCost = 0
+            talkButton2Text = "talk 2"
+            talkButton2EXCost = 0
+            talkButton3Text = "talk 3"
+            talkButton3EXCost = 0
+            spellButton1Text = "heal 1"
+            spellButton1EXCost = 20
+            spellButton2Text = "heal 2"
+            spellButton2EXCost = 40
+            spellButton3Text = "heal 3"
+            spellButton3EXCost = 60
+        } else if(battlePlayer2Type === "Unkown"){
+            attackButton1Text = "attack 1"
+            attackButton1Damage = 10
+            attackButton1EXCost = 0
+            attackButton2Text = "attack 2"
+            attackButton2Damage = 10
+            attackButton2EXCost = 0
+            attackButton3Text = "attack 3"
+            attackButton3Damage = 10
+            attackButton3EXCost = 0
+            attackButton4Text = "attack 4"
+            attackButton4Damage = 10
+            attackButton4EXCost = 0
+            attackButton5Text = "orange"
+            attackButton5Damage = 10
+            attackButton5EXCost = 0
+            attackButton6Text = "oh..."
+            attackButton6Damage = 999999999
+            attackButton6EXCost = 5
+            talkButton1Text = "talk 1"
+            talkButton1EXCost = 0
+            talkButton2Text = "talk 2"
+            talkButton2EXCost = 0
+            talkButton3Text = "talk 3"
+            talkButton3EXCost = 0
+            spellButton1Text = "heal 1"
+            spellButton1EXCost = 20
+            spellButton2Text = "heal 2"
+            spellButton2EXCost = 40
+            spellButton3Text = "heal 3"
+            spellButton3EXCost = 60
+        };
+    };
+};
 
 async function playAnimation(animation, id) {
   if(id === "e1"){
