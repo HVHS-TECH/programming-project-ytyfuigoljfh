@@ -701,6 +701,22 @@ function draw() {
             battlePlayer4HP = battlePlayer4MaxHP
         };
 
+        if(battlePlayer1EX > 100){
+            battlePlayer1EX = 100
+        };
+
+        if(battlePlayer2EX > 100){
+            battlePlayer2EX = 100
+        };
+
+        if(battlePlayer3EX > 100){
+            battlePlayer3EX = 100
+        };
+
+        if(battlePlayer4EX > 100){
+            battlePlayer4EX = 100
+        };
+
 		
         if (kb.pressed ('e')) {
             endTurn();
@@ -1642,13 +1658,13 @@ async function attackEnemie(enemie){
     };
 
     if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
-        battlePlayer1EX = battlePlayer1EX + 10
+        battlePlayer1EX = battlePlayer1EX + 12
     } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2"){
-        battlePlayer2EX = battlePlayer2EX + 10
+        battlePlayer2EX = battlePlayer2EX + 12
     } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p3"){
-        battlePlayer3EX = battlePlayer3EX + 10
+        battlePlayer3EX = battlePlayer3EX + 12
     } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p4"){
-        battlePlayer4EX = battlePlayer4EX + 10
+        battlePlayer4EX = battlePlayer4EX + 12
     };
     await delay(500);
     battleEnemie1HPBarGreen.visible = false;
@@ -1854,7 +1870,8 @@ async function startTurn(){
 
 async function startEnemieTurn(enemieNum){
     enemieAttackPlayerNum = battleAlivePlayersArray[Math.floor(Math.random()*battleAlivePlayersArray.length)];
-    playAnimation("attack", enemieNum)
+    playAnimation("attack", enemieNum);
+    getEnemieAttackValue(enemieNum);
     if(enemieAttackPlayerNum === 'p1'){
         await delay(100);
         battlePlayer1HPBarGreen.visible = true;
@@ -1864,7 +1881,7 @@ async function startEnemieTurn(enemieNum){
         if(battlePlayer1State === "defend"){
             battlePlayer1HP = battlePlayer1HP - round(random(0,1))
         } else {
-            battlePlayer1HP = battlePlayer1HP - round(random(4,6))
+            battlePlayer1HP = battlePlayer1HP - round(random((enemieDamageValue - 1),(enemieDamageValue + 1)))
         }
         await delay(500);
         battlePlayer1HPBarGreen.visible = false;
@@ -1878,9 +1895,9 @@ async function startEnemieTurn(enemieNum){
         battlePlayer2HPBarRed.visible = true;
         await delay(500);
         if(battlePlayer2State === "defend"){
-            battlePlayer2HP = battlePlayer2HP - round(random(0,1))
+            battlePlayer2HP = battlePlayer2HP - round(enemieDamageValue/3)
         } else {
-            battlePlayer2HP = battlePlayer2HP - round(random(4,6))
+            battlePlayer2HP = battlePlayer2HP - round(random((enemieDamageValue - 1),(enemieDamageValue + 1)))
         }
         await delay(500);
         battlePlayer2HPBarGreen.visible = false;
@@ -1896,7 +1913,7 @@ async function startEnemieTurn(enemieNum){
         if(battlePlayer3State === "defend"){
             battlePlayer3HP = battlePlayer3HP - round(random(0,1))
         } else {
-            battlePlayer3HP = battlePlayer3HP - round(random(4,6))
+            battlePlayer3HP = battlePlayer3HP - round(random((enemieDamageValue - 1),(enemieDamageValue + 1)))
         }
         await delay(500);
         battlePlayer3HPBarGreen.visible = false;
@@ -1912,7 +1929,7 @@ async function startEnemieTurn(enemieNum){
         if(battlePlayer4State === "defend"){
             battlePlayer4HP = battlePlayer4HP - round(random(0,1))
         } else {
-            battlePlayer4HP = battlePlayer4HP - round(random(4,6))
+            battlePlayer4HP = battlePlayer4HP - round((enemieDamageValue - 1),(enemieDamageValue + 1))
         }
         await delay(500);
         battlePlayer4HPBarGreen.visible = false;
@@ -1962,6 +1979,16 @@ function halfEndTurn(){
         battleButtonHover = 0
     };
 };
+
+function getEnemieAttackValue(ememieNum){
+    if(battleEnemie1Type === "Dug"){
+        enemieDamageValue = 8
+    } else if(battleEnemie1Type === "Glorb"){
+        enemieDamageValue = 6
+    } else if(battleEnemie1Type === "TrueSavior"){
+        enemieDamageValue = 9
+    };
+}
 
 async function playAnimation(animation, id) {
   if(id === "e1"){
