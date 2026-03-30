@@ -634,6 +634,11 @@ function draw() {
         };
 
 
+        if(battleEnemie1HP <= 0 && battleEnemie2HP <= 0 && battleEnemie3HP <= 0 && battleEnemie4HP <= 0){
+            
+        };
+
+
         if(battlePlayer1HP <= 0){
             if(battleAlivePlayersArray.includes('p1')){
                 battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('p1'), 1)
