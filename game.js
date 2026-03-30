@@ -17,6 +17,18 @@ var battleChosenMove = "defend"
 var shuffledBattleTurnArray = shuffle(battleTurnArray);
 var battleButtonHover = 1
 
+var merpHP = 30;
+var merpMaxHP = 30;
+var unkownHP = 35;
+var unkownMaxHP = 35;
+
+var defaultGlorbMaxHP = 40
+var defaultDugMaxHP = 15
+var defaultTrueSaviorMaxHP = 200
+
+var p1EquippedWeppon = "transcendedScythe"
+var p2EquippedWeppon = "gun"
+
 
 preload()
     function preload() {
@@ -29,6 +41,9 @@ preload()
     imgTrueSaviorBattle = loadImage('assets/images/TrueSaviorBattleIdle.svg');
     imgDugBattle = loadImage('assets/images/DugBattleIdle.svg');
     imgDugBattleAttack = loadImage('assets/images/DugBattleAttack.svg');
+    imgWleemBattle = loadImage('assets/images/WleemBattleIdle.svg');
+    imgWleemBattleAttack = loadImage('assets/images/WleemBattleAttack.svg');
+    imgWleemBattleDamage = loadImage('assets/images/WleemBattleDamage.svg');
     imgMerpTurnPlate = loadImage('assets/images/turnPlates/MerpTurnPlate.svg');
     imgUnkownTurnPlate = loadImage('assets/images/turnPlates/UnkownTurnPlate.svg');
     imgGlorbTurnPlate = loadImage('assets/images/turnPlates/GlorbTurnPlate.svg');
@@ -53,482 +68,7 @@ function setup() {
     console.log("setup: ");
 
     cnv = new Canvas(1088 , 612);
-
-    var merpHP = 30;
-    var merpMaxHP = 30;
-    var unkownHP = 35;
-    var unkownMaxHP = 35;
-
-    var defaultGlorbMaxHP = 40
-    var defaultDugMaxHP = 15
-    var defaultTrueSaviorMaxHP = 200
-
-    var p1EquippedWeppon = "transcendedScythe"
-    var p2EquippedWeppon = "gun"
-
-    mapGroup = new Group();
-    upperWall = new Sprite(544, 0, 1088, 306, 's')
-    upperWall.color = '#000000'
-    mapGroup.add(upperWall);
-
-    lowerWall = new Sprite(544, 612, 1088, 306, 's')
-    lowerWall.color = '#000000'
-    mapGroup.add(lowerWall);
-
-    player = new Sprite(225, 306, 50, 100, 'k');
-    player.image = imgFace;
-
-    enemiesGroup = new Group();
-    badGuy = new Sprite(400, 306, 50, 100, 'd');
-    badGuy.image = imgGlorbBattle;
-    enemiesGroup.add(badGuy);
-    badGuy.collides(player, preBattleStart1);
-
-    badGuy2 = new Sprite(700, 206, 50, 100, 'd');
-    badGuy2.image = imgTrueSaviorBattle;
-    enemiesGroup.add(badGuy2);
-    badGuy2.collides(player, preBattleStart2);
-
-    badGuy3 = new Sprite(100, 306, 50, 100, 'd');
-    badGuy3.image = imgDugBattle;
-    enemiesGroup.add(badGuy3);
-    badGuy3.collides(player, preBattleStart3);
-
-    function preBattleStart1(){
-        enemiesAndPlayersInBattleArray = ['p1', 'p2', 'e1', 'e2', 'e3', 'e4']
-        battleStart(badGuy, player, "Merp", 100, 100, merpMaxHP, merpHP, imgPlayerBattle, "Unkown", 100, 300, unkownMaxHP, unkownHP, imgUnkownBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "Glorb", 800, 100, defaultGlorbMaxHP, defaultGlorbMaxHP, imgGlorbBattle, "Glorb", 650, 200, defaultGlorbMaxHP, defaultGlorbMaxHP, imgGlorbBattle, "Glorb", 650, 400, defaultGlorbMaxHP, defaultGlorbMaxHP, imgGlorbBattle, "Glorb", 800, 500, defaultGlorbMaxHP, defaultGlorbMaxHP, imgGlorbBattle, "normal", musicTrobbioButItsTheWorldRevolving)
-    };
-
-    function preBattleStart2(){
-        enemiesAndPlayersInBattleArray = ['p1', 'p2', 'e1']
-        battleStart(badGuy, player, "Merp", 100, 100, merpMaxHP, merpHP, imgPlayerBattle, "Unkown", 100, 300, unkownMaxHP, unkownHP, imgUnkownBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "TrueSavior", 800, 306, defaultTrueSaviorMaxHP, defaultTrueSaviorMaxHP, imgTrueSaviorBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "boss", musicDeltaruneUstEverAscending)
-    };
-
-    function preBattleStart3(){
-        enemiesAndPlayersInBattleArray = ['p1', 'p2', 'e1', 'e2']
-        battleStart(badGuy, player, "Merp", 100, 100, merpMaxHP, merpHP, imgPlayerBattle, "Unkown", 100, 300, unkownMaxHP, unkownHP, imgUnkownBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "Dug", 750, 200, defaultDugMaxHP, defaultDugMaxHP, imgDugBattle, "Dug", 750, 400, defaultDugMaxHP, defaultDugMaxHP, imgDugBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "normal", musicTrobbioButItsTheWorldRevolving)
-    };
-
-    function battleStart(_badGuy, _player, p1Type, p1X, p1Y, p1MaxHp, p1HP, p1Img, p2Type, p2X, p2Y, p2MaxHp, p2HP, p2Img, p3Type, p3X, p3Y, p3MaxHp, p3HP, p3Img, p4Type, p4X, p4Y, p4MaxHp, p4HP, p4Img, e1Type, e1X, e1Y, e1MaxHp, e1HP, e1Img, e2Type, e2X, e2Y, e2MaxHp, e2HP, e2Img, e3Type, e3X, e3Y, e3MaxHp, e3HP, e3Img, e4Type, e4X, e4Y, e4MaxHp, e4HP, e4Img, battleType, music) {
-        _badGuy.remove();
-        _player.remove();
-        mapGroup.remove();
-        enemiesGroup.remove();
-        inBattle = 1
-        battleMusic = music
-        battleButtonHover = 1
-		inBattleMenu === "base"
-        battleTotalTurn = 0
-        shuffledBattleTurnArray = shuffle(battleTurnArray);
-
-        if (!enemiesAndPlayersInBattleArray.includes('p1')){
-            shuffledBattleTurnArrayP1Place = shuffledBattleTurnArray.indexOf('p1')
-            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayP1Place, 1)
-        };
-        if (!enemiesAndPlayersInBattleArray.includes('p2')){
-            shuffledBattleTurnArrayP2Place = shuffledBattleTurnArray.indexOf('p2')
-            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayP2Place, 1)
-        };
-        if (!enemiesAndPlayersInBattleArray.includes('p3')){
-            shuffledBattleTurnArrayP3Place = shuffledBattleTurnArray.indexOf('p3')
-            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayP3Place, 1)
-        };
-        if (!enemiesAndPlayersInBattleArray.includes('p4')){
-            shuffledBattleTurnArrayP4Place = shuffledBattleTurnArray.indexOf('p4')
-            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayP4Place, 1)
-        };
-        if (!enemiesAndPlayersInBattleArray.includes('e1')){
-            shuffledBattleTurnArrayE1Place = shuffledBattleTurnArray.indexOf('e1')
-            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayE1Place, 1)
-        };
-        if (!enemiesAndPlayersInBattleArray.includes('e2')){
-            shuffledBattleTurnArrayE2Place = shuffledBattleTurnArray.indexOf('e2')
-            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayE2Place, 1)
-        };
-        if (!enemiesAndPlayersInBattleArray.includes('e3')){
-            shuffledBattleTurnArrayE3Place = shuffledBattleTurnArray.indexOf('e3')
-            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayE3Place, 1)
-        };
-        if (!enemiesAndPlayersInBattleArray.includes('e4')){
-            shuffledBattleTurnArrayE4Place = shuffledBattleTurnArray.indexOf('e4')
-            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayE4Place, 1)
-        };
-
-        battleAlivePlayersArray = shuffledBattleTurnArray.slice(0)
-        if (battleAlivePlayersArray.includes('e1')){
-            battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('e1'), 1)
-        };
-        if (battleAlivePlayersArray.includes('e2')){
-            battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('e2'), 1)
-        };
-        if (battleAlivePlayersArray.includes('e3')){
-            battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('e3'), 1)
-        };
-        if (battleAlivePlayersArray.includes('e4')){
-            battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('e4'), 1)
-        };
-
-        console.log(shuffledBattleTurnArray)
-		battleTurn = shuffledBattleTurnArray[1]
-        attackButton1Text = "attack 1"
-        attackButton2Text = "attack 2"
-        attackButton3Text = "attack 3"
-        attackButton4Text = "attack 4"
-        attackButton5Text = "attack 5"
-        attackButton6Text = "attack 6"
-        talkButton1Text = "talk 1"
-        talkButton2Text = "talk 2"
-        talkButton3Text = "talk 3"
-        spellButton1Text = "heal 1"
-        spellButton2Text = "heal 2"
-        spellButton3Text = "heal 3"
-        
-        attackButton1EXCost = 0
-        attackButton2EXCost = 0
-        attackButton3EXCost = 0
-        attackButton4EXCost = 0
-        attackButton5EXCost = 0
-        attackButton6EXCost = 0
-        talkButton1EXCost = 0
-        talkButton2EXCost = 0
-        talkButton3EXCost = 0
-        spellButton1EXCost = 20
-        spellButton2EXCost = 40
-        spellButton3EXCost = 60
-        battleMusic.loop()
-
-        battlePlayer1 = new Sprite(p1X, p1Y, 50, 100, 'k');
-        battlePlayer1Type = p1Type;
-        battlePlayer1State = "idle";
-        battlePlayer1MaxHP = p1MaxHp;
-        battlePlayer1HP = p1HP;
-        battlePlayer1EX = 20;
-        battlePlayer1.image = p1Img;
-
-        battlePlayer1HPBarRed = new Sprite(p1X, (p1Y - 70), 100, 10, 'k');
-        battlePlayer1HPBarRed.color = '#720000'
-        battlePlayer1HPBarYellow = new Sprite(p1X, (p1Y - 70), (battlePlayer1HP * -1) * (100/battlePlayer1MaxHP), 10, 'k');
-        battlePlayer1HPBarYellow.color = '#fff530'
-        battlePlayer1HPBarGreen = new Sprite(p1X, (p1Y - 70), battlePlayer1HP * (100/battlePlayer1MaxHP), 10, 'k');
-        battlePlayer1HPBarGreen.color = '#30ff7f'
-        battlePlayer1HPBarRed.visible = false;
-        battlePlayer1HPBarYellow.visible = false;
-        battlePlayer1HPBarGreen.visible = false;
-
-        battlePlayer1EXBarGray = new Sprite((p1X - 60), p1Y, 5, 100, 'k');
-        battlePlayer1EXBarGray.color = '#292929'
-        battlePlayer1EXBarCyan = new Sprite((p1X - 60), p1Y, 5, battlePlayer1EX, 'k');
-        battlePlayer1EXBarCyan.color = '#30fff1'
-
-        if(p1Type === "no"){
-            battlePlayer1.visible = false;
-            battlePlayer1HPBarGreen.visible = false;
-            battlePlayer1HPBarYellow.visible = false;
-            battlePlayer1HPBarRed.visible = false;
-            battlePlayer1EXBarCyan.visible = false;
-            battlePlayer1EXBarGray.visible = false;
-        };
-
-        battlePlayer2 = new Sprite(p2X, p2Y, 50, 100, 'k');
-        battlePlayer2Type = p2Type;
-        battlePlayer2State = "idle";
-        battlePlayer2MaxHP = p2MaxHp;
-        battlePlayer2HP = p2HP;
-        battlePlayer2EX = 20;
-        battlePlayer2.image = p2Img;
-
-        battlePlayer2HPBarRed = new Sprite(p2X, (p2Y - 70), 100, 10, 'k');
-        battlePlayer2HPBarRed.color = '#720000'
-        battlePlayer2HPBarYellow = new Sprite(p2X, (p2Y - 70), (battlePlayer2HP * -1) * (100/battlePlayer2MaxHP), 10, 'k');
-        battlePlayer2HPBarYellow.color = '#fff530'
-        battlePlayer2HPBarGreen = new Sprite(p2X, (p2Y - 70), battlePlayer2HP * (100/battlePlayer2MaxHP), 10, 'k');
-        battlePlayer2HPBarGreen.color = '#30ff7f'
-        battlePlayer2HPBarRed.visible = false;
-        battlePlayer2HPBarYellow.visible = false;
-        battlePlayer2HPBarGreen.visible = false;
-
-        battlePlayer2EXBarGray = new Sprite((p2X - 60), p2Y, 5, 100, 'k');
-        battlePlayer2EXBarGray.color = '#292929'
-        battlePlayer2EXBarCyan = new Sprite((p2X - 60), p2Y, 5, battlePlayer2EX, 'k');
-        battlePlayer2EXBarCyan.color = '#30fff1'
-
-        if(p2Type === "no"){
-            battlePlayer2.visible = false;
-            battlePlayer2HPBarGreen.visible = false;
-            battlePlayer2HPBarYellow.visible = false;
-            battlePlayer2HPBarRed.visible = false;
-            battlePlayer2EXBarCyan.visible = false;
-            battlePlayer2EXBarGray.visible = false;
-        };
-
-        battlePlayer3 = new Sprite(p3X, p3Y, 50, 100, 'k');
-        battlePlayer3Type = p3Type;
-        battlePlayer3State = "idle";
-        battlePlayer3MaxHP = p3MaxHp;
-        battlePlayer3HP = p3HP;
-        battlePlayer3EX = 20;
-        battlePlayer3.image = p3Img;
-
-        battlePlayer3HPBarRed = new Sprite(p3X, (p3Y - 70), 100, 10, 'k');
-        battlePlayer3HPBarRed.color = '#720000'
-        battlePlayer3HPBarYellow = new Sprite(p3X, (p3Y - 70), (battlePlayer3HP * -1) * (100/battlePlayer3MaxHP), 10, 'k');
-        battlePlayer3HPBarYellow.color = '#fff530'
-        battlePlayer3HPBarGreen = new Sprite(p3X, (p3Y - 70), battlePlayer3HP * (100/battlePlayer3MaxHP), 10, 'k');
-        battlePlayer3HPBarGreen.color = '#30ff7f'
-        battlePlayer3HPBarRed.visible = false;
-        battlePlayer3HPBarYellow.visible = false;
-        battlePlayer3HPBarGreen.visible = false;
-
-        battlePlayer3EXBarGray = new Sprite((p3X - 60), p3Y, 5, 100, 'k');
-        battlePlayer3EXBarGray.color = '#292929'
-        battlePlayer3EXBarCyan = new Sprite((p3X - 60), p3Y, 5, battlePlayer3EX, 'k');
-        battlePlayer3EXBarCyan.color = '#30fff1'
-
-        if(p3Type === "no"){
-            battlePlayer3.visible = false;
-            battlePlayer3HPBarGreen.visible = false;
-            battlePlayer3HPBarYellow.visible = false;
-            battlePlayer3HPBarRed.visible = false;
-            battlePlayer3EXBarCyan.visible = false;
-            battlePlayer3EXBarGray.visible = false;
-        };
-
-        battlePlayer4 = new Sprite(p4X, p4Y, 50, 100, 'k');
-        battlePlayer4Type = p4Type;
-        battlePlayer4State = "idle";
-        battlePlayer4MaxHP = p4MaxHp;
-        battlePlayer4HP = p4HP;
-        battlePlayer4EX = 20;
-        battlePlayer4.image = p4Img;
-
-        battlePlayer4HPBarRed = new Sprite(p2X, (p2Y - 70), 100, 10, 'k');
-        battlePlayer4HPBarRed.color = '#720000'
-        battlePlayer4HPBarYellow = new Sprite(p4X, (p4Y - 70), (battlePlayer4HP * -1) * (100/battlePlayer4MaxHP), 10, 'k');
-        battlePlayer4HPBarYellow.color = '#fff530'
-        battlePlayer4HPBarGreen = new Sprite(p2X, (p2Y - 70), battlePlayer4HP * (100/battlePlayer4MaxHP), 10, 'k');
-        battlePlayer4HPBarGreen.color = '#30ff7f'
-        battlePlayer4HPBarRed.visible = false;
-        battlePlayer4HPBarYellow.visible = false;
-        battlePlayer4HPBarGreen.visible = false;
-
-        battlePlayer4EXBarGray = new Sprite((p4X - 60), p4Y, 5, 100, 'k');
-        battlePlayer4EXBarGray.color = '#292929'
-        battlePlayer4EXBarCyan = new Sprite((p4X - 60), p4Y, 5, battlePlayer4EX, 'k');
-        battlePlayer4EXBarCyan.color = '#30fff1'
-
-        if(p4Type === "no"){
-            battlePlayer4.visible = false;
-            battlePlayer4HPBarGreen.visible = false;
-            battlePlayer4HPBarYellow.visible = false;
-            battlePlayer4HPBarRed.visible = false;
-            battlePlayer4EXBarCyan.visible = false;
-            battlePlayer4EXBarGray.visible = false;
-        };
-
-        battleEnemie1 = new Sprite(e1X, e1Y, 50, 100, 'k');
-        battleEnemie1Type = e1Type;
-        battleEnemie1State = "idle";
-        battleEnemie1MaxHP = e1MaxHp;
-        battleEnemie1HP = e1HP;
-        battleEnemie1.image = e1Img;
-
-        battleEnemie1HPBarRed = new Sprite(e1X, (e1Y - 70), 100, 10, 'k');
-        battleEnemie1HPBarRed.color = '#720000'
-        battleEnemie1HPBarGreen = new Sprite(e1X, (e1Y - 70), battleEnemie1HP * (100/battleEnemie1MaxHP), 10, 'k');
-        battleEnemie1HPBarGreen.color = '#30ff7f'
-        battleEnemie1HPBarRed.visible = false;
-        battleEnemie1HPBarGreen.visible = false;
-
-
-        battleEnemie2 = new Sprite(e2X, e2Y, 50, 100, 'k');
-        battleEnemie2Type = e2Type;
-        battleEnemie2State = "idle";
-        battleEnemie2MaxHP = e2MaxHp;
-        battleEnemie2HP = e2HP;
-        battleEnemie2.image = e2Img;
-
-        battleEnemie2HPBarRed = new Sprite(e2X, (e2Y - 70), 100, 10, 'k');
-        battleEnemie2HPBarRed.color = '#720000'
-        battleEnemie2HPBarGreen = new Sprite(e2X, (e2Y - 70), battleEnemie2HP * (100/battleEnemie2MaxHP), 10, 'k');
-        battleEnemie2HPBarGreen.color = '#30ff7f'
-        battleEnemie2HPBarRed.visible = false;
-        battleEnemie2HPBarGreen.visible = false;
-
-
-        battleEnemie3 = new Sprite(e3X, e3Y, 50, 100, 'k');
-        battleEnemie3Type = e3Type;
-        battleEnemie3State = "idle";
-        battleEnemie3MaxHP = e3MaxHp;
-        battleEnemie3HP = e3HP;
-        battleEnemie3.image = e3Img;
-
-        battleEnemie3HPBarRed = new Sprite(e3X, (e3Y - 70), 100, 10, 'k');
-        battleEnemie3HPBarRed.color = '#720000'
-        battleEnemie3HPBarGreen = new Sprite(e3X, (e3Y - 70), battleEnemie3HP * (100/battleEnemie3MaxHP), 10, 'k');
-        battleEnemie3HPBarGreen.color = '#30ff7f'
-        battleEnemie3HPBarRed.visible = false;
-        battleEnemie3HPBarGreen.visible = false;
-
-
-        battleEnemie4 = new Sprite(e4X, e4Y, 50, 100, 'k');
-        battleEnemie4Type = e4Type;
-        battleEnemie4State = "idle";
-        battleEnemie4MaxHP = e4MaxHp;
-        battleEnemie4HP = e4HP;
-        battleEnemie4.image = e4Img;
-
-        battleEnemie4HPBarRed = new Sprite(e4X, (e4Y - 70), 100, 10, 'k');
-        battleEnemie4HPBarRed.color = '#720000'
-        battleEnemie4HPBarGreen = new Sprite(e4X, (e4Y - 70), battleEnemie4HP * (100/battleEnemie4MaxHP), 10, 'k');
-        battleEnemie4HPBarGreen.color = '#30ff7f'
-        battleEnemie4HPBarRed.visible = false;
-        battleEnemie4HPBarGreen.visible = false;
-
-
-        if (battlePlayer1Type === "Merp") {
-            battlePlayer1TypeImg = imgMerpTurnPlate;
-        } else if (battlePlayer1Type === "Unkown") {
-            battlePlayer1TypeImg = imgUnkownTurnPlate;
-        } else if (battlePlayer1Type === "???") {
-            battlePlayer1TypeImg = imgMerpTurnPlate;
-        } else if (battlePlayer1Type === "???") {
-            battlePlayer1TypeImg = imgUnkownTurnPlate;
-        } else if (battlePlayer1Type === "Glorb") {
-            battlePlayer1TypeImg = imgGlorbTurnPlate;
-        } else if (battlePlayer1Type === "TrueSavior") {
-            battlePlayer1TypeImg = imgTrueSaviorTurnPlate;
-        } else if (battlePlayer1Type === "Dug") {
-            battlePlayer1TypeImg = imgDugTurnPlate;
-        };
-
-        if (battlePlayer2Type === "Merp") {
-            battlePlayer2TypeImg = imgMerpTurnPlate;
-        } else if (battlePlayer2Type === "Unkown") {
-            battlePlayer2TypeImg = imgUnkownTurnPlate;
-        } else if (battlePlayer2Type === "???") {
-            battlePlayer2TypeImg = imgMerpTurnPlate;
-        } else if (battlePlayer2Type === "???") {
-            battlePlayer2TypeImg = imgUnkownTurnPlate;
-        } else if (battlePlayer2Type === "Glorb") {
-            battlePlayer2TypeImg = imgGlorbTurnPlate;
-        } else if (battlePlayer2Type === "TrueSavior") {
-            battlePlayer2TypeImg = imgTrueSaviorTurnPlate;
-        } else if (battlePlayer2Type === "Dug") {
-            battlePlayer2TypeImg = imgDugTurnPlate;
-        };
-
-        if (battlePlayer3Type === "Merp") {
-            battlePlayer3TypeImg = imgMerpTurnPlate;
-        } else if (battlePlayer3Type === "Unkown") {
-            battlePlayer3TypeImg = imgUnkownTurnPlate;
-        } else if (battlePlayer3Type === "???") {
-            battlePlayer3TypeImg = imgMerpTurnPlate;
-        } else if (battlePlayer3Type === "???") {
-            battlePlayer3TypeImg = imgUnkownTurnPlate;
-        } else if (battlePlayer3Type === "Glorb") {
-            battlePlayer3TypeImg = imgGlorbTurnPlate;
-        } else if (battlePlayer3Type === "TrueSavior") {
-            battlePlayer3TypeImg = imgTrueSaviorTurnPlate;
-        } else if (battlePlayer3Type === "Dug") {
-            battlePlayer3TypeImg = imgDugTurnPlate;
-        };
-
-        if (battlePlayer4Type === "Merp") {
-            battlePlayer4TypeImg = imgMerpTurnPlate;
-        } else if (battlePlayer4Type === "Unkown") {
-            battlePlayer4TypeImg = imgUnkownTurnPlate;
-        } else if (battlePlayer4Type === "???") {
-            battlePlayer4TypeImg = imgMerpTurnPlate;
-        } else if (battlePlayer4Type === "???") {
-            battlePlayer4TypeImg = imgUnkownTurnPlate;
-        } else if (battlePlayer4Type === "Glorb") {
-            battlePlayer4TypeImg = imgGlorbTurnPlate;
-        } else if (battlePlayer4Type === "TrueSavior") {
-            battlePlayer4TypeImg = imgTrueSaviorTurnPlate;
-        } else if (battlePlayer4Type === "Dug") {
-            battlePlayer4TypeImg = imgDugTurnPlate;
-        };
-
-
-        if (battleEnemie1Type === "Merp") {
-            battleEnemie1TypeImg = imgMerpTurnPlate;
-        } else if (battleEnemie1Type === "Unkown") {
-            battleEnemie1TypeImg = imgUnkownTurnPlate;
-        } else if (battleEnemie1Type === "???") {
-            battleEnemie1TypeImg = imgMerpTurnPlate;
-        } else if (battleEnemie1Type === "???") {
-            battleEnemie1TypeImg = imgUnkownTurnPlate;
-        } else if (battleEnemie1Type === "Glorb") {
-            battleEnemie1TypeImg = imgGlorbTurnPlate;
-        } else if (battleEnemie1Type === "TrueSavior") {
-            battleEnemie1TypeImg = imgTrueSaviorTurnPlate;
-        } else if (battleEnemie1Type === "Dug") {
-            battleEnemie1TypeImg = imgDugTurnPlate;
-        };
-
-
-        if (battleEnemie2Type === "Merp") {
-            battleEnemie2TypeImg = imgMerpTurnPlate;
-        } else if (battleEnemie2Type === "Unkown") {
-            battleEnemie2TypeImg = imgUnkownTurnPlate;
-        } else if (battleEnemie2Type === "???") {
-            battleEnemie2TypeImg = imgMerpTurnPlate;
-        } else if (battleEnemie2Type === "???") {
-            battleEnemie2TypeImg = imgUnkownTurnPlate;
-        } else if (battleEnemie2Type === "Glorb") {
-            battleEnemie2TypeImg = imgGlorbTurnPlate;
-        } else if (battleEnemie2Type === "TrueSavior") {
-            battleEnemie2TypeImg = imgTrueSaviorTurnPlate;
-        } else if (battleEnemie2Type === "Dug") {
-            battleEnemie2TypeImg = imgDugTurnPlate;
-        };
-
-        if (battleEnemie3Type === "Merp") {
-            battleEnemie3TypeImg = imgMerpTurnPlate;
-        } else if (battleEnemie3Type === "Unkown") {
-            battleEnemie3TypeImg = imgUnkownTurnPlate;
-        } else if (battleEnemie3Type === "???") {
-            battleEnemie3TypeImg = imgMerpTurnPlate;
-        } else if (battleEnemie3Type === "???") {
-            battleEnemie3TypeImg = imgUnkownTurnPlate;
-        } else if (battleEnemie3Type === "Glorb") {
-            battleEnemie3TypeImg = imgGlorbTurnPlate;
-        } else if (battleEnemie3Type === "TrueSavior") {
-            battleEnemie3TypeImg = imgTrueSaviorTurnPlate;
-        } else if (battleEnemie3Type === "Dug") {
-            battleEnemie3TypeImg = imgDugTurnPlate;
-        };
-
-        if (battleEnemie4Type === "Merp") {
-            battleEnemie4TypeImg = imgMerpTurnPlate;
-        } else if (battleEnemie4Type === "Unkown") {
-            battleEnemie4TypeImg = imgUnkownTurnPlate;
-        } else if (battleEnemie4Type === "???") {
-            battleEnemie4TypeImg = imgMerpTurnPlate;
-        } else if (battleEnemie4Type === "???") {
-            battleEnemie4TypeImg = imgUnkownTurnPlate;
-        } else if (battleEnemie4Type === "Glorb") {
-            battleEnemie4TypeImg = imgGlorbTurnPlate;
-        } else if (battleEnemie4Type === "TrueSavior") {
-            battleEnemie4TypeImg = imgTrueSaviorTurnPlate;
-        } else if (battleEnemie4Type === "Dug") {
-            battleEnemie4TypeImg = imgDugTurnPlate;
-        };
-
-
-        battleTurnMarker1 = new Sprite(1013, 45, 100, 50, 'k');
-        battleTurnMarker1.image = imgMerpTurnPlate;
-
-        battleTurnMarker2 = new Sprite(1013, 100, 75, 37.5, 'k');
-        battleTurnMarker2.image = imgGlorbTurnPlate;
-        battleTurnMarker2.scale = 0.75;
-        
-        battleTurnMarker3 = new Sprite(1013, 140, 50, 25, 'k');
-        battleTurnMarker3.image = imgUnkownTurnPlate;
-        battleTurnMarker3.scale = 0.5;
-
-        startTurn()
-    }
+    makeMap(1)
 }
     
 /*******************************************************/
@@ -635,7 +175,7 @@ function draw() {
 
 
         if(battleEnemie1HP <= 0 && battleEnemie2HP <= 0 && battleEnemie3HP <= 0 && battleEnemie4HP <= 0){
-            
+            endBattle()
         };
 
 
@@ -2252,6 +1792,481 @@ async function playAnimation(animation, id) {
   };
 }
 
+function makeMap(roomnum){
+    mapGroup = new Group();
+    upperWall = new Sprite(544, 0, 1088, 306, 's')
+    upperWall.color = '#000000'
+    mapGroup.add(upperWall);
+
+    lowerWall = new Sprite(544, 612, 1088, 306, 's')
+    lowerWall.color = '#000000'
+    mapGroup.add(lowerWall);
+
+    player = new Sprite(225, 306, 50, 100, 'k');
+    player.image = imgFace;
+
+    enemiesGroup = new Group();
+    badGuy = new Sprite(400, 306, 50, 100, 'd');
+    badGuy.image = imgGlorbBattle;
+    enemiesGroup.add(badGuy);
+    badGuy.collides(player, preBattleStart1);
+
+    badGuy2 = new Sprite(700, 206, 50, 100, 'd');
+    badGuy2.image = imgTrueSaviorBattle;
+    enemiesGroup.add(badGuy2);
+    badGuy2.collides(player, preBattleStart2);
+
+    badGuy3 = new Sprite(100, 306, 50, 100, 'd');
+    badGuy3.image = imgDugBattle;
+    enemiesGroup.add(badGuy3);
+    badGuy3.collides(player, preBattleStart3);
+
+    badGuy4 = new Sprite(150, 406, 50, 100, 'd');
+    badGuy4.image = imgWleemBattle;
+    enemiesGroup.add(badGuy4);
+    badGuy4.collides(player, preBattleStart4);
+
+    function preBattleStart1(){
+        enemiesAndPlayersInBattleArray = ['p1', 'p2', 'e1', 'e2', 'e3', 'e4']
+        battleStart(badGuy, player, "Merp", 100, 100, merpMaxHP, merpHP, imgPlayerBattle, "Unkown", 100, 300, unkownMaxHP, unkownHP, imgUnkownBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "Glorb", 800, 100, defaultGlorbMaxHP, defaultGlorbMaxHP, imgGlorbBattle, "Glorb", 650, 200, defaultGlorbMaxHP, defaultGlorbMaxHP, imgGlorbBattle, "Glorb", 650, 400, defaultGlorbMaxHP, defaultGlorbMaxHP, imgGlorbBattle, "Glorb", 800, 500, defaultGlorbMaxHP, defaultGlorbMaxHP, imgGlorbBattle, "normal", musicTrobbioButItsTheWorldRevolving)
+    };
+
+    function preBattleStart2(){
+        enemiesAndPlayersInBattleArray = ['p1', 'p2', 'e1']
+        battleStart(badGuy, player, "Merp", 100, 100, merpMaxHP, merpHP, imgPlayerBattle, "Unkown", 100, 300, unkownMaxHP, unkownHP, imgUnkownBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "TrueSavior", 800, 306, defaultTrueSaviorMaxHP, defaultTrueSaviorMaxHP, imgTrueSaviorBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "boss", musicDeltaruneUstEverAscending)
+    };
+
+    function preBattleStart3(){
+        enemiesAndPlayersInBattleArray = ['p1', 'p2', 'e1', 'e2']
+        battleStart(badGuy, player, "Merp", 100, 100, merpMaxHP, merpHP, imgPlayerBattle, "Unkown", 100, 300, unkownMaxHP, unkownHP, imgUnkownBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "Dug", 750, 200, defaultDugMaxHP, defaultDugMaxHP, imgDugBattle, "Dug", 750, 400, defaultDugMaxHP, defaultDugMaxHP, imgDugBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "normal", musicTrobbioButItsTheWorldRevolving)
+    };
+
+    function preBattleStart4(){
+        enemiesAndPlayersInBattleArray = ['p1', 'e1']
+        battleStart(badGuy, player, "Merp", 100, 100, merpMaxHP, merpHP, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "Wleem", 750, 306, defaultWleemMaxHP, defaultWleemMaxHP, imgWleemBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "no", 0, 0, 0, 0, imgPlayerBattle, "normal", musicTrobbioButItsTheWorldRevolving)
+    };
+};
+
+function battleStart(_badGuy, _player, p1Type, p1X, p1Y, p1MaxHp, p1HP, p1Img, p2Type, p2X, p2Y, p2MaxHp, p2HP, p2Img, p3Type, p3X, p3Y, p3MaxHp, p3HP, p3Img, p4Type, p4X, p4Y, p4MaxHp, p4HP, p4Img, e1Type, e1X, e1Y, e1MaxHp, e1HP, e1Img, e2Type, e2X, e2Y, e2MaxHp, e2HP, e2Img, e3Type, e3X, e3Y, e3MaxHp, e3HP, e3Img, e4Type, e4X, e4Y, e4MaxHp, e4HP, e4Img, battleType, music) {
+        _badGuy.remove();
+        _player.remove();
+        mapGroup.remove();
+        enemiesGroup.remove();
+        inBattle = 1
+        battleMusic = music
+        battleButtonHover = 1
+		inBattleMenu === "base"
+        battleTotalTurn = 0
+        shuffledBattleTurnArray = shuffle(battleTurnArray);
+
+        if (!enemiesAndPlayersInBattleArray.includes('p1')){
+            shuffledBattleTurnArrayP1Place = shuffledBattleTurnArray.indexOf('p1')
+            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayP1Place, 1)
+        };
+        if (!enemiesAndPlayersInBattleArray.includes('p2')){
+            shuffledBattleTurnArrayP2Place = shuffledBattleTurnArray.indexOf('p2')
+            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayP2Place, 1)
+        };
+        if (!enemiesAndPlayersInBattleArray.includes('p3')){
+            shuffledBattleTurnArrayP3Place = shuffledBattleTurnArray.indexOf('p3')
+            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayP3Place, 1)
+        };
+        if (!enemiesAndPlayersInBattleArray.includes('p4')){
+            shuffledBattleTurnArrayP4Place = shuffledBattleTurnArray.indexOf('p4')
+            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayP4Place, 1)
+        };
+        if (!enemiesAndPlayersInBattleArray.includes('e1')){
+            shuffledBattleTurnArrayE1Place = shuffledBattleTurnArray.indexOf('e1')
+            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayE1Place, 1)
+        };
+        if (!enemiesAndPlayersInBattleArray.includes('e2')){
+            shuffledBattleTurnArrayE2Place = shuffledBattleTurnArray.indexOf('e2')
+            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayE2Place, 1)
+        };
+        if (!enemiesAndPlayersInBattleArray.includes('e3')){
+            shuffledBattleTurnArrayE3Place = shuffledBattleTurnArray.indexOf('e3')
+            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayE3Place, 1)
+        };
+        if (!enemiesAndPlayersInBattleArray.includes('e4')){
+            shuffledBattleTurnArrayE4Place = shuffledBattleTurnArray.indexOf('e4')
+            shuffledBattleTurnArray.splice(shuffledBattleTurnArrayE4Place, 1)
+        };
+
+        battleAlivePlayersArray = shuffledBattleTurnArray.slice(0)
+        if (battleAlivePlayersArray.includes('e1')){
+            battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('e1'), 1)
+        };
+        if (battleAlivePlayersArray.includes('e2')){
+            battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('e2'), 1)
+        };
+        if (battleAlivePlayersArray.includes('e3')){
+            battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('e3'), 1)
+        };
+        if (battleAlivePlayersArray.includes('e4')){
+            battleAlivePlayersArray.splice(battleAlivePlayersArray.indexOf('e4'), 1)
+        };
+
+        console.log(shuffledBattleTurnArray)
+		battleTurn = shuffledBattleTurnArray[1]
+        attackButton1Text = "attack 1"
+        attackButton2Text = "attack 2"
+        attackButton3Text = "attack 3"
+        attackButton4Text = "attack 4"
+        attackButton5Text = "attack 5"
+        attackButton6Text = "attack 6"
+        talkButton1Text = "talk 1"
+        talkButton2Text = "talk 2"
+        talkButton3Text = "talk 3"
+        spellButton1Text = "heal 1"
+        spellButton2Text = "heal 2"
+        spellButton3Text = "heal 3"
+        
+        attackButton1EXCost = 0
+        attackButton2EXCost = 0
+        attackButton3EXCost = 0
+        attackButton4EXCost = 0
+        attackButton5EXCost = 0
+        attackButton6EXCost = 0
+        talkButton1EXCost = 0
+        talkButton2EXCost = 0
+        talkButton3EXCost = 0
+        spellButton1EXCost = 20
+        spellButton2EXCost = 40
+        spellButton3EXCost = 60
+        battleMusic.loop()
+
+        battlePlayer1 = new Sprite(p1X, p1Y, 50, 100, 'k');
+        battlePlayer1Type = p1Type;
+        battlePlayer1State = "idle";
+        battlePlayer1MaxHP = p1MaxHp;
+        battlePlayer1HP = p1HP;
+        battlePlayer1EX = 20;
+        battlePlayer1.image = p1Img;
+
+        battlePlayer1HPBarRed = new Sprite(p1X, (p1Y - 70), 100, 10, 'k');
+        battlePlayer1HPBarRed.color = '#720000'
+        battlePlayer1HPBarYellow = new Sprite(p1X, (p1Y - 70), (battlePlayer1HP * -1) * (100/battlePlayer1MaxHP), 10, 'k');
+        battlePlayer1HPBarYellow.color = '#fff530'
+        battlePlayer1HPBarGreen = new Sprite(p1X, (p1Y - 70), battlePlayer1HP * (100/battlePlayer1MaxHP), 10, 'k');
+        battlePlayer1HPBarGreen.color = '#30ff7f'
+        battlePlayer1HPBarRed.visible = false;
+        battlePlayer1HPBarYellow.visible = false;
+        battlePlayer1HPBarGreen.visible = false;
+
+        battlePlayer1EXBarGray = new Sprite((p1X - 60), p1Y, 5, 100, 'k');
+        battlePlayer1EXBarGray.color = '#292929'
+        battlePlayer1EXBarCyan = new Sprite((p1X - 60), p1Y, 5, battlePlayer1EX, 'k');
+        battlePlayer1EXBarCyan.color = '#30fff1'
+
+        if(p1Type === "no"){
+            battlePlayer1.visible = false;
+            battlePlayer1HPBarGreen.visible = false;
+            battlePlayer1HPBarYellow.visible = false;
+            battlePlayer1HPBarRed.visible = false;
+            battlePlayer1EXBarCyan.visible = false;
+            battlePlayer1EXBarGray.visible = false;
+        };
+
+        battlePlayer2 = new Sprite(p2X, p2Y, 50, 100, 'k');
+        battlePlayer2Type = p2Type;
+        battlePlayer2State = "idle";
+        battlePlayer2MaxHP = p2MaxHp;
+        battlePlayer2HP = p2HP;
+        battlePlayer2EX = 20;
+        battlePlayer2.image = p2Img;
+
+        battlePlayer2HPBarRed = new Sprite(p2X, (p2Y - 70), 100, 10, 'k');
+        battlePlayer2HPBarRed.color = '#720000'
+        battlePlayer2HPBarYellow = new Sprite(p2X, (p2Y - 70), (battlePlayer2HP * -1) * (100/battlePlayer2MaxHP), 10, 'k');
+        battlePlayer2HPBarYellow.color = '#fff530'
+        battlePlayer2HPBarGreen = new Sprite(p2X, (p2Y - 70), battlePlayer2HP * (100/battlePlayer2MaxHP), 10, 'k');
+        battlePlayer2HPBarGreen.color = '#30ff7f'
+        battlePlayer2HPBarRed.visible = false;
+        battlePlayer2HPBarYellow.visible = false;
+        battlePlayer2HPBarGreen.visible = false;
+
+        battlePlayer2EXBarGray = new Sprite((p2X - 60), p2Y, 5, 100, 'k');
+        battlePlayer2EXBarGray.color = '#292929'
+        battlePlayer2EXBarCyan = new Sprite((p2X - 60), p2Y, 5, battlePlayer2EX, 'k');
+        battlePlayer2EXBarCyan.color = '#30fff1'
+
+        if(p2Type === "no"){
+            battlePlayer2.visible = false;
+            battlePlayer2HPBarGreen.visible = false;
+            battlePlayer2HPBarYellow.visible = false;
+            battlePlayer2HPBarRed.visible = false;
+            battlePlayer2EXBarCyan.visible = false;
+            battlePlayer2EXBarGray.visible = false;
+        };
+
+        battlePlayer3 = new Sprite(p3X, p3Y, 50, 100, 'k');
+        battlePlayer3Type = p3Type;
+        battlePlayer3State = "idle";
+        battlePlayer3MaxHP = p3MaxHp;
+        battlePlayer3HP = p3HP;
+        battlePlayer3EX = 20;
+        battlePlayer3.image = p3Img;
+
+        battlePlayer3HPBarRed = new Sprite(p3X, (p3Y - 70), 100, 10, 'k');
+        battlePlayer3HPBarRed.color = '#720000'
+        battlePlayer3HPBarYellow = new Sprite(p3X, (p3Y - 70), (battlePlayer3HP * -1) * (100/battlePlayer3MaxHP), 10, 'k');
+        battlePlayer3HPBarYellow.color = '#fff530'
+        battlePlayer3HPBarGreen = new Sprite(p3X, (p3Y - 70), battlePlayer3HP * (100/battlePlayer3MaxHP), 10, 'k');
+        battlePlayer3HPBarGreen.color = '#30ff7f'
+        battlePlayer3HPBarRed.visible = false;
+        battlePlayer3HPBarYellow.visible = false;
+        battlePlayer3HPBarGreen.visible = false;
+
+        battlePlayer3EXBarGray = new Sprite((p3X - 60), p3Y, 5, 100, 'k');
+        battlePlayer3EXBarGray.color = '#292929'
+        battlePlayer3EXBarCyan = new Sprite((p3X - 60), p3Y, 5, battlePlayer3EX, 'k');
+        battlePlayer3EXBarCyan.color = '#30fff1'
+
+        if(p3Type === "no"){
+            battlePlayer3.visible = false;
+            battlePlayer3HPBarGreen.visible = false;
+            battlePlayer3HPBarYellow.visible = false;
+            battlePlayer3HPBarRed.visible = false;
+            battlePlayer3EXBarCyan.visible = false;
+            battlePlayer3EXBarGray.visible = false;
+        };
+
+        battlePlayer4 = new Sprite(p4X, p4Y, 50, 100, 'k');
+        battlePlayer4Type = p4Type;
+        battlePlayer4State = "idle";
+        battlePlayer4MaxHP = p4MaxHp;
+        battlePlayer4HP = p4HP;
+        battlePlayer4EX = 20;
+        battlePlayer4.image = p4Img;
+
+        battlePlayer4HPBarRed = new Sprite(p2X, (p2Y - 70), 100, 10, 'k');
+        battlePlayer4HPBarRed.color = '#720000'
+        battlePlayer4HPBarYellow = new Sprite(p4X, (p4Y - 70), (battlePlayer4HP * -1) * (100/battlePlayer4MaxHP), 10, 'k');
+        battlePlayer4HPBarYellow.color = '#fff530'
+        battlePlayer4HPBarGreen = new Sprite(p2X, (p2Y - 70), battlePlayer4HP * (100/battlePlayer4MaxHP), 10, 'k');
+        battlePlayer4HPBarGreen.color = '#30ff7f'
+        battlePlayer4HPBarRed.visible = false;
+        battlePlayer4HPBarYellow.visible = false;
+        battlePlayer4HPBarGreen.visible = false;
+
+        battlePlayer4EXBarGray = new Sprite((p4X - 60), p4Y, 5, 100, 'k');
+        battlePlayer4EXBarGray.color = '#292929'
+        battlePlayer4EXBarCyan = new Sprite((p4X - 60), p4Y, 5, battlePlayer4EX, 'k');
+        battlePlayer4EXBarCyan.color = '#30fff1'
+
+        if(p4Type === "no"){
+            battlePlayer4.visible = false;
+            battlePlayer4HPBarGreen.visible = false;
+            battlePlayer4HPBarYellow.visible = false;
+            battlePlayer4HPBarRed.visible = false;
+            battlePlayer4EXBarCyan.visible = false;
+            battlePlayer4EXBarGray.visible = false;
+        };
+
+        battleEnemie1 = new Sprite(e1X, e1Y, 50, 100, 'k');
+        battleEnemie1Type = e1Type;
+        battleEnemie1State = "idle";
+        battleEnemie1MaxHP = e1MaxHp;
+        battleEnemie1HP = e1HP;
+        battleEnemie1.image = e1Img;
+
+        battleEnemie1HPBarRed = new Sprite(e1X, (e1Y - 70), 100, 10, 'k');
+        battleEnemie1HPBarRed.color = '#720000'
+        battleEnemie1HPBarGreen = new Sprite(e1X, (e1Y - 70), battleEnemie1HP * (100/battleEnemie1MaxHP), 10, 'k');
+        battleEnemie1HPBarGreen.color = '#30ff7f'
+        battleEnemie1HPBarRed.visible = false;
+        battleEnemie1HPBarGreen.visible = false;
+
+
+        battleEnemie2 = new Sprite(e2X, e2Y, 50, 100, 'k');
+        battleEnemie2Type = e2Type;
+        battleEnemie2State = "idle";
+        battleEnemie2MaxHP = e2MaxHp;
+        battleEnemie2HP = e2HP;
+        battleEnemie2.image = e2Img;
+
+        battleEnemie2HPBarRed = new Sprite(e2X, (e2Y - 70), 100, 10, 'k');
+        battleEnemie2HPBarRed.color = '#720000'
+        battleEnemie2HPBarGreen = new Sprite(e2X, (e2Y - 70), battleEnemie2HP * (100/battleEnemie2MaxHP), 10, 'k');
+        battleEnemie2HPBarGreen.color = '#30ff7f'
+        battleEnemie2HPBarRed.visible = false;
+        battleEnemie2HPBarGreen.visible = false;
+
+
+        battleEnemie3 = new Sprite(e3X, e3Y, 50, 100, 'k');
+        battleEnemie3Type = e3Type;
+        battleEnemie3State = "idle";
+        battleEnemie3MaxHP = e3MaxHp;
+        battleEnemie3HP = e3HP;
+        battleEnemie3.image = e3Img;
+
+        battleEnemie3HPBarRed = new Sprite(e3X, (e3Y - 70), 100, 10, 'k');
+        battleEnemie3HPBarRed.color = '#720000'
+        battleEnemie3HPBarGreen = new Sprite(e3X, (e3Y - 70), battleEnemie3HP * (100/battleEnemie3MaxHP), 10, 'k');
+        battleEnemie3HPBarGreen.color = '#30ff7f'
+        battleEnemie3HPBarRed.visible = false;
+        battleEnemie3HPBarGreen.visible = false;
+
+
+        battleEnemie4 = new Sprite(e4X, e4Y, 50, 100, 'k');
+        battleEnemie4Type = e4Type;
+        battleEnemie4State = "idle";
+        battleEnemie4MaxHP = e4MaxHp;
+        battleEnemie4HP = e4HP;
+        battleEnemie4.image = e4Img;
+
+        battleEnemie4HPBarRed = new Sprite(e4X, (e4Y - 70), 100, 10, 'k');
+        battleEnemie4HPBarRed.color = '#720000'
+        battleEnemie4HPBarGreen = new Sprite(e4X, (e4Y - 70), battleEnemie4HP * (100/battleEnemie4MaxHP), 10, 'k');
+        battleEnemie4HPBarGreen.color = '#30ff7f'
+        battleEnemie4HPBarRed.visible = false;
+        battleEnemie4HPBarGreen.visible = false;
+
+
+        if (battlePlayer1Type === "Merp") {
+            battlePlayer1TypeImg = imgMerpTurnPlate;
+        } else if (battlePlayer1Type === "Unkown") {
+            battlePlayer1TypeImg = imgUnkownTurnPlate;
+        } else if (battlePlayer1Type === "???") {
+            battlePlayer1TypeImg = imgMerpTurnPlate;
+        } else if (battlePlayer1Type === "???") {
+            battlePlayer1TypeImg = imgUnkownTurnPlate;
+        } else if (battlePlayer1Type === "Glorb") {
+            battlePlayer1TypeImg = imgGlorbTurnPlate;
+        } else if (battlePlayer1Type === "TrueSavior") {
+            battlePlayer1TypeImg = imgTrueSaviorTurnPlate;
+        } else if (battlePlayer1Type === "Dug") {
+            battlePlayer1TypeImg = imgDugTurnPlate;
+        };
+
+        if (battlePlayer2Type === "Merp") {
+            battlePlayer2TypeImg = imgMerpTurnPlate;
+        } else if (battlePlayer2Type === "Unkown") {
+            battlePlayer2TypeImg = imgUnkownTurnPlate;
+        } else if (battlePlayer2Type === "???") {
+            battlePlayer2TypeImg = imgMerpTurnPlate;
+        } else if (battlePlayer2Type === "???") {
+            battlePlayer2TypeImg = imgUnkownTurnPlate;
+        } else if (battlePlayer2Type === "Glorb") {
+            battlePlayer2TypeImg = imgGlorbTurnPlate;
+        } else if (battlePlayer2Type === "TrueSavior") {
+            battlePlayer2TypeImg = imgTrueSaviorTurnPlate;
+        } else if (battlePlayer2Type === "Dug") {
+            battlePlayer2TypeImg = imgDugTurnPlate;
+        };
+
+        if (battlePlayer3Type === "Merp") {
+            battlePlayer3TypeImg = imgMerpTurnPlate;
+        } else if (battlePlayer3Type === "Unkown") {
+            battlePlayer3TypeImg = imgUnkownTurnPlate;
+        } else if (battlePlayer3Type === "???") {
+            battlePlayer3TypeImg = imgMerpTurnPlate;
+        } else if (battlePlayer3Type === "???") {
+            battlePlayer3TypeImg = imgUnkownTurnPlate;
+        } else if (battlePlayer3Type === "Glorb") {
+            battlePlayer3TypeImg = imgGlorbTurnPlate;
+        } else if (battlePlayer3Type === "TrueSavior") {
+            battlePlayer3TypeImg = imgTrueSaviorTurnPlate;
+        } else if (battlePlayer3Type === "Dug") {
+            battlePlayer3TypeImg = imgDugTurnPlate;
+        };
+
+        if (battlePlayer4Type === "Merp") {
+            battlePlayer4TypeImg = imgMerpTurnPlate;
+        } else if (battlePlayer4Type === "Unkown") {
+            battlePlayer4TypeImg = imgUnkownTurnPlate;
+        } else if (battlePlayer4Type === "???") {
+            battlePlayer4TypeImg = imgMerpTurnPlate;
+        } else if (battlePlayer4Type === "???") {
+            battlePlayer4TypeImg = imgUnkownTurnPlate;
+        } else if (battlePlayer4Type === "Glorb") {
+            battlePlayer4TypeImg = imgGlorbTurnPlate;
+        } else if (battlePlayer4Type === "TrueSavior") {
+            battlePlayer4TypeImg = imgTrueSaviorTurnPlate;
+        } else if (battlePlayer4Type === "Dug") {
+            battlePlayer4TypeImg = imgDugTurnPlate;
+        };
+
+
+        if (battleEnemie1Type === "Merp") {
+            battleEnemie1TypeImg = imgMerpTurnPlate;
+        } else if (battleEnemie1Type === "Unkown") {
+            battleEnemie1TypeImg = imgUnkownTurnPlate;
+        } else if (battleEnemie1Type === "???") {
+            battleEnemie1TypeImg = imgMerpTurnPlate;
+        } else if (battleEnemie1Type === "???") {
+            battleEnemie1TypeImg = imgUnkownTurnPlate;
+        } else if (battleEnemie1Type === "Glorb") {
+            battleEnemie1TypeImg = imgGlorbTurnPlate;
+        } else if (battleEnemie1Type === "TrueSavior") {
+            battleEnemie1TypeImg = imgTrueSaviorTurnPlate;
+        } else if (battleEnemie1Type === "Dug") {
+            battleEnemie1TypeImg = imgDugTurnPlate;
+        };
+
+
+        if (battleEnemie2Type === "Merp") {
+            battleEnemie2TypeImg = imgMerpTurnPlate;
+        } else if (battleEnemie2Type === "Unkown") {
+            battleEnemie2TypeImg = imgUnkownTurnPlate;
+        } else if (battleEnemie2Type === "???") {
+            battleEnemie2TypeImg = imgMerpTurnPlate;
+        } else if (battleEnemie2Type === "???") {
+            battleEnemie2TypeImg = imgUnkownTurnPlate;
+        } else if (battleEnemie2Type === "Glorb") {
+            battleEnemie2TypeImg = imgGlorbTurnPlate;
+        } else if (battleEnemie2Type === "TrueSavior") {
+            battleEnemie2TypeImg = imgTrueSaviorTurnPlate;
+        } else if (battleEnemie2Type === "Dug") {
+            battleEnemie2TypeImg = imgDugTurnPlate;
+        };
+
+        if (battleEnemie3Type === "Merp") {
+            battleEnemie3TypeImg = imgMerpTurnPlate;
+        } else if (battleEnemie3Type === "Unkown") {
+            battleEnemie3TypeImg = imgUnkownTurnPlate;
+        } else if (battleEnemie3Type === "???") {
+            battleEnemie3TypeImg = imgMerpTurnPlate;
+        } else if (battleEnemie3Type === "???") {
+            battleEnemie3TypeImg = imgUnkownTurnPlate;
+        } else if (battleEnemie3Type === "Glorb") {
+            battleEnemie3TypeImg = imgGlorbTurnPlate;
+        } else if (battleEnemie3Type === "TrueSavior") {
+            battleEnemie3TypeImg = imgTrueSaviorTurnPlate;
+        } else if (battleEnemie3Type === "Dug") {
+            battleEnemie3TypeImg = imgDugTurnPlate;
+        };
+
+        if (battleEnemie4Type === "Merp") {
+            battleEnemie4TypeImg = imgMerpTurnPlate;
+        } else if (battleEnemie4Type === "Unkown") {
+            battleEnemie4TypeImg = imgUnkownTurnPlate;
+        } else if (battleEnemie4Type === "???") {
+            battleEnemie4TypeImg = imgMerpTurnPlate;
+        } else if (battleEnemie4Type === "???") {
+            battleEnemie4TypeImg = imgUnkownTurnPlate;
+        } else if (battleEnemie4Type === "Glorb") {
+            battleEnemie4TypeImg = imgGlorbTurnPlate;
+        } else if (battleEnemie4Type === "TrueSavior") {
+            battleEnemie4TypeImg = imgTrueSaviorTurnPlate;
+        } else if (battleEnemie4Type === "Dug") {
+            battleEnemie4TypeImg = imgDugTurnPlate;
+        };
+
+
+        battleTurnMarker1 = new Sprite(1013, 45, 100, 50, 'k');
+        battleTurnMarker1.image = imgMerpTurnPlate;
+
+        battleTurnMarker2 = new Sprite(1013, 100, 75, 37.5, 'k');
+        battleTurnMarker2.image = imgGlorbTurnPlate;
+        battleTurnMarker2.scale = 0.75;
+        
+        battleTurnMarker3 = new Sprite(1013, 140, 50, 25, 'k');
+        battleTurnMarker3.image = imgUnkownTurnPlate;
+        battleTurnMarker3.scale = 0.5;
+
+        startTurn()
+}
 /*******************************************************/
 //  END OF APP
 /*******************************************************/
