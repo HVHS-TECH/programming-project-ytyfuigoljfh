@@ -23,8 +23,8 @@ var unkownHP = 35;
 var unkownMaxHP = 35;
 
 var defaultGlorbMaxHP = 40
-var defaultDugMaxHP = 15
-var defaultWleemMaxHP = 10
+var defaultDugMaxHP = 28
+var defaultWleemMaxHP = 15
 var defaultTrueSaviorMaxHP = 200
 
 var p1EquippedWeppon = "transcendedScythe"
@@ -1193,6 +1193,7 @@ function changeBattleButtonHoverPlayer(amount){
 
 async function attackEnemie(enemie){
     await delay(100);
+    playAnimation("damage", enemie)
     if(battleChosenMove === "attack1"){
         playerDamageValue = attackButton1Damage
     } else if(battleChosenMove === "attack2"){
@@ -1239,6 +1240,7 @@ async function attackEnemie(enemie){
         battlePlayer4EX = 100
     };
     await delay(500);
+    playAnimation("idle", enemie)
     battleEnemie1HPBarGreen.visible = false;
     battleEnemie1HPBarRed.visible = false;
     battleEnemie2HPBarGreen.visible = false;
@@ -1709,6 +1711,14 @@ async function playAnimation(animation, id) {
         } else if(animation === "attack"){
             battleEnemie1.image = imgDugBattleAttack;
         };
+    } else if(battleEnemie1Type === "Wleem"){
+        if(animation === "idle"){
+            battleEnemie1.image = imgWleemBattle;
+        } else if(animation === "attack"){
+            battleEnemie1.image = imgWleemBattleAttack;
+        } else if(animation === "damage"){
+            battleEnemie1.image = imgWleemBattleDamage;
+        };
     };
   } else if(id === "e2"){
     if(battleEnemie2Type === "Dug"){
@@ -1716,6 +1726,14 @@ async function playAnimation(animation, id) {
             battleEnemie2.image = imgDugBattle;
         } else if(animation === "attack"){
             battleEnemie2.image = imgDugBattleAttack;
+        };
+    } else if(battleEnemie2Type === "Wleem"){
+        if(animation === "idle"){
+            battleEnemie2.image = imgWleemBattle;
+        } else if(animation === "attack"){
+            battleEnemie2.image = imgWleemBattleAttack;
+        } else if(animation === "damage"){
+            battleEnemie2.image = imgWleemBattleDamage;
         };
     };
   } else if(id === "e3"){
@@ -1725,6 +1743,14 @@ async function playAnimation(animation, id) {
         } else if(animation === "attack"){
             battleEnemie3.image = imgDugBattleAttack;
         };
+    } else if(battleEnemie3Type === "Wleem"){
+        if(animation === "idle"){
+            battleEnemie3.image = imgWleemBattle;
+        } else if(animation === "attack"){
+            battleEnemie3.image = imgWleemBattleAttack;
+        } else if(animation === "damage"){
+            battleEnemie3.image = imgWleemBattleDamage;
+        };
     };
   } else if(id === "e4"){
     if(battleEnemie4Type === "Dug"){
@@ -1732,6 +1758,14 @@ async function playAnimation(animation, id) {
             battleEnemie4.image = imgDugBattle;
         } else if(animation === "attack"){
             battleEnemie4.image = imgDugBattleAttack;
+        };
+    } else if(battleEnemie4Type === "Wleem"){
+        if(animation === "idle"){
+            battleEnemie4.image = imgWleemBattle;
+        } else if(animation === "attack"){
+            battleEnemie4.image = imgWleemBattleAttack;
+        } else if(animation === "damage"){
+            battleEnemie4.image = imgWleemBattleDamage;
         };
     };
   } else if(id === "p1"){
@@ -1794,20 +1828,13 @@ async function playAnimation(animation, id) {
 };
 
 async function endBattle(){
-    battlePlayer1.remove();
-    battlePlayer2.remove();
-    battlePlayer3.remove();
-    battlePlayer4.remove();
-    battleEnemie1.remove();
-    battleEnemie2.remove();
-    battleEnemie3.remove();
-    battleEnemie4.remove();
-    battleTurnMarker1.remove();
-    battleTurnMarker2.remove();
-    battleTurnMarker3.remove();
+    halfEndTurn();
     inBattle = 0;
+    shuffledBattleTurnArray = [];
+    battleMusic.stop();
+    allSprites.remove();
     makeMap(1)
-}
+};
 
 function makeMap(roomnum){
     mapGroup = new Group();
