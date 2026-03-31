@@ -1806,6 +1806,12 @@ function makeMap(roomnum){
     lowerWall.color = '#000000'
     mapGroup.add(lowerWall);
 
+    for (let i = 0; i < 5; i++) {
+        wleemWall = new Sprite(980, (150 + (i * 75)), 50, 100, 'k');
+        wleemWall.image = imgWleemBattleAttack;
+        mapGroup.add(wleemWall);
+    };
+
     player = new Sprite(225, 306, 50, 100, 'k');
     player.image = imgFace;
 
