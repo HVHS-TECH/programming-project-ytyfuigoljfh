@@ -24,14 +24,14 @@ var unkownMaxHP = 35;
 
 var defaultGlorbMaxHP = 40
 var defaultDugMaxHP = 15
+var defaultWleemMaxHP = 10
 var defaultTrueSaviorMaxHP = 200
 
 var p1EquippedWeppon = "transcendedScythe"
 var p2EquippedWeppon = "gun"
 
 
-preload()
-    function preload() {
+function preload() {
     imgFace = loadImage('assets/images/Merp.svg');
     imgPlayerBattle = loadImage('assets/images/MerpBattle.svg');
     imgPlayerBattleDown = loadImage('assets/images/MerpBattleDown.svg');
@@ -49,6 +49,7 @@ preload()
     imgGlorbTurnPlate = loadImage('assets/images/turnPlates/GlorbTurnPlate.svg');
     imgTrueSaviorTurnPlate = loadImage('assets/images/turnPlates/TrueSaviorTurnPlate.svg');
     imgDugTurnPlate = loadImage('assets/images/turnPlates/DugTurnPlate.svg');
+    imgWleemTurnPlate = loadImage('assets/images/turnPlates/WleemTurnPlate.svg');
 
     imgAttackButtonOff = loadImage('assets/images/buttons/base/AttackButton1.svg');
     imgAttackButtonOn = loadImage('assets/images/buttons/base/AttackButton2.svg');
@@ -113,6 +114,7 @@ function draw() {
         //text(battleButtonHover, 450, 50);
         //text(battleTotalTurn, 500, 50);
         //text(battleChosenMove, 450, 100);
+        console.log(merpHP)
 
         battlePlayer1HPBarYellow.width = ((battlePlayer1HP * -1) * (100/battlePlayer1MaxHP)) + 0.01;
         battlePlayer2HPBarYellow.width = ((battlePlayer2HP * -1) * (100/battlePlayer2MaxHP)) + 0.01;
@@ -1565,6 +1567,8 @@ function getEnemieAttackValue(ememieNum){
         enemieDamageValue = 6
     } else if(battleEnemie1Type === "TrueSavior"){
         enemieDamageValue = 9
+    } else if(battleEnemie1Type === "Wleem"){
+        enemieDamageValue = 4
     };
 };
 
@@ -2137,6 +2141,8 @@ function battleStart(_badGuy, _player, p1Type, p1X, p1Y, p1MaxHp, p1HP, p1Img, p
             battlePlayer1TypeImg = imgTrueSaviorTurnPlate;
         } else if (battlePlayer1Type === "Dug") {
             battlePlayer1TypeImg = imgDugTurnPlate;
+        } else if (battlePlayer1Type === "Wleem") {
+            battlePlayer1TypeImg = imgWleemTurnPlate;
         };
 
         if (battlePlayer2Type === "Merp") {
@@ -2153,6 +2159,8 @@ function battleStart(_badGuy, _player, p1Type, p1X, p1Y, p1MaxHp, p1HP, p1Img, p
             battlePlayer2TypeImg = imgTrueSaviorTurnPlate;
         } else if (battlePlayer2Type === "Dug") {
             battlePlayer2TypeImg = imgDugTurnPlate;
+        } else if (battlePlayer2Type === "Wleem") {
+            battlePlayer2TypeImg = imgWleemTurnPlate;
         };
 
         if (battlePlayer3Type === "Merp") {
@@ -2169,6 +2177,8 @@ function battleStart(_badGuy, _player, p1Type, p1X, p1Y, p1MaxHp, p1HP, p1Img, p
             battlePlayer3TypeImg = imgTrueSaviorTurnPlate;
         } else if (battlePlayer3Type === "Dug") {
             battlePlayer3TypeImg = imgDugTurnPlate;
+        } else if (battlePlayer3Type === "Wleem") {
+            battlePlayer3TypeImg = imgWleemTurnPlate;
         };
 
         if (battlePlayer4Type === "Merp") {
@@ -2185,6 +2195,8 @@ function battleStart(_badGuy, _player, p1Type, p1X, p1Y, p1MaxHp, p1HP, p1Img, p
             battlePlayer4TypeImg = imgTrueSaviorTurnPlate;
         } else if (battlePlayer4Type === "Dug") {
             battlePlayer4TypeImg = imgDugTurnPlate;
+        } else if (battlePlayer4Type === "Wleem") {
+            battlePlayer4TypeImg = imgWleemTurnPlate;
         };
 
 
@@ -2202,6 +2214,8 @@ function battleStart(_badGuy, _player, p1Type, p1X, p1Y, p1MaxHp, p1HP, p1Img, p
             battleEnemie1TypeImg = imgTrueSaviorTurnPlate;
         } else if (battleEnemie1Type === "Dug") {
             battleEnemie1TypeImg = imgDugTurnPlate;
+        } else if (battleEnemie1Type === "Wleem") {
+            battleEnemie1TypeImg = imgWleemTurnPlate;
         };
 
 
@@ -2219,6 +2233,8 @@ function battleStart(_badGuy, _player, p1Type, p1X, p1Y, p1MaxHp, p1HP, p1Img, p
             battleEnemie2TypeImg = imgTrueSaviorTurnPlate;
         } else if (battleEnemie2Type === "Dug") {
             battleEnemie2TypeImg = imgDugTurnPlate;
+        } else if (battleEnemie2Type === "Wleem") {
+            battleEnemie2TypeImg = imgWleemTurnPlate;
         };
 
         if (battleEnemie3Type === "Merp") {
@@ -2235,6 +2251,8 @@ function battleStart(_badGuy, _player, p1Type, p1X, p1Y, p1MaxHp, p1HP, p1Img, p
             battleEnemie3TypeImg = imgTrueSaviorTurnPlate;
         } else if (battleEnemie3Type === "Dug") {
             battleEnemie3TypeImg = imgDugTurnPlate;
+        } else if (battleEnemie3Type === "Wleem") {
+            battleEnemie3TypeImg = imgWleemTurnPlate;
         };
 
         if (battleEnemie4Type === "Merp") {
@@ -2251,6 +2269,8 @@ function battleStart(_badGuy, _player, p1Type, p1X, p1Y, p1MaxHp, p1HP, p1Img, p
             battleEnemie4TypeImg = imgTrueSaviorTurnPlate;
         } else if (battleEnemie4Type === "Dug") {
             battleEnemie4TypeImg = imgDugTurnPlate;
+        } else if (battleEnemie4Type === "Wleem") {
+            battleEnemie4TypeImg = imgWleemTurnPlate;
         };
 
 
