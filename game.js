@@ -14,7 +14,7 @@ var battleTurn = "player1"
 var battleTotalTurn = 0
 var battleTurnArray = ['p1', 'p2', 'p3', 'p4', 'e1', 'e2', 'e3', 'e4']
 var battleChosenMove = "defend"
-var shuffledBattleTurnArray = shuffle(battleTurnArray);
+var shuffledBattleTurnArray
 var battleButtonHover = 1
 
 var merpHP = 30;
@@ -114,7 +114,6 @@ function draw() {
         //text(battleButtonHover, 450, 50);
         //text(battleTotalTurn, 500, 50);
         //text(battleChosenMove, 450, 100);
-        console.log(merpHP)
 
         battlePlayer1HPBarYellow.width = ((battlePlayer1HP * -1) * (100/battlePlayer1MaxHP)) + 0.01;
         battlePlayer2HPBarYellow.width = ((battlePlayer2HP * -1) * (100/battlePlayer2MaxHP)) + 0.01;
@@ -173,11 +172,6 @@ function draw() {
             if(shuffledBattleTurnArray.includes('e4')){
                 shuffledBattleTurnArray.splice(shuffledBattleTurnArray.indexOf('e4'), 1)
             };
-        };
-
-
-        if(battleEnemie1HP <= 0 && battleEnemie2HP <= 0 && battleEnemie3HP <= 0 && battleEnemie4HP <= 0){
-            endBattle()
         };
 
 
@@ -1391,13 +1385,16 @@ function battleBackSpells(hideHP){
 };
 
 async function startTurn(){
+    if(battleEnemie1HP <= 0 && battleEnemie2HP <= 0 && battleEnemie3HP <= 0 && battleEnemie4HP <= 0){
+        endBattle()
+    };
     if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1" && battlePlayer1HP <= 0){
         halfEndTurn()
-        await delay(1000);
+        await delay(500);
         endTurn()
     } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p2" && battlePlayer2HP <= 0){
         halfEndTurn()
-        await delay(1000);
+        await delay(500);
         endTurn()
     } else if(shuffledBattleTurnArray[0 + battleTotalTurn] === "p1"){
         battleButtonHover = 1
@@ -1794,6 +1791,22 @@ async function playAnimation(animation, id) {
         };
     };
   };
+};
+
+async function endBattle(){
+    battlePlayer1.remove();
+    battlePlayer2.remove();
+    battlePlayer3.remove();
+    battlePlayer4.remove();
+    battleEnemie1.remove();
+    battleEnemie2.remove();
+    battleEnemie3.remove();
+    battleEnemie4.remove();
+    battleTurnMarker1.remove();
+    battleTurnMarker2.remove();
+    battleTurnMarker3.remove();
+    inBattle = 0;
+    makeMap(1)
 }
 
 function makeMap(roomnum){
