@@ -8,6 +8,8 @@
 // setup()
 /*******************************************************/
 
+var inMainMenu = 1
+
 var inBattle = 0
 var inBattleMenu = "base"
 var battleTurn = "player1"
@@ -30,8 +32,16 @@ var defaultTrueSaviorMaxHP = 200
 var p1EquippedWeppon = "transcendedScythe"
 var p2EquippedWeppon = "gun"
 
+var roomNum = 1
+
 
 function preload() {
+    imgMainMenuBG = loadImage('assets/images/mainMenu/MainMenuBG.svg');
+    imgMainMenuStart = loadImage('assets/images/mainMenu/MainMenuStart.svg');
+    imgMainMenuOptions = loadImage('assets/images/mainMenu/MainMenuOptions.svg');
+    imgMainMenuHelp = loadImage('assets/images/mainMenu/MainMenuHelp.svg');
+    imgMainMenuCredits = loadImage('assets/images/mainMenu/MainMenuCredits.svg');
+
     imgFace = loadImage('assets/images/Merp.svg');
     imgPlayerBattle = loadImage('assets/images/MerpBattle.svg');
     imgPlayerBattleDown = loadImage('assets/images/MerpBattleDown.svg');
@@ -69,7 +79,8 @@ function setup() {
     console.log("setup: ");
 
     cnv = new Canvas(1088 , 612);
-    makeMap(1)
+    makeMainMenu()
+   // makeMap(1)
 }
     
 /*******************************************************/
@@ -78,35 +89,70 @@ function setup() {
 function draw() {
 
     if (inBattle === 0) {
-        background('#484848'); 
+        if(inMainMenu === 0){
+            background('#484848');
 
-        if (kb.pressing('left')) {
-            player.vel.x = -3
-        };
-        if (kb.pressing ('right')) {
-            player.vel.x = 3
-        };
-        if (kb.pressing ('up')) {
-            player.vel.y = -3
-        };
-        if (kb.pressing ('down')) {
-            player.vel.y = 3
-        };
+            cameraLeftEdge = 544
+            cameraRightEdge = 2000
+            cameraTopEdge = -906
+            cameraBottomEdge = 306
 
-        if (kb.released('left')) {
-            player.vel.x = 0
-        };
-        if (kb.released ('right')) {
-            player.vel.x = 0
-        };
-        if (kb.released ('up')) {
-            player.vel.y = 0
-        };
-        if (kb.released ('down')) {
-            player.vel.y = 0
-        };
+            if(player.x <= cameraLeftEdge){
+                camera.x = cameraLeftEdge
+            } else if(player.x >= cameraRightEdge){
+                camera.x = cameraRightEdge
+            } else {
+                camera.x = player.x
+            }
+
+            if(player.y <= cameraTopEdge){
+                camera.y = cameraTopEdge
+            } else if(player.y >= cameraBottomEdge){
+                camera.y = cameraBottomEdge
+            } else {
+                camera.y = player.y
+            }
+
+            if (kb.pressing('left')) {
+                player.vel.x = -3
+            };
+            if (kb.pressing ('right')) {
+                player.vel.x = 3
+            };
+            if (kb.pressing ('up')) {
+                player.vel.y = -3
+            };
+            if (kb.pressing ('down')) {
+                player.vel.y = 3
+            };
+
+            if (kb.released('left')) {
+                player.vel.x = 0
+            };
+            if (kb.released ('right')) {
+                player.vel.x = 0
+            };
+            if (kb.released ('up')) {
+                player.vel.y = 0
+            };
+            if (kb.released ('down')) {
+                player.vel.y = 0
+            };
+        } else {
+            background('#000000');
+
+            mainMenuBG.x = (mouse.x/48) + 544
+            mainMenuBG.y = (mouse.y/48) + 356
+
+            if(mainMenuStart.mouse.presses()){
+                startGame()
+            };
+        }
     } else {
         background('#ffffff'); 
+
+        camera.x = 544
+        camera.y = 306
 
         textSize(25);
         fill('#000000');
@@ -2332,6 +2378,34 @@ function battleStart(_badGuy, _player, p1Type, p1X, p1Y, p1MaxHp, p1HP, p1Img, p
         battleTurnMarker3.scale = 0.5;
 
         startTurn()
+};
+
+function makeMainMenu(){
+    mainMenuBG = new Sprite(544, 306, 1, 1, 'k');
+    mainMenuBG.image = imgMainMenuBG
+    mainMenuBG.scale = 1.9
+
+    mainMenuStart = new Sprite(75, 375, 150, 50, 'k');
+    mainMenuStart.image = imgMainMenuStart
+
+    mainMenuOptions = new Sprite(105, 450, 200, 50, 'k');
+    mainMenuOptions.image = imgMainMenuOptions
+
+    mainMenuHelp = new Sprite(110, 515, 200, 50, 'k');
+    mainMenuHelp.image = imgMainMenuHelp
+
+    mainMenuCredits = new Sprite(95, 575, 200, 50, 'k');
+    mainMenuCredits.image = imgMainMenuCredits
+};
+
+function startGame(){
+    mainMenuBG.remove();
+    mainMenuStart.remove();
+    mainMenuOptions.remove();
+    mainMenuHelp.remove();
+    mainMenuCredits.remove();
+    inMainMenu = 0
+    makeMap(1)
 }
 /*******************************************************/
 //  END OF APP
